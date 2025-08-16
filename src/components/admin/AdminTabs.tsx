@@ -1,0 +1,38 @@
+import { useSearchParams } from "react-router-dom";
+import AdminDashboard from "../../pages/admin/AdminDashboard";
+import BlogPost from "../../pages/admin/BlogPost";
+import ProjectsManagemenet from "../../pages/admin/ProjectsManagemenet";
+import Media from "../../pages/admin/Media";
+import Analytics from "../../pages/admin/Analytics";
+import Messages from "../../pages/admin/Messages";
+import Settings from "../../pages/admin/Settings";
+
+function AdminTabs() {
+  const [searchParams] = useSearchParams();
+  const tab = searchParams.get("tab") || "dashboard"; // Default tab
+
+  // Render content based on the tab
+  const renderTabContent = () => {
+    switch (tab.toLowerCase()) {
+      case "dashboard":
+        return <AdminDashboard />;
+      case "posts":
+        return <BlogPost />;
+      case "projects":
+        return <ProjectsManagemenet />;
+      case "media":
+        return <Media />;
+      case "analytics":
+        return <Analytics />;
+      case "messages":
+        return <Messages />;
+      case "settings":
+        return <Settings />;
+      default:
+        return <AdminDashboard />;
+    }
+  };
+
+  return <div>{renderTabContent()}</div>;
+}
+export default AdminTabs;
