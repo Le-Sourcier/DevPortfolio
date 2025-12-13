@@ -7,6 +7,8 @@ import {
   MessageSquare,
   Settings,
   Image,
+  Database,
+  Bell,
   LucideProps,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -55,10 +57,22 @@ export default function AdminSideBar() {
       color: "text-indigo-600",
     },
     {
+      id: "notifications",
+      label: "Notifications",
+      icon: Bell,
+      color: "text-purple-600",
+    },
+    {
       id: "settings",
       label: "Paramètres",
       icon: Settings,
       color: "text-gray-600",
+    },
+    {
+      id: "backup",
+      label: "Sauvegarde",
+      icon: Database,
+      color: "text-indigo-600",
     },
   ];
   return (

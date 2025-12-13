@@ -137,7 +137,7 @@ const AdminLayout = () => {
     {
       label: "Backup",
       icon: Download,
-      action: () => {},
+      action: () => navigate("/admin?tab=backup"),
       color: "bg-purple-500",
     },
     {

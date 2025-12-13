@@ -6,6 +6,8 @@ import Media from "../../pages/admin/Media";
 import Analytics from "../../pages/admin/Analytics";
 import Messages from "../../pages/admin/Messages";
 import Settings from "../../pages/admin/Settings";
+import Backup from "../../pages/admin/Backup";
+import Notifications from "../../pages/admin/Notifications";
 
 function AdminTabs() {
   const [searchParams] = useSearchParams();
@@ -28,6 +30,10 @@ function AdminTabs() {
         return <Messages />;
       case "settings":
         return <Settings />;
+      case "backup":
+        return <Backup />;
+      case "notifications":
+        return <Notifications />;
       default:
         return <AdminDashboard />;
     }

@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
 import { Settings, Bell, Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type AdminProps = {
   onClick: () => void;
 };
 function AdminHeader({ ...props }: AdminProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-white/80 backdrop-blur-xl border-b border-gray-200/50 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,7 +34,10 @@ function AdminHeader({ ...props }: AdminProps) {
               <span className="text-sm text-gray-600">En ligne</span>
             </div>
 
-            <button className="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200">
+            <button
+              onClick={() => navigate("/admin?tab=notifications")}
+              className="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+            >
               <Bell className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
                 3

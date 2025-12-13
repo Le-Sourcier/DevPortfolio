@@ -7,7 +7,6 @@ import {
   Target,
   BarChart,
   LineChart,
-  BarChart3,
   Star,
 } from "lucide-react";
 import { useAppContext } from "../../context/AppContext";
@@ -102,20 +101,147 @@ export default function AdminDashboard() {
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/50">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-xl font-bold text-gray-900">Trafic mensuel</h3>
-            <div className="flex space-x-2">
-              <button className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-200">
-                <BarChart className="w-5 h-5" />
-              </button>
-              <button className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-200">
-                <LineChart className="w-5 h-5" />
-              </button>
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-green-600 bg-green-100 px-2 py-1 rounded-full font-medium">
+                +23.5%
+              </span>
+              <div className="flex space-x-2">
+                <button className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                  <BarChart className="w-5 h-5" />
+                </button>
+                <button className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-200">
+                  <LineChart className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
-          <div className="h-64 bg-gradient-to-t from-blue-50 to-transparent rounded-xl flex items-end justify-center">
-            <div className="text-center text-gray-500">
-              <BarChart3 className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-              <p>Graphique des statistiques</p>
-              <p className="text-sm">Intégration Analytics à venir</p>
+
+          {/* Graphique en barres */}
+          <div className="relative h-64 bg-gradient-to-t from-blue-50/30 to-transparent rounded-xl p-4">
+            {/* Grille de référence */}
+            <div className="absolute inset-4 pointer-events-none">
+              {[25, 50, 75, 100].map((line) => (
+                <div
+                  key={line}
+                  className="absolute left-0 right-0 border-t border-gray-200/40"
+                  style={{ bottom: `${line}%` }}
+                >
+                  <span className="absolute -left-12 -top-2 text-xs text-gray-400 font-medium">
+                    {line === 100
+                      ? "4k"
+                      : line === 75
+                      ? "3k"
+                      : line === 50
+                      ? "2k"
+                      : "1k"}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Barres du graphique */}
+            <div className="relative h-full flex items-end justify-between px-4">
+              {[
+                {
+                  month: "Jan",
+                  value: 65,
+                  label: "2.1k",
+                  color: "from-blue-400 to-blue-500",
+                },
+                {
+                  month: "Fév",
+                  value: 78,
+                  label: "2.5k",
+                  color: "from-blue-500 to-blue-600",
+                },
+                {
+                  month: "Mar",
+                  value: 52,
+                  label: "1.7k",
+                  color: "from-blue-400 to-blue-500",
+                },
+                {
+                  month: "Avr",
+                  value: 85,
+                  label: "2.8k",
+                  color: "from-blue-500 to-blue-600",
+                },
+                {
+                  month: "Mai",
+                  value: 92,
+                  label: "3.1k",
+                  color: "from-blue-600 to-blue-700",
+                },
+                {
+                  month: "Jun",
+                  value: 88,
+                  label: "2.9k",
+                  color: "from-blue-500 to-blue-600",
+                },
+                {
+                  month: "Jul",
+                  value: 95,
+                  label: "3.2k",
+                  color: "from-blue-600 to-blue-700",
+                },
+              ].map((data, index) => (
+                <div
+                  key={data.month}
+                  className="flex flex-col items-center group relative"
+                >
+                  {/* Tooltip */}
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 bg-gray-900 text-white text-xs px-3 py-2 rounded-lg shadow-lg whitespace-nowrap z-10">
+                    <div className="font-semibold">{data.label} visiteurs</div>
+                    <div className="text-gray-300">{data.month} 2024</div>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                  </div>
+
+                  {/* Barre */}
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: `${data.value}%`, opacity: 1 }}
+                    transition={{
+                      duration: 1.5,
+                      delay: index * 0.2,
+                      ease: "easeOut",
+                    }}
+                    className={`w-10 bg-gradient-to-t ${data.color} rounded-t-lg shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden cursor-pointer`}
+                    style={{ minHeight: "12px" }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {/* Effet de brillance au survol */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                    {/* Indicateur de valeur sur la barre */}
+                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-semibold text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      {data.label}
+                    </div>
+                  </motion.div>
+
+                  {/* Label du mois */}
+                  <span className="text-xs text-gray-600 mt-3 font-medium group-hover:text-blue-600 transition-colors duration-200">
+                    {data.month}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Statistiques en bas */}
+          <div className="mt-6 pt-6 border-t border-gray-200/50">
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <div className="text-lg font-bold text-gray-900">18.2k</div>
+                <div className="text-xs text-gray-500">Total visiteurs</div>
+              </div>
+              <div>
+                <div className="text-lg font-bold text-green-600">+23.5%</div>
+                <div className="text-xs text-gray-500">Croissance</div>
+              </div>
+              <div>
+                <div className="text-lg font-bold text-blue-600">3.2k</div>
+                <div className="text-xs text-gray-500">Ce mois</div>
+              </div>
             </div>
           </div>
         </div>
