@@ -36,8 +36,9 @@ const Header = () => {
     { path: "/contact", label: "Contact" },
   ];
 
-  if (location.pathname === "/admin") {
-    return;
+  // Ne pas afficher le header sur les pages admin
+  if (location.pathname.startsWith("/admin")) {
+    return null;
   }
   return (
     <motion.header

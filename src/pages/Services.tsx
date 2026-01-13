@@ -1,7 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import SEO from '../components/common/SEO';
 import {
   Globe,
   Smartphone,
@@ -10,7 +10,6 @@ import {
   Cloud,
   Shield,
   Zap,
-  Users,
   ArrowRight,
   Check,
   Star,
@@ -131,6 +130,12 @@ const Services = () => {
 
   return (
     <div className="min-h-screen pt-16">
+      <SEO
+        title="Services"
+        description="Services de développement web et mobile. Création d'applications React, API Node.js, applications mobiles et consultation technique."
+        keywords={['services', 'développement web', 'application mobile', 'API', 'consultation', 'freelance']}
+        url="/services"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import SEO from "../components/common/SEO";
 import {
   Mail,
   Phone,
@@ -20,12 +21,8 @@ import {
   Cloud,
   Shield,
 } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
 
 const Contact = () => {
-  const [searchParams] = useSearchParams();
-
-  const serviceType = searchParams.get("service");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -47,9 +44,6 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  // const param = useParams();
-
-  // param.
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,8 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Code2, Github, Linkedin, Twitter, Mail, Heart } from 'lucide-react';
 
 const Footer = () => {
+  const location = useLocation();
+
+  // Ne pas afficher le footer sur les pages admin
+  if (location.pathname.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <footer className="bg-slate-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

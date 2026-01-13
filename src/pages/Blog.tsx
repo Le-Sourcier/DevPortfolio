@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import SEO from '../components/common/SEO';
 import {
   Search,
   Calendar,
@@ -26,7 +27,7 @@ const Blog = () => {
   const allTags = [...new Set(blogPosts.flatMap(post => post.tags))];
 
   // Filter and sort posts
-  let filteredPosts = blogPosts.filter(post => {
+  const filteredPosts = blogPosts.filter(post => {
     const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
@@ -34,7 +35,7 @@ const Blog = () => {
   });
 
   // Sort posts
-  filteredPosts.sort((a, b) => {
+  const sortedPosts = [...filteredPosts].sort((a, b) => {
     switch (sortBy) {
       case 'recent':
         return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
@@ -52,6 +53,12 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen pt-16">
+      <SEO
+        title="Blog"
+        description="Articles sur le développement web, React, TypeScript, Node.js et les meilleures pratiques du secteur tech."
+        keywords={['blog', 'développement', 'react', 'typescript', 'tutoriel', 'web', 'programmation']}
+        url="/blog"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -223,7 +230,7 @@ const Blog = () => {
 
             {/* Posts Grid */}
             <div className="grid md:grid-cols-2 gap-8">
-              {filteredPosts.map((post, index) => (
+              {sortedPosts.map((post, index) => (
                 <motion.article
                   key={post.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -286,7 +293,7 @@ const Blog = () => {
             </div>
 
             {/* No Results */}
-            {filteredPosts.length === 0 && (
+            {sortedPosts.length === 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}

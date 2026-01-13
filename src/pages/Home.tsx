@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
+import SEO from "../components/common/SEO";
 import {
   ArrowRight,
   Code2,
@@ -59,6 +60,12 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Accueil"
+        description="Développeur Full-Stack passionné par la création d'expériences web exceptionnelles. Expertise en React, TypeScript, Node.js."
+        keywords={['développeur', 'full-stack', 'react', 'typescript', 'portfolio', 'web']}
+        url="/"
+      />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-100" />
