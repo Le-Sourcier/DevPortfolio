@@ -4,9 +4,7 @@
     "services": "Services", 
     "blog": "Blog",
     "contact": "Contact",
-    "downloadCV": "Télécharger CV",
-    "downloadCVEN": "Download CV",
-    "downloadCVFR": "Télécharger CV"
+    "downloadCV": "Télécharger CV"
   },
   "header": {
     "startProject": "Démarrer un projet",
@@ -30,6 +28,89 @@
   },
   "home": {
     "recentProjects": "Projets Récents",
-    "recentProjectsDesc": "Découvrez quelques-unes de mes réalisations les plus remarquables"
+    "recentProjectsDesc": "Découvrez quelques-unes de mes réalisations les plus remarquables",
+    "viewAllProjects": "Voir tous les projets",
+    "viewProject": "Voir le projet",
+    "recentArticles": "Articles Récents",
+    "recentArticlesDesc": "Derniers articles sur le développement web et les technologies modernes",
+    "readMore": "Lire la suite",
+    "publishedOn": "Publié le",
+    "viewAllArticles": "Voir tous les articles"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Des solutions sur mesure pour transformer vos idées en réalité",
+    "discoverServices": "Découvrir tous les services",
+    "pricing": "Tarif",
+    "duration": "Durée",
+    "features": "Caractéristiques",
+    "startingFrom": "À partir de",
+    "weeks": "semaines",
+    "service1": {
+      "title": "Sites Web Sur Mesure",
+      "description": "Création de sites web professionnels, modernes et performants adaptés à votre activité",
+      "features": ["React, Next.js, Vue.js", "Design responsive & mobile-first", "Optimisation SEO", "Performance web (Core Web Vitals)", "Accessibilité WCAG 2.1", "Intégrations CMS (WordPress, Strapi)"]
+    },
+    "service2": {
+      "title": "Applications Web Complexes", 
+      "description": "Développement d'applications web full-stack avec fonctionnalités avancées et APIs",
+      "features": ["Node.js, Express, TypeScript", "Architectures REST & GraphQL", "Authentification JWT/OAuth", "Dashboard admin", "Systèmes de paiement", "Tests automatisés"]
+    },
+    "service3": {
+      "title": "Applications Mobiles Hybrides",
+      "description": "Applications mobiles cross-platform avec expérience native et performance optimale",
+      "features": ["React Native, Flutter", "iOS & Android", "Notifications push", "Offline mode", "Google Maps & géolocalisation", "App Stores deployment"]
+    },
+    "service4": {
+      "title": "E-commerce & Marketplaces",
+      "description": "Boutiques en ligne et plateformes multi-vendeurs avec gestion complète des ventes",
+      "features": ["Stripe, PayPal intégration", "Gestion des stocks", "Paniers et commandes", "Filtres avancés", "Dashboard vendeur", "Analytics ventes"]
+    },
+    "service5": {
+      "title": "DevOps & Infrastructure",
+      "description": "Mise en place d'infrastructure cloud et pipelines CI/CD pour le déploiement continu",
+      "features": ["Docker & Kubernetes", "GitHub Actions/GitLab CI", "AWS, Vercel, Netlify", "Monitoring & alerting", "Backup automatisé", "Scaling automatique"]
+    },
+    "service6": {
+      "title": "Refonte & Optimisation",
+      "description": "Modernisation de sites existants et optimisation des performances techniques",
+      "features": ["Audit de performance", "Refactoring code", "Migration vers React/Vue", "Optimisation SEO technique", "Sécurité & HTTPS", "Formation équipe"]
+    }
+  },
+  "process": {
+    "title": "Mon Processus de Travail",
+    "subtitle": "Une approche structurée pour garantir le succès de votre projet",
+    "step1": {
+      "title": "Découverte",
+      "description": "Analyse de vos besoins et définition des objectifs"
+    },
+    "step2": {
+      "title": "Planification", 
+      "description": "Création du cahier des charges et planning détaillé"
+    },
+    "step3": {
+      "title": "Développement",
+      "description": "Développement itératif avec feedback régulier"
+    },
+    "step4": {
+      "title": "Livraison",
+      "description": "Déploiement et accompagnement post-lancement"
+    }
+  },
+  "testimonials": {
+    "title": "Témoignages Clients",
+    "subtitle": "Ce que mes clients disent de mon travail"
+  },
+  "faq": {
+    "title": "Questions Fréquentes",
+    "subtitle": "Les réponses aux questions les plus courantes",
+    "q1": "Quel est votre délai de réponse ?",
+    "a1": "Je réponds généralement sous 24h ouvrées. Pour les urgences, n'hésitez pas à m'appeler directement.",
+    "q2": "Proposez-vous un devis gratuit ?",
+    "a2": "Oui, je propose un devis détaillé gratuit après analyse de vos besoins lors d'un premier échange.",
+    "q3": "Travaillez-vous en remote ?",
+    "a3": "Absolument ! Je travaille avec des clients partout en France et à l'international en mode remote.",
+    "q4": "Quels sont vos tarifs ?",
+    "a4": "Mes tarifs varient selon la complexité et la durée du projet. Je propose des forfaits à partir de 2000€."
   }
 }

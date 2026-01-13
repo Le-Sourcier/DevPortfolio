@@ -91,18 +91,18 @@ const Header = () => {
           {/* Language Switcher */}
           <div className="hidden md:flex items-center space-x-3">
             <button
-              onClick={() => downloadCV(i18n.language === 'fr' ? 'fr' : 'en')}
+              onClick={() => downloadCV(i18n.resolvedLanguage === 'fr' ? 'fr' : 'en')}
               className="inline-flex items-center space-x-2 btn-primary text-sm"
             >
               <Download className="w-4 h-4" />
               <span>{t('common.downloadCV')}</span>
             </button>
             <button
-              onClick={() => i18n.changeLanguage(i18n.language === 'fr' ? 'en' : 'fr')}
+              onClick={() => i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr')}
               className="inline-flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg transition-colors duration-200 text-sm"
             >
               <Globe className="w-4 h-4" />
-              <span>{i18n.language === 'fr' ? 'EN' : 'FR'}</span>
+              <span>{i18n.resolvedLanguage === 'fr' ? 'EN' : 'FR'}</span>
             </button>
           </div>
 
@@ -148,7 +148,7 @@ const Header = () => {
               <div className="pt-2 space-y-2">
                 <button
                   onClick={() => {
-                    downloadCV(i18n.language === 'fr' ? 'fr' : 'en');
+                    downloadCV(i18n.resolvedLanguage === 'fr' ? 'fr' : 'en');
                     setIsMenuOpen(false);
                   }}
                   className="w-full inline-flex items-center justify-center space-x-2 btn-primary text-sm"
@@ -158,13 +158,13 @@ const Header = () => {
                 </button>
                 <button
                   onClick={() => {
-                    i18n.changeLanguage(i18n.language === 'fr' ? 'en' : 'fr');
+                    i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr');
                     setIsMenuOpen(false);
                   }}
                   className="w-full inline-flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 text-sm"
                 >
                   <Globe className="w-4 h-4" />
-                  <span>{i18n.language === 'fr' ? 'EN' : 'FR'}</span>
+                  <span>{i18n.resolvedLanguage === 'fr' ? 'EN' : 'FR'}</span>
                 </button>
               </div>
             </div>

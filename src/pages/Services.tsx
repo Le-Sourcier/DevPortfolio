@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
+import { useTranslation } from 'react-i18next';
 import SEO from '../components/common/SEO';
 import {
   Globe,
@@ -21,61 +22,62 @@ import {
 } from 'lucide-react';
 
 const Services = () => {
+  const { t } = useTranslation();
   const { projects } = useAppContext();
 
   const services = [
     {
       icon: Globe,
-      title: 'Sites Web Sur Mesure',
-      description: 'Création de sites web professionnels, modernes et performants adaptés à votre activité',
-      features: ['React, Next.js, Vue.js', 'Design responsive & mobile-first', 'Optimisation SEO', 'Performance web (Core Web Vitals)', 'Accessibilité WCAG 2.1', 'Intégrations CMS (WordPress, Strapi)'],
-      price: 'À partir de 2000€',
-      duration: '3-6 semaines',
+      titleKey: 'services.service1.title',
+      descriptionKey: 'services.service1.description',
+      featuresKey: 'services.service1.features',
+      price: 2000,
+      duration: '3-6',
       color: 'from-blue-500 to-blue-600'
     },
     {
       icon: Code2,
-      title: 'Applications Web Complexes',
-      description: 'Développement d\'applications web full-stack avec fonctionnalités avancées et APIs',
-      features: ['Node.js, Express, TypeScript', 'Architectures REST & GraphQL', 'Authentification JWT/OAuth', 'Dashboard admin', 'Systèmes de paiement', 'Tests automatisés'],
-      price: 'À partir de 4000€',
-      duration: '6-12 semaines',
+      titleKey: 'services.service2.title',
+      descriptionKey: 'services.service2.description',
+      featuresKey: 'services.service2.features',
+      price: 4000,
+      duration: '6-12',
       color: 'from-green-500 to-green-600'
     },
     {
       icon: Smartphone,
-      title: 'Applications Mobiles Hybrides',
-      description: 'Applications mobiles cross-platform avec expérience native et performance optimale',
-      features: ['React Native, Flutter', 'iOS & Android', 'Notifications push', 'Offline mode', 'Google Maps & géolocalisation', 'App Stores deployment'],
-      price: 'À partir de 5000€',
-      duration: '8-16 semaines',
+      titleKey: 'services.service3.title',
+      descriptionKey: 'services.service3.description',
+      featuresKey: 'services.service3.features',
+      price: 5000,
+      duration: '8-16',
       color: 'from-purple-500 to-purple-600'
     },
     {
       icon: Database,
-      title: 'E-commerce & Marketplaces',
-      description: 'Boutiques en ligne et plateformes multi-vendeurs avec gestion complète des ventes',
-      features: ['Stripe, PayPal intégration', 'Gestion des stocks', 'Paniers et commandes', 'Filtres avancés', 'Dashboard vendeur', 'Analytics ventes'],
-      price: 'À partir de 3500€',
-      duration: '6-10 semaines',
+      titleKey: 'services.service4.title',
+      descriptionKey: 'services.service4.description',
+      featuresKey: 'services.service4.features',
+      price: 3500,
+      duration: '6-10',
       color: 'from-orange-500 to-orange-600'
     },
     {
       icon: Cloud,
-      title: 'DevOps & Infrastructure',
-      description: 'Mise en place d\'infrastructure cloud et pipelines CI/CD pour le déploiement continu',
-      features: ['Docker & Kubernetes', 'GitHub Actions/GitLab CI', 'AWS, Vercel, Netlify', 'Monitoring & alerting', 'Backup automatisé', 'Scaling automatique'],
-      price: 'À partir de 1500€',
-      duration: '2-4 semaines',
+      titleKey: 'services.service5.title',
+      descriptionKey: 'services.service5.description',
+      featuresKey: 'services.service5.features',
+      price: 1500,
+      duration: '2-4',
       color: 'from-teal-500 to-teal-600'
     },
     {
       icon: Shield,
-      title: 'Refonte & Optimisation',
-      description: 'Modernisation de sites existants et optimisation des performances techniques',
-      features: ['Audit de performance', 'Refactoring code', 'Migration vers React/Vue', 'Optimisation SEO technique', 'Sécurité & HTTPS', 'Formation équipe'],
-      price: 'À partir de 1800€',
-      duration: '2-5 semaines',
+      titleKey: 'services.service6.title',
+      descriptionKey: 'services.service6.description',
+      featuresKey: 'services.service6.features',
+      price: 1800,
+      duration: '2-5',
       color: 'from-red-500 to-red-600'
     }
   ];
@@ -83,26 +85,26 @@ const Services = () => {
   const processSteps = [
     {
       number: '01',
-      title: 'Découverte',
-      description: 'Analyse de vos besoins et définition des objectifs',
+      titleKey: 'process.step1.title',
+      descriptionKey: 'process.step1.description',
       icon: MessageSquare
     },
     {
       number: '02',
-      title: 'Planification',
-      description: 'Création du cahier des charges et planning détaillé',
+      titleKey: 'process.step2.title',
+      descriptionKey: 'process.step2.description',
       icon: Calendar
     },
     {
       number: '03',
-      title: 'Développement',
-      description: 'Développement itératif avec feedback régulier',
+      titleKey: 'process.step3.title',
+      descriptionKey: 'process.step3.description',
       icon: Code2
     },
     {
       number: '04',
-      title: 'Livraison',
-      description: 'Tests, déploiement et formation utilisateur',
+      titleKey: 'process.step4.title',
+      descriptionKey: 'process.step4.description',
       icon: Zap
     }
   ];
@@ -188,15 +190,15 @@ const Services = () => {
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-3 text-gray-900">{service.title}</h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{service.description}</p>
+                    <h3 className="text-2xl font-bold mb-3 text-gray-900">{t(service.titleKey)}</h3>
+                    <p className="text-gray-600 mb-4 leading-relaxed">{t(service.descriptionKey)}</p>
                   </div>
                 </div>
                 
                 <div className="mt-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Inclus dans ce service :</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">{t('services.features')}</h4>
                   <div className="grid grid-cols-2 gap-2 mb-6">
-                    {service.features.map((feature, featureIndex) => (
+                    {(t(service.featuresKey) as unknown as string[]).map((feature: string, featureIndex: number) => (
                       <div key={featureIndex} className="flex items-center text-gray-700">
                         <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                         <span className="text-sm">{feature}</span>
@@ -208,18 +210,18 @@ const Services = () => {
                     <div className="space-y-1">
                       <div className="flex items-center text-gray-600">
                         <DollarSign className="w-4 h-4 mr-1" />
-                        <span className="font-semibold text-blue-600">{service.price}</span>
+                        <span className="font-semibold text-blue-600">{t('services.startingFrom')} {service.price}€</span>
                       </div>
                       <div className="flex items-center text-gray-600 text-sm">
                         <Calendar className="w-4 h-4 mr-1" />
-                        <span>{service.duration}</span>
+                        <span>{service.duration} {t('services.weeks')}</span>
                       </div>
                     </div>
                     <Link
                       to="/contact"
                       className="inline-flex items-center btn-primary text-sm"
                     >
-                      Demander un devis
+                      {t('contact.sendMessage')}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </div>
@@ -241,10 +243,10 @@ const Services = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-              Mon Processus de Travail
+              {t('process.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Une méthodologie éprouvée pour garantir le succès de vos projets
+              {t('process.subtitle')}
             </p>
           </motion.div>
 
@@ -266,8 +268,8 @@ const Services = () => {
                     <span className="text-white text-sm font-bold">{step.number}</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">{t(step.titleKey)}</h3>
+                <p className="text-gray-600 leading-relaxed">{t(step.descriptionKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -285,7 +287,7 @@ const Services = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-              Mes Réalisations
+              {t('home.recentProjects')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Découvrez quelques-uns des projets que j'ai eu le plaisir de réaliser

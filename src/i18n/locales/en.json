@@ -4,9 +4,7 @@
     "services": "Services", 
     "blog": "Blog",
     "contact": "Contact",
-    "downloadCV": "Download CV",
-    "downloadCVEN": "Download CV",
-    "downloadCVFR": "Télécharger CV"
+    "downloadCV": "Download CV"
   },
   "header": {
     "startProject": "Start a project",
@@ -14,7 +12,8 @@
   },
   "hero": {
     "available": "Available for new projects",
-    "title": "Full-Stack Developer",
+    "title": "Full-Stack",
+    "titleGradient": "Developer",
     "subtitle": "I create exceptional web experiences and modern applications that transform your ideas into digital reality."
   },
   "stats": {
@@ -29,6 +28,89 @@
   },
   "home": {
     "recentProjects": "Recent Projects",
-    "recentProjectsDesc": "Discover some of my most remarkable achievements"
+    "recentProjectsDesc": "Discover some of my most remarkable achievements",
+    "viewAllProjects": "View all projects",
+    "viewProject": "View project",
+    "recentArticles": "Recent Articles",
+    "recentArticlesDesc": "Latest articles on web development and modern technologies",
+    "readMore": "Read more",
+    "publishedOn": "Published on",
+    "viewAllArticles": "View all articles"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Custom solutions to transform your ideas into reality",
+    "discoverServices": "Discover all services",
+    "pricing": "Price",
+    "duration": "Duration",
+    "features": "Features",
+    "startingFrom": "Starting from",
+    "weeks": "weeks",
+    "service1": {
+      "title": "Custom Web Development",
+      "description": "Professional, modern and high-performance websites tailored to your business",
+      "features": ["React, Next.js, Vue.js", "Responsive & mobile-first design", "SEO optimization", "Web performance (Core Web Vitals)", "WCAG 2.1 Accessibility", "CMS integrations (WordPress, Strapi)"]
+    },
+    "service2": {
+      "title": "Complex Web Applications",
+      "description": "Full-stack web applications with advanced features and APIs",
+      "features": ["Node.js, Express, TypeScript", "REST & GraphQL architectures", "JWT/OAuth authentication", "Admin dashboard", "Payment systems", "Automated testing"]
+    },
+    "service3": {
+      "title": "Hybrid Mobile Applications",
+      "description": "Cross-platform mobile apps with native experience and optimal performance",
+      "features": ["React Native, Flutter", "iOS & Android", "Push notifications", "Offline mode", "Google Maps & geolocation", "App Stores deployment"]
+    },
+    "service4": {
+      "title": "E-commerce & Marketplaces",
+      "description": "Online stores and multi-vendor platforms with complete sales management",
+      "features": ["Stripe, PayPal integration", "Inventory management", "Shopping carts & orders", "Advanced filters", "Seller dashboard", "Sales analytics"]
+    },
+    "service5": {
+      "title": "DevOps & Infrastructure",
+      "description": "Cloud infrastructure setup and CI/CD pipelines for continuous deployment",
+      "features": ["Docker & Kubernetes", "GitHub Actions/GitLab CI", "AWS, Vercel, Netlify", "Monitoring & alerting", "Automated backup", "Auto-scaling"]
+    },
+    "service6": {
+      "title": "Redesign & Optimization",
+      "description": "Modernization of existing websites and technical performance optimization",
+      "features": ["Performance audit", "Code refactoring", "Migration to React/Vue", "Technical SEO optimization", "Security & HTTPS", "Team training"]
+    }
+  },
+  "process": {
+    "title": "My Work Process",
+    "subtitle": "A structured approach to ensure your project's success",
+    "step1": {
+      "title": "Discovery",
+      "description": "Analysis of your needs and definition of objectives"
+    },
+    "step2": {
+      "title": "Planning", 
+      "description": "Creation of specifications and detailed planning"
+    },
+    "step3": {
+      "title": "Development",
+      "description": "Iterative development with regular feedback"
+    },
+    "step4": {
+      "title": "Delivery",
+      "description": "Deployment and post-launch support"
+    }
+  },
+  "testimonials": {
+    "title": "Client Testimonials",
+    "subtitle": "What my clients say about my work"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to the most common questions",
+    "q1": "What is your response time?",
+    "a1": "I typically respond within 24 business hours. For urgent matters, feel free to call me directly.",
+    "q2": "Do you offer free quotes?",
+    "a2": "Yes, I provide detailed free quotes after analyzing your needs during an initial consultation.",
+    "q3": "Do you work remotely?",
+    "a3": "Absolutely! I work with clients throughout France and internationally in remote mode.",
+    "q4": "What are your rates?",
+    "a4": "My rates vary depending on complexity and project duration. I offer packages starting from €2000."
   }
 }

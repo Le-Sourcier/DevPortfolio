@@ -147,11 +147,12 @@
 ## 🎯 Phase 7 : Features Premium (Nice-to-have)
 *Deadline : 3-4 semaines*
 
-### 🌍 Internationalisation
-- [ ] Configurer react-i18next
-- [ ] Traduire tout le contenu en anglais
-- [ ] Ajouter le sélecteur de langue
+### 🌍 Internationalisation ✅
+- [x] Configurer react-i18next
+- [x] Traduire tout le contenu en anglais (partiellement)
+- [x] Ajouter le sélecteur de langue
 - [ ] URL routing multilingue
+- [ ] Compléter les traductions sur toutes les pages
 
 ### 📱 PWA Features
 - [ ] Créer le service worker
