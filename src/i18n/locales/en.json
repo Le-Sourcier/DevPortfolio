@@ -1,7 +1,7 @@
 {
   "common": {
     "home": "Home",
-    "services": "Services", 
+    "services": "Services",
     "blog": "Blog",
     "contact": "Contact",
     "downloadCV": "Download CV"
@@ -18,7 +18,7 @@
   },
   "stats": {
     "projects": "Projects Delivered",
-    "clients": "Active Clients", 
+    "clients": "Active Clients",
     "experience": "Years Experience",
     "satisfaction": "Client Satisfaction"
   },
@@ -46,6 +46,9 @@
     "features": "Features",
     "startingFrom": "Starting from",
     "weeks": "weeks",
+    "qualityGuaranteed": "Quality guaranteed",
+    "supportIncluded": "Support included",
+    "delivery respected": "Delivery respected",
     "service1": {
       "title": "Custom Web Development",
       "description": "Professional, modern and high-performance websites tailored to your business",
@@ -85,7 +88,7 @@
       "description": "Analysis of your needs and definition of objectives"
     },
     "step2": {
-      "title": "Planning", 
+      "title": "Planning",
       "description": "Creation of specifications and detailed planning"
     },
     "step3": {
@@ -112,5 +115,126 @@
     "a3": "Absolutely! I work with clients throughout France and internationally in remote mode.",
     "q4": "What are your rates?",
     "a4": "My rates vary depending on complexity and project duration. I offer packages starting from €2000."
+  },
+  "contact": {
+    "title": "Let's Discuss Your Project",
+    "subtitle": "Ready to bring your ideas to life? Contact me to discuss your needs and create a custom solution together.",
+    "response": "Response within 24h",
+    "freeQuote": "Free quote",
+    "sendMessage": "Send a message",
+    "form": {
+      "fullName": "Full Name *",
+      "fullNamePlaceholder": "Your name",
+      "email": "Email *",
+      "emailPlaceholder": "your@email.com",
+      "company": "Company",
+      "companyPlaceholder": "Your company name",
+      "service": "Desired Service",
+      "selectService": "Select a service",
+      "services": {
+        "web-development": "Web Development",
+        "mobile-app": "Mobile Application",
+        "backend-api": "Backend & API",
+        "consulting": "Consulting",
+        "maintenance": "Maintenance",
+        "other": "Other"
+      },
+      "budget": "Estimated Budget",
+      "selectBudget": "Select your budget",
+      "budgets": {
+        "1000-3000": "€1,000 - €3,000",
+        "3000-5000": "€3,000 - €5,000",
+        "5000-10000": "€5,000 - €10,000",
+        "10000+": "€10,000+",
+        "discuss": "To be discussed"
+      },
+      "timeline": "Timeline",
+      "selectTimeline": "Desired timeline",
+      "timelines": {
+        "asap": "As soon as possible",
+        "1-month": "Within a month",
+        "2-3-months": "2-3 months",
+        "3-6-months": "3-6 months",
+        "flexible": "Flexible"
+      },
+      "message": "Message *",
+      "messagePlaceholder": "Describe your project, your goals, and your expectations...",
+      "submit": "Send Message",
+      "submitting": "Sending..."
+    },
+    "submitted": {
+      "title": "Message sent!",
+      "message": "Thank you for your message. I will get back to you as soon as possible.",
+      "redirect": "Redirecting automatically..."
+    },
+    "sidebar": {
+      "contactDirectly": "Contact me directly",
+      "email": "Email",
+      "emailResponse": "Response within 24h",
+      "phone": "Phone",
+      "phoneHours": "Mon-Fri 9am-6pm",
+      "location": "Location",
+      "locationValue": "Paris, France",
+      "locationRemote": "Available for remote work",
+      "expertise": "My areas of expertise",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "mobile": "Mobile",
+      "database": "Database",
+      "devops": "DevOps",
+      "security": "Security",
+      "availability": "Availability today",
+      "available": "Available",
+      "busy": "Busy",
+      "timezone": "Timezone: Europe/Paris (UTC+1)"
+    }
+  },
+  "blog": {
+    "title": "My Blog",
+    "subtitle": "Discover my thoughts on web development, new technologies, and industry best practices",
+    "articlesPublished": "articles published",
+    "technicalArticles": "Detailed technical articles",
+    "search": "Search",
+    "searchPlaceholder": "Search for an article...",
+    "categories": "Categories",
+    "allArticles": "All articles",
+    "popularTags": "Popular Tags",
+    "sortBy": "Sort by",
+    "sort": {
+      "recent": "Most recent",
+      "popular": "Most popular",
+      "featured": "Featured articles"
+    },
+    "featuredArticle": "Featured article",
+    "readFullArticle": "Read full article",
+    "readMore": "Read more",
+    "readingTime": "min read",
+    "noArticlesFound": "No articles found",
+    "noArticlesFoundDesc": "Try changing your search or browsing criteria.",
+    "resetFilters": "Reset filters"
+  },
+  "blogPost": {
+    "notFound": "Article not found",
+    "backToBlog": "Back to blog",
+    "back": "Back",
+    "share": "Share:",
+    "shareOn": "Share on",
+    "copyLink": "Copy link",
+    "tags": "Tags:",
+    "authorBio": "Full-Stack Developer with over 5 years of experience in modern web application development. Passionate about React, TypeScript, and software architecture.",
+    "contactMe": "Contact me",
+    "relatedPosts": "Related Posts",
+    "relatedPostsDesc": "Discover other articles that might interest you",
+    "readArticle": "Read article"
+  },
+  "footer": {
+    "bio": "Passionate Full-Stack Developer creating exceptional web experiences and driving technological innovation.",
+    "navigation": "Navigation",
+    "consulting": "Tech Consulting",
+    "training": "Training",
+    "madeWith": "Made with",
+    "by": "by",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
   }
 }

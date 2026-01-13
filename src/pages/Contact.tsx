@@ -20,8 +20,10 @@ import {
   Cloud,
   Shield,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
+  const { t } = useTranslation();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -70,53 +72,53 @@ const Contact = () => {
   };
 
   const services = [
-    { value: "", label: "Sélectionnez un service" },
-    { value: "web-development", label: "Développement Web" },
-    { value: "mobile-app", label: "Application Mobile" },
-    { value: "backend-api", label: "Backend & API" },
-    { value: "consulting", label: "Consultation" },
-    { value: "maintenance", label: "Maintenance" },
-    { value: "other", label: "Autre" },
+    { value: "", label: t("contact.form.selectService") },
+    { value: "web-development", label: t("contact.form.services.web-development") },
+    { value: "mobile-app", label: t("contact.form.services.mobile-app") },
+    { value: "backend-api", label: t("contact.form.services.backend-api") },
+    { value: "consulting", label: t("contact.form.services.consulting") },
+    { value: "maintenance", label: t("contact.form.services.maintenance") },
+    { value: "other", label: t("contact.form.services.other") },
   ];
 
   const budgets = [
-    { value: "", label: "Sélectionnez votre budget" },
-    { value: "1000-3000", label: "1 000€ - 3 000€" },
-    { value: "3000-5000", label: "3 000€ - 5 000€" },
-    { value: "5000-10000", label: "5 000€ - 10 000€" },
-    { value: "10000+", label: "10 000€+" },
-    { value: "discuss", label: "À discuter" },
+    { value: "", label: t("contact.form.selectBudget") },
+    { value: "1000-3000", label: t("contact.form.budgets.1000-3000") },
+    { value: "3000-5000", label: t("contact.form.budgets.3000-5000") },
+    { value: "5000-10000", label: t("contact.form.budgets.5000-10000") },
+    { value: "10000+", label: t("contact.form.budgets.10000+") },
+    { value: "discuss", label: t("contact.form.budgets.discuss") },
   ];
 
   const timelines = [
-    { value: "", label: "Délai souhaité" },
-    { value: "asap", label: "Dès que possible" },
-    { value: "1-month", label: "Dans le mois" },
-    { value: "2-3-months", label: "2-3 mois" },
-    { value: "3-6-months", label: "3-6 mois" },
-    { value: "flexible", label: "Flexible" },
+    { value: "", label: t("contact.form.selectTimeline") },
+    { value: "asap", label: t("contact.form.timelines.asap") },
+    { value: "1-month", label: t("contact.form.timelines.1-month") },
+    { value: "2-3-months", label: t("contact.form.timelines.2-3-months") },
+    { value: "3-6-months", label: t("contact.form.timelines.3-6-months") },
+    { value: "flexible", label: t("contact.form.timelines.flexible") },
   ];
 
   const contactMethods = [
     {
       icon: Mail,
-      title: "Email",
+      title: t("contact.sidebar.email"),
       value: "contact@example.com",
-      description: "Réponse sous 24h",
+      description: t("contact.sidebar.emailResponse"),
       color: "text-blue-600",
     },
     {
       icon: Phone,
-      title: "Téléphone",
+      title: t("contact.sidebar.phone"),
       value: "+33 1 23 45 67 89",
-      description: "Lun-Ven 9h-18h",
+      description: t("contact.sidebar.phoneHours"),
       color: "text-green-600",
     },
     {
       icon: MapPin,
-      title: "Localisation",
-      value: "Paris, France",
-      description: "Disponible en remote",
+      title: t("contact.sidebar.location"),
+      value: t("contact.sidebar.locationValue"),
+      description: t("contact.sidebar.locationRemote"),
       color: "text-purple-600",
     },
   ];
@@ -133,20 +135,20 @@ const Contact = () => {
   const expertise = [
     {
       icon: Globe,
-      title: "Frontend",
+      title: t("contact.sidebar.frontend"),
       skills: ["React", "Vue.js", "TypeScript"],
     },
     {
       icon: Code2,
-      title: "Backend",
+      title: t("contact.sidebar.backend"),
       skills: ["Node.js", "Python", "API Design"],
     },
-    { icon: Smartphone, title: "Mobile", skills: ["React Native", "Flutter"] },
-    { icon: Database, title: "Database", skills: ["PostgreSQL", "MongoDB"] },
-    { icon: Cloud, title: "DevOps", skills: ["AWS", "Docker", "CI/CD"] },
+    { icon: Smartphone, title: t("contact.sidebar.mobile"), skills: ["React Native", "Flutter"] },
+    { icon: Database, title: t("contact.sidebar.database"), skills: ["PostgreSQL", "MongoDB"] },
+    { icon: Cloud, title: t("contact.sidebar.devops"), skills: ["AWS", "Docker", "CI/CD"] },
     {
       icon: Shield,
-      title: "Security",
+      title: t("contact.sidebar.security"),
       skills: ["Auth", "Encryption", "Best Practices"],
     },
   ];
@@ -164,14 +166,13 @@ const Contact = () => {
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Message envoyé !
+            {t("contact.submitted.title")}
           </h2>
           <p className="text-gray-600 mb-6">
-            Merci pour votre message. Je vous répondrai dans les plus brefs
-            délais.
+            {t("contact.submitted.message")}
           </p>
           <div className="animate-pulse-custom">
-            <p className="text-sm text-gray-500">Redirection automatique...</p>
+            <p className="text-sm text-gray-500">{t("contact.submitted.redirect")}</p>
           </div>
         </motion.div>
       </div>
@@ -190,20 +191,19 @@ const Contact = () => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              Discutons de votre <span className="text-gradient">Projet</span>
+              {t("contact.title")}
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Prêt à donner vie à vos idées ? Contactez-moi pour discuter de vos
-              besoins et créer ensemble une solution sur mesure.
+              {t("contact.subtitle")}
             </p>
             <div className="flex justify-center space-x-8 text-sm text-gray-500">
               <div className="flex items-center">
                 <Clock className="w-4 h-4 text-blue-500 mr-2" />
-                Réponse sous 24h
+                {t("contact.response")}
               </div>
               <div className="flex items-center">
                 <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                Devis gratuit
+                {t("contact.freeQuote")}
               </div>
             </div>
           </motion.div>
@@ -226,11 +226,8 @@ const Contact = () => {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">
-                    Envoyer un message
+                    {t("contact.sendMessage")}
                   </h2>
-                  <p className="text-gray-600">
-                    Décrivez votre projet en détail
-                  </p>
                 </div>
               </div>
 
@@ -241,7 +238,7 @@ const Contact = () => {
                       htmlFor="name"
                       className="block text-sm font-semibold text-gray-900 mb-2"
                     >
-                      Nom complet *
+                      {t("contact.form.fullName")}
                     </label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -253,7 +250,7 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                        placeholder="Votre nom"
+                        placeholder={t("contact.form.fullNamePlaceholder")}
                       />
                     </div>
                   </div>
@@ -263,7 +260,7 @@ const Contact = () => {
                       htmlFor="email"
                       className="block text-sm font-semibold text-gray-900 mb-2"
                     >
-                      Email *
+                      {t("contact.form.email")}
                     </label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -275,7 +272,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                        placeholder="votre@email.com"
+                        placeholder={t("contact.form.emailPlaceholder")}
                       />
                     </div>
                   </div>
@@ -287,7 +284,7 @@ const Contact = () => {
                       htmlFor="company"
                       className="block text-sm font-semibold text-gray-900 mb-2"
                     >
-                      Entreprise
+                      {t("contact.form.company")}
                     </label>
                     <input
                       type="text"
@@ -296,7 +293,7 @@ const Contact = () => {
                       value={formData.company}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                      placeholder="Nom de votre entreprise"
+                      placeholder={t("contact.form.companyPlaceholder")}
                     />
                   </div>
 
@@ -305,7 +302,7 @@ const Contact = () => {
                       htmlFor="service"
                       className="block text-sm font-semibold text-gray-900 mb-2"
                     >
-                      Service souhaité
+                      {t("contact.form.service")}
                     </label>
                     <select
                       id="service"
@@ -329,7 +326,7 @@ const Contact = () => {
                       htmlFor="budget"
                       className="block text-sm font-semibold text-gray-900 mb-2"
                     >
-                      Budget estimé
+                      {t("contact.form.budget")}
                     </label>
                     <select
                       id="budget"
@@ -351,7 +348,7 @@ const Contact = () => {
                       htmlFor="timeline"
                       className="block text-sm font-semibold text-gray-900 mb-2"
                     >
-                      Timeline
+                      {t("contact.form.timeline")}
                     </label>
                     <select
                       id="timeline"
@@ -374,7 +371,7 @@ const Contact = () => {
                     htmlFor="message"
                     className="block text-sm font-semibold text-gray-900 mb-2"
                   >
-                    Message *
+                    {t("contact.form.message")}
                   </label>
                   <div className="relative">
                     <MessageSquare className="absolute left-3 top-4 w-5 h-5 text-gray-400" />
@@ -386,7 +383,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-vertical"
-                      placeholder="Décrivez votre projet, vos objectifs et vos attentes..."
+                      placeholder={t("contact.form.messagePlaceholder")}
                     />
                   </div>
                 </div>
@@ -401,11 +398,11 @@ const Contact = () => {
                   {isSubmitting ? (
                     <>
                       <div className="spinner w-5 h-5 mr-2" />
-                      Envoi en cours...
+                      {t("contact.form.submitting")}
                     </>
                   ) : (
                     <>
-                      Envoyer le message
+                      {t("contact.form.submit")}
                       <Send className="ml-2 w-5 h-5" />
                     </>
                   )}
@@ -424,7 +421,7 @@ const Contact = () => {
               className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
             >
               <h3 className="text-xl font-bold text-gray-900 mb-6">
-                Me contacter directement
+                {t("contact.sidebar.contactDirectly")}
               </h3>
               <div className="space-y-4">
                 {contactMethods.map((method, index) => (
@@ -491,7 +488,7 @@ const Contact = () => {
               className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
             >
               <h3 className="text-xl font-bold text-gray-900 mb-6">
-                Mes domaines d'expertise
+                {t("contact.sidebar.expertise")}
               </h3>
               <div className="space-y-4">
                 {expertise.map((item, index) => (
@@ -521,7 +518,7 @@ const Contact = () => {
             >
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
                 <Calendar className="w-5 h-5 mr-2" />
-                Disponibilités aujourd'hui
+                {t("contact.sidebar.availability")}
               </h3>
               <div className="space-y-2">
                 {availabilitySlots.map((slot, index) => (
@@ -541,13 +538,13 @@ const Contact = () => {
                           : "bg-gray-100 text-gray-600"
                       }`}
                     >
-                      {slot.available ? "Disponible" : "Occupé"}
+                      {slot.available ? t("contact.sidebar.available") : t("contact.sidebar.busy")}
                     </span>
                   </div>
                 ))}
               </div>
               <p className="text-sm text-gray-600 mt-4">
-                Fuseau horaire: Europe/Paris (UTC+1)
+                {t("contact.sidebar.timezone")}
               </p>
             </motion.div>
           </div>
@@ -565,10 +562,10 @@ const Contact = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Questions fréquentes
+              {t("faq.title")}
             </h2>
             <p className="text-gray-600">
-              Les réponses aux questions les plus courantes
+              {t("faq.subtitle")}
             </p>
           </motion.div>
 
@@ -581,24 +578,20 @@ const Contact = () => {
           >
             {[
               {
-                question: "Quel est votre délai de réponse ?",
-                answer:
-                  "Je réponds généralement sous 24h ouvrées. Pour les urgences, n'hésitez pas à m'appeler directement.",
+                question: t("faq.q1"),
+                answer: t("faq.a1"),
               },
               {
-                question: "Proposez-vous un devis gratuit ?",
-                answer:
-                  "Oui, je propose un devis détaillé gratuit après analyse de vos besoins lors d'un premier échange.",
+                question: t("faq.q2"),
+                answer: t("faq.a2"),
               },
               {
-                question: "Travaillez-vous en remote ?",
-                answer:
-                  "Absolument ! Je travaille avec des clients partout en France et à l'international en mode remote.",
+                question: t("faq.q3"),
+                answer: t("faq.a3"),
               },
               {
-                question: "Quels sont vos tarifs ?",
-                answer:
-                  "Mes tarifs varient selon la complexité et la durée du projet. Je propose des forfaits à partir de 2000€.",
+                question: t("faq.q4"),
+                answer: t("faq.a4"),
               },
             ].map((faq, index) => (
               <div

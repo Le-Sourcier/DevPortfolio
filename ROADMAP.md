@@ -78,8 +78,8 @@
 *Deadline : 2-3 semaines*
 
 ### 🌓 Thème et Accessibilité
-- [ ] Implémenter le dark/light mode toggle
-- [ ] Sauvegarder la préférence utilisateur
+- [x] Implémenter le dark/light mode toggle
+- [x] Sauvegarder la préférence utilisateur
 - [ ] Améliorer le contraste et l'accessibilité
 - [ ] Ajouter les ARIA labels manquants
 
@@ -153,7 +153,7 @@
 - [x] Ajouter le sélecteur de langue
 - [x] Corriger l'incohérence FR/EN
 - [x] Logique de changement de langue
-- [ ] Traduire pages Blog et Contact
+- [x] Traduire pages Blog et Contact
 - [ ] URL routing multilingue
 
 ### 📱 PWA Features

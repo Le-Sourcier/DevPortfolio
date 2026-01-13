@@ -74,7 +74,7 @@ const Home = () => {
       />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-100" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.1),transparent_70%)]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -85,18 +85,18 @@ const Home = () => {
               transition={{ duration: 0.8 }}
               className="mb-8"
             >
-              <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-800 text-sm font-medium mb-6">
+              <div className="inline-flex items-center px-4 py-2 bg-blue-100 dark:bg-blue-900/50 rounded-full text-blue-800 dark:text-blue-300 text-sm font-medium mb-6">
                 <span className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse" />
                 {t('hero.available')}
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span className="text-gray-900">{t('hero.title')}</span>
+                <span className="text-gray-900 dark:text-gray-100">{t('hero.title')}</span>
                 <br />
                 <span className="text-gradient">{t('hero.titleGradient')}</span>
               </h1>
 
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
                 {t('hero.subtitle')}
               </p>
             </motion.div>
@@ -111,7 +111,7 @@ const Home = () => {
                 {t('header.startProject')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
-              <Link to="/services" className="btn-secondary">
+              <Link to="/services" className="btn-secondary dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700">
                 {t('header.discoverServices')}
               </Link>
             </motion.div>
@@ -125,10 +125,10 @@ const Home = () => {
             >
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+                  <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                     {stat.number}
                   </div>
-                  <div className="text-gray-600 font-medium">{stat.label}</div>
+                  <div className="text-gray-600 dark:text-gray-400 font-medium">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
@@ -136,15 +136,15 @@ const Home = () => {
         </div>
 
         {/* Floating elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-200 rounded-full opacity-20 animate-pulse" />
+        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-200 rounded-full opacity-20 dark:opacity-10 animate-pulse" />
         <div
-          className="absolute bottom-20 right-10 w-32 h-32 bg-blue-300 rounded-full opacity-20 animate-pulse"
+          className="absolute bottom-20 right-10 w-32 h-32 bg-blue-300 rounded-full opacity-20 dark:opacity-10 animate-pulse"
           style={{ animationDelay: "1s" }}
         />
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -153,10 +153,10 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               Mes Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Des solutions complètes pour tous vos besoins de développement
             </p>
           </motion.div>
@@ -169,22 +169,22 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover-lift group"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover-lift group"
               >
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <service.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                   {service.description}
                 </p>
                 <ul className="space-y-2">
                   {service.features.map((feature, featureIndex) => (
                     <li
                       key={featureIndex}
-                      className="flex items-center text-gray-700"
+                      className="flex items-center text-gray-700 dark:text-gray-300"
                     >
                       <div className="w-2 h-2 bg-blue-500 rounded-full mr-3" />
                       {feature}
@@ -198,16 +198,16 @@ const Home = () => {
       </section>
 
       {/* Skills Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50 dark:from-gray-900 dark:via-gray-800/30 dark:to-gray-900 relative overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200/20 dark:bg-blue-900/20 rounded-full blur-3xl animate-pulse" />
           <div
-            className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl animate-pulse"
+            className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-200/20 dark:bg-indigo-900/20 rounded-full blur-3xl animate-pulse"
             style={{ animationDelay: "2s" }}
           />
           <div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-200/10 rounded-full blur-3xl animate-pulse"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-purple-200/10 dark:bg-purple-900/10 rounded-full blur-3xl animate-pulse"
             style={{ animationDelay: "4s" }}
           />
         </div>
@@ -220,14 +220,14 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <div className="inline-flex items-center px-4 py-2 bg-blue-100/80 backdrop-blur-sm rounded-full text-blue-800 text-sm font-medium mb-6">
+            <div className="inline-flex items-center px-4 py-2 bg-blue-100/80 dark:bg-blue-900/50 backdrop-blur-sm rounded-full text-blue-800 dark:text-blue-300 text-sm font-medium mb-6">
               <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse" />
               Expertise Technique
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-gray-100 leading-tight">
               {t('skills.title')}
             </h2>
-            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
               {t('skills.subtitle')}
             </p>
           </motion.div>
@@ -237,7 +237,7 @@ const Home = () => {
             {/* Gradient overlays pour l'effet de fondu */}
 
             <div className="overflow-hidden  p-8 relative">
-              <div className="pointer-events-none absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-slate-50/80 to-transparent z-20" />
+              <div className="pointer-events-none absolute top-0 left-0 h-full w-24 bg-gradient-to-r from-slate-50/80 dark:from-gray-900/80 to-transparent z-20" />
               <motion.div
                 className="flex space-x-12 skills-carousel"
                 animate={{ x: [0, -1000] }}
@@ -260,7 +260,7 @@ const Home = () => {
                       stiffness: 300,
                     }}
                   >
-                    <div className="w-full h-full bg-gradient-to-br from-white via-gray-50 to-gray-100 rounded-2xl flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden border border-gray-200/30 hover:border-blue-300/40">
+                    <div className="w-full h-full bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 rounded-2xl flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden border border-gray-200/30 dark:border-gray-700/30 hover:border-blue-300/40 dark:hover:border-blue-500/40">
                       {/* Logo de la technologie */}
                       <div className="relative z-10 mb-4">
                         {skill.name === "React" && (
@@ -270,7 +270,7 @@ const Home = () => {
                               viewBox="0 0 24 24"
                               fill="currentColor"
                             >
-                              <path d="M12 10.11c1.03 0 1.87.84 1.87 1.89s-.84 1.89-1.87 1.89c-1.03 0-1.87-.84-1.87-1.89s.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7-.52-.59-1.03-1.23-1.51-1.9a22.7 22.7 0 0 1-2.4-.36c-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86.27.06.57.11.88.16l-.3-.51m6.54-.76l.81-1.5-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17 9 12.6 9 12 9s-1.17 0-1.71.03c-.29.47-.61.94-.91 1.47L8.57 12l.81 1.5c.3.53.62 1 .91 1.47.54.03 1.11.03 1.71.03s1.17 0 1.71-.03c.29-.47.61-.94.91-1.47M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59.72M16.62 4c-.62-.38-2 .2-3.59 1.7.52.59 1.03 1.23 1.51 1.9.82.08 1.63.2 2.4.36.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22-.58.29-.86-.27-.06-.57-.11-.88-.16l.3.51m1.45-7.05c1.47.84 1.63 3.05 1.01 5.63 2.54.75 4.37 1.99 4.37 3.68s-1.83 2.93-4.37 3.68c.62 2.58.46 4.79-1.01 5.63-1.46.84-3.45-.12-5.37-1.95-1.92 1.83-3.91 2.79-5.37 1.95-1.47-.84-1.63-3.05-1.01-5.63-2.54-.75-4.37-1.99-4.37-3.68s1.83-2.93 4.37-3.68c-.62-2.58-.46-4.79 1.01-5.63 1.46-.84 3.45.12 5.37 1.95 1.92-1.83 3.91-2.79 5.37-1.95z" />
+                              <path d="M12 10.11c1.03 0 1.87.84 1.87 1.89s-.84 1.89-1.87 1.89c-1.03 0-1.87-.84-1.87-1.89s.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7-.52-.59-1.03-1.23-1.51-1.9a22.7 22.7 0 0 1-2.4-.36c-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86.27.06.57.11.88.16l-.3-.51m6.54-.76l.81-1.5-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17 9 12.6 9 12 9s-1.17 0-1.71.03c-.29.47-.61.94-.91 1.47L8.57 12l.81 1.5c.3.53.62 1 .91 1.47.54.03 1.11.03 1.71.03s1.17 0 1.71-.03c.29-.47.61-.94.91-1.47M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59-.72M16.62 4c-.62-.38-2 .2-3.59 1.7.52.59 1.03 1.23 1.51 1.9.82.08 1.63.2 2.4.36.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22.58.29-.86-.27-.06-.57-.11-.88-.16l.3.51m1.45-7.05c1.47.84 1.63 3.05 1.01 5.63 2.54.75 4.37 1.99 4.37 3.68s-1.83 2.93-4.37 3.68c.62 2.58.46 4.79-1.01 5.63-1.46.84-3.45-.12-5.37-1.95-1.92 1.83-3.91 2.79-5.37 1.95-1.47-.84-1.63-3.05-1.01-5.63-2.54-.75-4.37-1.99-4.37-3.68s1.83-2.93 4.37-3.68c-.62-2.58-.46-4.79 1.01-5.63 1.46-.84 3.45.12 5.37 1.95 1.92-1.83 3.91-2.79 5.37-1.95z" />
                             </svg>
                           </div>
                         )}
@@ -324,12 +324,12 @@ const Home = () => {
                       </div>
 
                       {/* Nom de la technologie */}
-                      <h3 className="text-lg font-bold text-gray-800 mb-2 relative z-10">
+                      <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2 relative z-10">
                         {skill.name}
                       </h3>
 
                       {/* Barre de progression visible */}
-                      <div className="w-32 bg-gray-200 rounded-full h-2 mb-2 relative z-10">
+                      <div className="w-32 bg-gray-200 dark:bg-gray-600 rounded-full h-2 mb-2 relative z-10">
                         <motion.div
                           className={`h-2 rounded-full ${skill.color}`}
                           initial={{ width: 0 }}
@@ -339,14 +339,14 @@ const Home = () => {
                       </div>
 
                       {/* Pourcentage */}
-                      <span className="text-sm font-semibold text-gray-600 relative z-10">
+                      <span className="text-sm font-semibold text-gray-600 dark:text-gray-400 relative z-10">
                         {skill.level}%
                       </span>
                     </div>
                   </motion.div>
                 ))}
               </motion.div>
-              <div className="pointer-events-none absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-indigo-50/80 to-transparent z-20" />
+              <div className="pointer-events-none absolute top-0 right-0 h-full w-24 bg-gradient-to-l from-indigo-50/80 dark:from-gray-900/80 to-transparent z-20" />
               <div />
             </div>
           </div>
@@ -364,26 +364,26 @@ const Home = () => {
                 {
                   number: "5+",
                   label: "Années d'expérience",
-                  color: "text-blue-600",
-                  bg: "bg-blue-100",
+                  color: "text-blue-600 dark:text-blue-400",
+                  bg: "bg-blue-100 dark:bg-blue-900/50",
                 },
                 {
                   number: "50+",
                   label: "Projets réalisés",
-                  color: "text-green-600",
-                  bg: "bg-green-100",
+                  color: "text-green-600 dark:text-green-400",
+                  bg: "bg-green-100 dark:bg-green-900/50",
                 },
                 {
                   number: "15+",
                   label: "Technologies",
-                  color: "text-purple-600",
-                  bg: "bg-purple-100",
+                  color: "text-purple-600 dark:text-purple-400",
+                  bg: "bg-purple-100 dark:bg-purple-900/50",
                 },
                 {
                   number: "98%",
                   label: "Satisfaction client",
-                  color: "text-orange-600",
-                  bg: "bg-orange-100",
+                  color: "text-orange-600 dark:text-orange-400",
+                  bg: "bg-orange-100 dark:bg-orange-900/50",
                 },
               ].map((stat, index) => (
                 <motion.div
@@ -397,7 +397,7 @@ const Home = () => {
                   <div className={`text-3xl font-bold ${stat.color} mb-2`}>
                     {stat.number}
                   </div>
-                  <div className="text-sm font-medium text-gray-700">
+                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -408,7 +408,7 @@ const Home = () => {
       </section>
 
       {/* Featured Projects */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -417,10 +417,10 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               {t('home.recentProjects', 'Projets Récents')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               {t('home.recentProjectsDesc', 'Découvrez quelques-unes de mes réalisations les plus remarquables')}
             </p>
           </motion.div>
@@ -433,7 +433,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover-lift group"
+                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover-lift group"
               >
                 <div className="relative overflow-hidden">
                   <img
@@ -444,17 +444,17 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100">
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
+                        className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium"
                       >
                         {tech}
                       </span>
@@ -466,7 +466,7 @@ const Home = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+                        className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
                       >
                         <ExternalLink className="w-4 h-4 mr-1" />
                         Voir le projet
@@ -477,7 +477,7 @@ const Home = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
+                        className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium transition-colors duration-200"
                       >
                         <Github className="w-4 h-4 mr-1" />
                         Code source
@@ -505,7 +505,7 @@ const Home = () => {
       </section>
 
       {/* Featured Blog Posts */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -514,10 +514,10 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               Articles Récents
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Découvrez mes dernières réflexions sur le développement web
             </p>
           </motion.div>
@@ -530,7 +530,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover-lift group"
+                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover-lift group"
               >
                 <div className="relative overflow-hidden">
                   <img
@@ -545,7 +545,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <div className="flex items-center text-gray-500 text-sm mb-3">
+                  <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm mb-3">
                     <Calendar className="w-4 h-4 mr-1" />
                     <span className="mr-4">
                       {new Date(post.publishedAt).toLocaleDateString("fr-FR")}
@@ -553,15 +553,15 @@ const Home = () => {
                     <Clock className="w-4 h-4 mr-1" />
                     <span>{post.readTime} min de lecture</span>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
                     {post.excerpt}
                   </p>
                   <Link
                     to={`/blog/${post.slug}`}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+                    className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
                   >
                     Lire la suite
                     <ArrowRight className="ml-2 w-4 h-4" />

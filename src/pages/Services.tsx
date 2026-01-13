@@ -139,7 +139,7 @@ const Services = () => {
         url="/services"
       />
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
+      <section className="py-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -147,25 +147,24 @@ const Services = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              Mes <span className="text-gradient">Services</span>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+              Mes <span className="text-gradient">{t('common.services')}</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Des solutions complètes de développement web et mobile pour transformer 
-              vos idées en produits numériques performants
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
+              {t('services.subtitle')}
             </p>
-            <div className="flex justify-center space-x-8 text-sm text-gray-500">
+            <div className="flex justify-center space-x-8 text-sm text-gray-500 dark:text-gray-400">
               <div className="flex items-center">
                 <Check className="w-4 h-4 text-green-500 mr-2" />
-                Qualité garantie
+                {t('services.qualityGuaranteed')}
               </div>
               <div className="flex items-center">
                 <Check className="w-4 h-4 text-green-500 mr-2" />
-                Support inclus
+                {t('services.supportIncluded')}
               </div>
               <div className="flex items-center">
                 <Check className="w-4 h-4 text-green-500 mr-2" />
-                Livraison respectée
+                {t('services.delivery respected')}
               </div>
             </div>
           </motion.div>
@@ -173,7 +172,7 @@ const Services = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8">
             {services.map((service, index) => (
@@ -183,36 +182,36 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover-lift group"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700 hover-lift group"
               >
                 <div className="flex items-start space-x-4">
                   <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-3 text-gray-900">{t(service.titleKey)}</h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{t(service.descriptionKey)}</p>
+                    <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-gray-100">{t(service.titleKey)}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{t(service.descriptionKey)}</p>
                   </div>
                 </div>
                 
                 <div className="mt-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">{t('services.features')}</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">{t('services.features')}</h4>
                   <div className="grid grid-cols-2 gap-2 mb-6">
                     {(t(service.featuresKey) as unknown as string[]).map((feature: string, featureIndex: number) => (
-                      <div key={featureIndex} className="flex items-center text-gray-700">
+                      <div key={featureIndex} className="flex items-center text-gray-700 dark:text-gray-300">
                         <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                         <span className="text-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
                   
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
                     <div className="space-y-1">
-                      <div className="flex items-center text-gray-600">
+                      <div className="flex items-center text-gray-600 dark:text-gray-400">
                         <DollarSign className="w-4 h-4 mr-1" />
-                        <span className="font-semibold text-blue-600">{t('services.startingFrom')} {service.price}€</span>
+                        <span className="font-semibold text-blue-600 dark:text-blue-400">{t('services.startingFrom')} {service.price}€</span>
                       </div>
-                      <div className="flex items-center text-gray-600 text-sm">
+                      <div className="flex items-center text-gray-600 dark:text-gray-400 text-sm">
                         <Calendar className="w-4 h-4 mr-1" />
                         <span>{service.duration} {t('services.weeks')}</span>
                       </div>
@@ -233,7 +232,7 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -242,10 +241,10 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               {t('process.title')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               {t('process.subtitle')}
             </p>
           </motion.div>
@@ -261,15 +260,15 @@ const Services = () => {
                 className="text-center group"
               >
                 <div className="relative mb-6">
-                  <div className="w-20 h-20 bg-white rounded-2xl shadow-lg mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <step.icon className="w-10 h-10 text-blue-600" />
+                  <div className="w-20 h-20 bg-white dark:bg-gray-800 rounded-2xl shadow-lg mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <step.icon className="w-10 h-10 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-bold">{step.number}</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">{t(step.titleKey)}</h3>
-                <p className="text-gray-600 leading-relaxed">{t(step.descriptionKey)}</p>
+                <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100">{t(step.titleKey)}</h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{t(step.descriptionKey)}</p>
               </motion.div>
             ))}
           </div>
@@ -277,7 +276,7 @@ const Services = () => {
       </section>
 
       {/* Projects Showcase */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -286,10 +285,10 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               {t('home.recentProjects')}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Découvrez quelques-uns des projets que j'ai eu le plaisir de réaliser
             </p>
           </motion.div>
@@ -302,7 +301,7 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover-lift group"
+                className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700 hover-lift group"
               >
                 <div className="relative overflow-hidden">
                   <img 
@@ -321,11 +320,11 @@ const Services = () => {
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100">{project.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
-                      <span key={tech} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                      <span key={tech} className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-full text-sm font-medium">
                         {tech}
                       </span>
                     ))}
@@ -336,7 +335,7 @@ const Services = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
+                        className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
                       >
                         <ExternalLink className="w-4 h-4 mr-1" />
                         Voir le projet
@@ -347,7 +346,7 @@ const Services = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
+                        className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium transition-colors duration-200"
                       >
                         <Github className="w-4 h-4 mr-1" />
                         Code source
@@ -362,7 +361,7 @@ const Services = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+      <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -371,10 +370,10 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               Ce que disent mes clients
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               La satisfaction client est ma priorité absolue
             </p>
           </motion.div>
@@ -387,19 +386,19 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700"
               >
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <blockquote className="text-gray-700 mb-6 leading-relaxed">
+                <blockquote className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                   "{testimonial.text}"
                 </blockquote>
                 <div>
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-blue-600 text-sm">{testimonial.company}</div>
+                  <div className="font-semibold text-gray-900 dark:text-gray-100">{testimonial.name}</div>
+                  <div className="text-blue-600 dark:text-blue-400 text-sm">{testimonial.company}</div>
                 </div>
               </motion.div>
             ))}

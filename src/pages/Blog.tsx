@@ -13,8 +13,10 @@ import {
   Tag,
   TrendingUp
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Blog = () => {
+  const { t } = useTranslation();
   const { blogPosts } = useAppContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -54,8 +56,8 @@ const Blog = () => {
   return (
     <div className="min-h-screen pt-16">
       <SEO
-        title="Blog"
-        description="Articles sur le développement web, React, TypeScript, Node.js et les meilleures pratiques du secteur tech."
+        title={t('blog.title')}
+        description={t('blog.subtitle')}
         keywords={['blog', 'développement', 'react', 'typescript', 'tutoriel', 'web', 'programmation']}
         url="/blog"
       />
@@ -69,20 +71,19 @@ const Blog = () => {
             className="text-center"
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              Mon <span className="text-gradient">Blog</span>
+              <span className="text-gradient">{t('blog.title')}</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Découvrez mes réflexions sur le développement web, les nouvelles technologies 
-              et les meilleures pratiques du secteur
+              {t('blog.subtitle')}
             </p>
             <div className="flex justify-center space-x-8 text-sm text-gray-500">
               <div className="flex items-center">
                 <TrendingUp className="w-4 h-4 text-blue-500 mr-2" />
-                {blogPosts.length} articles publiés
+                {blogPosts.length} {t('blog.articlesPublished')}
               </div>
               <div className="flex items-center">
                 <Star className="w-4 h-4 text-yellow-500 mr-2" />
-                Articles techniques détaillés
+                {t('blog.technicalArticles')}
               </div>
             </div>
           </motion.div>
@@ -101,12 +102,12 @@ const Blog = () => {
             >
               {/* Search */}
               <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900">Recherche</h3>
+                <h3 className="text-lg font-semibold mb-4 text-gray-900">{t('blog.search')}</h3>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Rechercher un article..."
+                    placeholder={t('blog.searchPlaceholder')}
                     className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -118,7 +119,7 @@ const Blog = () => {
               <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 flex items-center">
                   <Filter className="w-5 h-5 mr-2" />
-                  Catégories
+                  {t('blog.categories')}
                 </h3>
                 <div className="space-y-2">
                   {categories.map((category) => (
@@ -131,7 +132,7 @@ const Blog = () => {
                           : 'text-gray-700 hover:bg-gray-100'
                       }`}
                     >
-                      {category === 'all' ? 'Tous les articles' : category}
+                      {category === 'all' ? t('blog.allArticles') : category}
                       <span className="float-right text-xs text-gray-500">
                         {category === 'all' 
                           ? blogPosts.length 
@@ -147,7 +148,7 @@ const Blog = () => {
               <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 flex items-center">
                   <Tag className="w-5 h-5 mr-2" />
-                  Tags populaires
+                  {t('blog.popularTags')}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {popularTags.map((tag) => (
@@ -163,15 +164,15 @@ const Blog = () => {
 
               {/* Sort Options */}
               <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
-                <h3 className="text-lg font-semibold mb-4 text-gray-900">Trier par</h3>
+                <h3 className="text-lg font-semibold mb-4 text-gray-900">{t('blog.sortBy')}</h3>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
                 >
-                  <option value="recent">Plus récents</option>
-                  <option value="popular">Plus populaires</option>
-                  <option value="featured">Articles vedettes</option>
+                  <option value="recent">{t('blog.sort.recent')}</option>
+                  <option value="popular">{t('blog.sort.popular')}</option>
+                  <option value="featured">{t('blog.sort.featured')}</option>
                 </select>
               </div>
             </motion.div>
@@ -197,7 +198,7 @@ const Blog = () => {
                   <div className="absolute top-6 left-6">
                     <span className="px-4 py-2 bg-yellow-400 text-yellow-900 rounded-full text-sm font-bold flex items-center">
                       <Star className="w-4 h-4 mr-1" />
-                      Article vedette
+                      {t('blog.featuredArticle')}
                     </span>
                   </div>
                   <div className="absolute bottom-6 left-6 right-6 text-white">
@@ -211,7 +212,7 @@ const Blog = () => {
                       </div>
                       <div className="flex items-center">
                         <Clock className="w-4 h-4 mr-1" />
-                        {featuredPost.readTime} min
+                        {featuredPost.readTime} {t('blog.readingTime')}
                       </div>
                     </div>
                     <h2 className="text-2xl font-bold mb-2">{featuredPost.title}</h2>
@@ -220,7 +221,7 @@ const Blog = () => {
                       to={`/blog/${featuredPost.slug}`}
                       className="inline-flex items-center text-white font-semibold hover:text-blue-200 transition-colors duration-200"
                     >
-                      Lire l'article complet
+                      {t('blog.readFullArticle')}
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </Link>
                   </div>
@@ -261,7 +262,7 @@ const Blog = () => {
                       <Calendar className="w-4 h-4 mr-1" />
                       <span className="mr-4">{new Date(post.publishedAt).toLocaleDateString('fr-FR')}</span>
                       <Clock className="w-4 h-4 mr-1" />
-                      <span>{post.readTime} min de lecture</span>
+                      <span>{post.readTime} {t('blog.readingTime')}</span>
                     </div>
                     
                     <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
@@ -284,7 +285,7 @@ const Blog = () => {
                       to={`/blog/${post.slug}`}
                       className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
                     >
-                      Lire la suite
+                      {t('blog.readMore')}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </div>
@@ -304,10 +305,10 @@ const Blog = () => {
                   <Search className="w-16 h-16 mx-auto" />
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Aucun article trouvé
+                  {t('blog.noArticlesFound')}
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Essayez de modifier vos critères de recherche ou de navigation.
+                  {t('blog.noArticlesFoundDesc')}
                 </p>
                 <button
                   onClick={() => {
@@ -316,7 +317,7 @@ const Blog = () => {
                   }}
                   className="btn-primary"
                 >
-                  Réinitialiser les filtres
+                  {t('blog.resetFilters')}
                 </button>
               </motion.div>
             )}

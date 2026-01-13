@@ -1,7 +1,7 @@
 {
   "common": {
     "home": "Accueil",
-    "services": "Services", 
+    "services": "Services",
     "blog": "Blog",
     "contact": "Contact",
     "downloadCV": "Télécharger CV"
@@ -18,7 +18,7 @@
   },
   "stats": {
     "projects": "Projets Livrés",
-    "clients": "Clients Actifs", 
+    "clients": "Clients Actifs",
     "experience": "Années d'Expérience",
     "satisfaction": "Satisfaction Client"
   },
@@ -46,13 +46,16 @@
     "features": "Caractéristiques",
     "startingFrom": "À partir de",
     "weeks": "semaines",
+    "qualityGuaranteed": "Qualité garantie",
+    "supportIncluded": "Support inclus",
+    "delivery respected": "Livraison respectée",
     "service1": {
       "title": "Sites Web Sur Mesure",
       "description": "Création de sites web professionnels, modernes et performants adaptés à votre activité",
       "features": ["React, Next.js, Vue.js", "Design responsive & mobile-first", "Optimisation SEO", "Performance web (Core Web Vitals)", "Accessibilité WCAG 2.1", "Intégrations CMS (WordPress, Strapi)"]
     },
     "service2": {
-      "title": "Applications Web Complexes", 
+      "title": "Applications Web Complexes",
       "description": "Développement d'applications web full-stack avec fonctionnalités avancées et APIs",
       "features": ["Node.js, Express, TypeScript", "Architectures REST & GraphQL", "Authentification JWT/OAuth", "Dashboard admin", "Systèmes de paiement", "Tests automatisés"]
     },
@@ -85,7 +88,7 @@
       "description": "Analyse de vos besoins et définition des objectifs"
     },
     "step2": {
-      "title": "Planification", 
+      "title": "Planification",
       "description": "Création du cahier des charges et planning détaillé"
     },
     "step3": {
@@ -112,5 +115,126 @@
     "a3": "Absolument ! Je travaille avec des clients partout en France et à l'international en mode remote.",
     "q4": "Quels sont vos tarifs ?",
     "a4": "Mes tarifs varient selon la complexité et la durée du projet. Je propose des forfaits à partir de 2000€."
+  },
+  "contact": {
+    "title": "Discutons de votre Projet",
+    "subtitle": "Prêt à donner vie à vos idées ? Contactez-moi pour discuter de vos besoins et créer ensemble une solution sur mesure.",
+    "response": "Réponse sous 24h",
+    "freeQuote": "Devis gratuit",
+    "sendMessage": "Envoyer un message",
+    "form": {
+      "fullName": "Nom complet *",
+      "fullNamePlaceholder": "Votre nom",
+      "email": "Email *",
+      "emailPlaceholder": "votre@email.com",
+      "company": "Entreprise",
+      "companyPlaceholder": "Nom de votre entreprise",
+      "service": "Service souhaité",
+      "selectService": "Sélectionnez un service",
+      "services": {
+        "web-development": "Développement Web",
+        "mobile-app": "Application Mobile",
+        "backend-api": "Backend & API",
+        "consulting": "Consultation",
+        "maintenance": "Maintenance",
+        "other": "Autre"
+      },
+      "budget": "Budget estimé",
+      "selectBudget": "Sélectionnez votre budget",
+      "budgets": {
+        "1000-3000": "1 000€ - 3 000€",
+        "3000-5000": "3 000€ - 5 000€",
+        "5000-10000": "5 000€ - 10 000€",
+        "10000+": "10 000€+",
+        "discuss": "À discuter"
+      },
+      "timeline": "Timeline",
+      "selectTimeline": "Délai souhaité",
+      "timelines": {
+        "asap": "Dès que possible",
+        "1-month": "Dans le mois",
+        "2-3-months": "2-3 mois",
+        "3-6-months": "3-6 mois",
+        "flexible": "Flexible"
+      },
+      "message": "Message *",
+      "messagePlaceholder": "Décrivez votre projet, vos objectifs et vos attentes...",
+      "submit": "Envoyer le message",
+      "submitting": "Envoi en cours..."
+    },
+    "submitted": {
+      "title": "Message envoyé !",
+      "message": "Merci pour votre message. Je vous répondrai dans les plus brefs délais.",
+      "redirect": "Redirection automatique..."
+    },
+    "sidebar": {
+      "contactDirectly": "Me contacter directement",
+      "email": "Email",
+      "emailResponse": "Réponse sous 24h",
+      "phone": "Téléphone",
+      "phoneHours": "Lun-Ven 9h-18h",
+      "location": "Localisation",
+      "locationValue": "Paris, France",
+      "locationRemote": "Disponible en remote",
+      "expertise": "Mes domaines d'expertise",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "mobile": "Mobile",
+      "database": "Database",
+      "devops": "DevOps",
+      "security": "Security",
+      "availability": "Disponibilités aujourd'hui",
+      "available": "Disponible",
+      "busy": "Occupé",
+      "timezone": "Fuseau horaire: Europe/Paris (UTC+1)"
+    }
+  },
+  "blog": {
+    "title": "Mon Blog",
+    "subtitle": "Découvrez mes réflexions sur le développement web, les nouvelles technologies et les meilleures pratiques du secteur",
+    "articlesPublished": "articles publiés",
+    "technicalArticles": "Articles techniques détaillés",
+    "search": "Recherche",
+    "searchPlaceholder": "Rechercher un article...",
+    "categories": "Catégories",
+    "allArticles": "Tous les articles",
+    "popularTags": "Tags populaires",
+    "sortBy": "Trier par",
+    "sort": {
+      "recent": "Plus récents",
+      "popular": "Plus populaires",
+      "featured": "Articles vedettes"
+    },
+    "featuredArticle": "Article vedette",
+    "readFullArticle": "Lire l'article complet",
+    "readMore": "Lire la suite",
+    "readingTime": "min de lecture",
+    "noArticlesFound": "Aucun article trouvé",
+    "noArticlesFoundDesc": "Essayez de modifier vos critères de recherche ou de navigation.",
+    "resetFilters": "Réinitialiser les filtres"
+  },
+  "blogPost": {
+    "notFound": "Article non trouvé",
+    "backToBlog": "Retour au blog",
+    "back": "Retour",
+    "share": "Partager:",
+    "shareOn": "Partager sur",
+    "copyLink": "Copier le lien",
+    "tags": "Tags:",
+    "authorBio": "Développeur Full-Stack avec plus de 5 ans d'expérience dans le développement d'applications web modernes. Passionné par React, TypeScript et l'architecture software.",
+    "contactMe": "Me contacter",
+    "relatedPosts": "Articles similaires",
+    "relatedPostsDesc": "Découvrez d'autres articles qui pourraient vous intéresser",
+    "readArticle": "Lire l'article"
+  },
+  "footer": {
+    "bio": "Développeur Full-Stack passionné par la création d'expériences web exceptionnelles et l'innovation technologique.",
+    "navigation": "Navigation",
+    "consulting": "Consultation Tech",
+    "training": "Formation",
+    "madeWith": "Fait avec",
+    "by": "par",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation"
   }
 }
