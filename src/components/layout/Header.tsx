@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Menu, X, Code2, Download, Globe } from "lucide-react";
+import ThemeToggle from "../common/ThemeToggle";
 
 const Header = () => {
   const { i18n, t } = useTranslation();
@@ -46,7 +47,7 @@ const Header = () => {
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-blue-100"
+          ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-blue-100 dark:border-gray-800"
           : "bg-transparent"
       }`}
       initial={{ y: -100 }}
@@ -72,13 +73,13 @@ const Header = () => {
                 to={item.path}
                 className={`relative text-sm font-medium transition-colors duration-300 group ${
                   isActive(item.path)
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
               >
                 {item.label}
                 <span
-                  className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 ${
                     isActive(item.path) ? "w-full" : "w-0 group-hover:w-full"
                   }`}
                 />
@@ -99,18 +100,19 @@ const Header = () => {
             </button>
             <button
               onClick={() => i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr')}
-              className="inline-flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg transition-colors duration-200 text-sm"
+              className="inline-flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-2 rounded-lg transition-colors duration-200 text-sm"
             >
               <Globe className="w-4 h-4" />
               <span>{i18n.resolvedLanguage === 'fr' ? 'EN' : 'FR'}</span>
             </button>
+            <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+              className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -130,15 +132,15 @@ const Header = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-md rounded-lg mt-2 shadow-lg border border-blue-100">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-lg mt-2 shadow-lg border border-blue-100 dark:border-gray-800">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
                   className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                     isActive(item.path)
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-gray-800"
+                      : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -161,11 +163,14 @@ const Header = () => {
                     i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr');
                     setIsMenuOpen(false);
                   }}
-                  className="w-full inline-flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 text-sm"
+                  className="w-full inline-flex items-center justify-center space-x-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg transition-colors duration-200 text-sm"
                 >
                   <Globe className="w-4 h-4" />
                   <span>{i18n.resolvedLanguage === 'fr' ? 'EN' : 'FR'}</span>
                 </button>
+                <div className="flex justify-center">
+                  <ThemeToggle />
+                </div>
               </div>
             </div>
           </motion.div>

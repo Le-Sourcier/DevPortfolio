@@ -14,8 +14,10 @@ import {
   Linkedin,
   Link2
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const BlogPost = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const navigate = useNavigate();
   const { blogPosts } = useAppContext();
@@ -26,9 +28,9 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen pt-16 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Article non trouvé</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('blogPost.notFound')}</h1>
           <Link to="/blog" className="text-blue-600 hover:text-blue-800">
-            Retour au blog
+            {t('blogPost.backToBlog')}
           </Link>
         </div>
       </div>
@@ -76,7 +78,7 @@ const BlogPost = () => {
             className="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
-            Retour
+            {t('blogPost.back')}
           </button>
         </motion.div>
 
@@ -107,7 +109,7 @@ const BlogPost = () => {
               </div>
               <div className="flex items-center">
                 <Calendar className="w-5 h-5 mr-2" />
-                <span>{new Date(post.publishedAt).toLocaleDateString('fr-FR', {
+                <span>{new Date(post.publishedAt).toLocaleDateString(undefined, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric'
@@ -115,38 +117,38 @@ const BlogPost = () => {
               </div>
               <div className="flex items-center">
                 <Clock className="w-5 h-5 mr-2" />
-                <span>{post.readTime} min de lecture</span>
+                <span>{post.readTime} {t('blog.readingTime')}</span>
               </div>
             </div>
 
             {/* Share Buttons */}
             <div className="flex items-center space-x-3">
-              <span className="text-gray-600 text-sm font-medium">Partager:</span>
+              <span className="text-gray-600 text-sm font-medium">{t('blogPost.share')}</span>
               <button
                 onClick={() => handleShare('facebook')}
                 className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
-                title="Partager sur Facebook"
+                title={`${t('blogPost.shareOn')} Facebook`}
               >
                 <Facebook className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare('twitter')}
                 className="p-2 text-gray-600 hover:text-blue-400 hover:bg-blue-50 rounded-lg transition-all duration-200"
-                title="Partager sur Twitter"
+                title={`${t('blogPost.shareOn')} Twitter`}
               >
                 <Twitter className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare('linkedin')}
                 className="p-2 text-gray-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all duration-200"
-                title="Partager sur LinkedIn"
+                title={`${t('blogPost.shareOn')} LinkedIn`}
               >
                 <Linkedin className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare('copy')}
                 className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-200"
-                title="Copier le lien"
+                title={t('blogPost.copyLink')}
               >
                 <Link2 className="w-5 h-5" />
               </button>
@@ -243,7 +245,7 @@ const Button: React.FC<Props> = ({ title, isActive = false, onClick }) => {
         >
           <div className="flex items-center mb-4">
             <Tag className="w-5 h-5 mr-2 text-gray-600" />
-            <span className="font-semibold text-gray-900">Tags:</span>
+            <span className="font-semibold text-gray-900">{t('blogPost.tags')}</span>
           </div>
           <div className="flex flex-wrap gap-3">
             {post.tags.map((tag) => (
@@ -271,14 +273,13 @@ const Button: React.FC<Props> = ({ title, isActive = false, onClick }) => {
             <div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">John Doe</h3>
               <p className="text-gray-700 mb-4 leading-relaxed">
-                Développeur Full-Stack avec plus de 5 ans d'expérience dans le développement 
-                d'applications web modernes. Passionné par React, TypeScript et l'architecture software.
+                {t('blogPost.authorBio')}
               </p>
               <Link 
                 to="/contact"
                 className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
               >
-                Me contacter
+                {t('blogPost.contactMe')}
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </div>
@@ -298,10 +299,10 @@ const Button: React.FC<Props> = ({ title, isActive = false, onClick }) => {
               className="text-center mb-12"
             >
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Articles similaires
+                {t('blogPost.relatedPosts')}
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Découvrez d'autres articles qui pourraient vous intéresser
+                {t('blogPost.relatedPostsDesc')}
               </p>
             </motion.div>
 
@@ -330,7 +331,7 @@ const Button: React.FC<Props> = ({ title, isActive = false, onClick }) => {
                   <div className="p-6">
                     <div className="flex items-center text-gray-500 text-sm mb-3">
                       <Calendar className="w-4 h-4 mr-1" />
-                      <span className="mr-4">{new Date(relatedPost.publishedAt).toLocaleDateString('fr-FR')}</span>
+                      <span className="mr-4">{new Date(relatedPost.publishedAt).toLocaleDateString(undefined)}</span>
                       <Clock className="w-4 h-4 mr-1" />
                       <span>{relatedPost.readTime} min</span>
                     </div>
@@ -344,7 +345,7 @@ const Button: React.FC<Props> = ({ title, isActive = false, onClick }) => {
                       to={`/blog/${relatedPost.slug}`}
                       className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-200"
                     >
-                      Lire l'article
+                      {t('blogPost.readArticle')}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </div>
