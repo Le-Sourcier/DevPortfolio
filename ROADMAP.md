@@ -1,7 +1,7 @@
 # 🚀 Roadmap de Finalisation du Portfolio
 
 ## 📊 Vue d'ensemble
-**Score actuel : 8.5/10** → Objectif : **9.5/10** (Production-ready)
+**Score actuel : 9.0/10** → Objectif : **9.5/10** (Production-ready)
 
 ---
 
@@ -149,10 +149,12 @@
 
 ### 🌍 Internationalisation ✅
 - [x] Configurer react-i18next
-- [x] Traduire tout le contenu en anglais (partiellement)
+- [x] Traduire tout le contenu en anglais (Home + Services)
 - [x] Ajouter le sélecteur de langue
+- [x] Corriger l'incohérence FR/EN
+- [x] Logique de changement de langue
+- [ ] Traduire pages Blog et Contact
 - [ ] URL routing multilingue
-- [ ] Compléter les traductions sur toutes les pages
 
 ### 📱 PWA Features
 - [ ] Créer le service worker
