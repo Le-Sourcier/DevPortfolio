@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Menu, X, Code2, Download } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Menu, X, Code2, Download, Globe } from "lucide-react";
 
 const Header = () => {
+  const { i18n, t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -30,10 +32,10 @@ const Header = () => {
   };
 
   const navItems = [
-    { path: "/", label: "Accueil" },
-    { path: "/services", label: "Services" },
-    { path: "/blog", label: "Blog" },
-    { path: "/contact", label: "Contact" },
+    { path: "/", label: t('common.home') },
+    { path: "/services", label: t('common.services') },
+    { path: "/blog", label: t('common.blog') },
+    { path: "/contact", label: t('common.contact') },
   ];
 
   // Ne pas afficher le header sur les pages admin
@@ -86,21 +88,21 @@ const Header = () => {
 
           </div>
 
-          {/* CV Download Buttons */}
+          {/* Language Switcher */}
           <div className="hidden md:flex items-center space-x-3">
             <button
-              onClick={() => downloadCV('fr')}
+              onClick={() => downloadCV(i18n.language === 'fr' ? 'fr' : 'en')}
               className="inline-flex items-center space-x-2 btn-primary text-sm"
             >
               <Download className="w-4 h-4" />
-              <span>Télécharger CV</span>
+              <span>{t('common.downloadCV')}</span>
             </button>
             <button
-              onClick={() => downloadCV('en')}
-              className="inline-flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 text-sm"
+              onClick={() => i18n.changeLanguage(i18n.language === 'fr' ? 'en' : 'fr')}
+              className="inline-flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-2 rounded-lg transition-colors duration-200 text-sm"
             >
-              <Download className="w-4 h-4" />
-              <span>Download CV</span>
+              <Globe className="w-4 h-4" />
+              <span>{i18n.language === 'fr' ? 'EN' : 'FR'}</span>
             </button>
           </div>
 
@@ -146,23 +148,23 @@ const Header = () => {
               <div className="pt-2 space-y-2">
                 <button
                   onClick={() => {
-                    downloadCV('fr');
+                    downloadCV(i18n.language === 'fr' ? 'fr' : 'en');
                     setIsMenuOpen(false);
                   }}
                   className="w-full inline-flex items-center justify-center space-x-2 btn-primary text-sm"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Télécharger CV</span>
+                  <span>{t('common.downloadCV')}</span>
                 </button>
                 <button
                   onClick={() => {
-                    downloadCV('en');
+                    i18n.changeLanguage(i18n.language === 'fr' ? 'en' : 'fr');
                     setIsMenuOpen(false);
                   }}
                   className="w-full inline-flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 text-sm"
                 >
-                  <Download className="w-4 h-4" />
-                  <span>Download CV</span>
+                  <Globe className="w-4 h-4" />
+                  <span>{i18n.language === 'fr' ? 'EN' : 'FR'}</span>
                 </button>
               </div>
             </div>

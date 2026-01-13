@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
+import { useTranslation } from "react-i18next";
 import SEO from "../components/common/SEO";
 import {
   ArrowRight,
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 
 const Home = () => {
+  const { t } = useTranslation();
   const { projects, blogPosts } = useAppContext();
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
   const featuredPosts = blogPosts.filter((p) => p.featured).slice(0, 2);
@@ -56,10 +58,10 @@ const Home = () => {
   ];
 
   const stats = [
-    { number: "25+", label: "Projets Livrés" },
-    { number: "15+", label: "Clients Actifs" },
-    { number: "3+", label: "Années d'Expérience" },
-    { number: "98%", label: "Satisfaction Client" },
+    { number: "25+", label: t('stats.projects') },
+    { number: "15+", label: t('stats.clients') },
+    { number: "3+", label: t('stats.experience') },
+    { number: "98%", label: t('stats.satisfaction') },
   ];
 
   return (
@@ -85,18 +87,17 @@ const Home = () => {
             >
               <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-800 text-sm font-medium mb-6">
                 <span className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse" />
-                Disponible pour nouveaux projets
+                {t('hero.available')}
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span className="text-gray-900">Développeur</span>
+                <span className="text-gray-900">{t('hero.title')}</span>
                 <br />
-                <span className="text-gradient">Full-Stack</span>
+                <span className="text-gradient">{t('hero.titleGradient')}</span>
               </h1>
 
               <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Je crée des expériences web exceptionnelles et des applications
-                modernes qui transforment vos idées en réalité numérique.
+                {t('hero.subtitle')}
               </p>
             </motion.div>
 
@@ -107,11 +108,11 @@ const Home = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
             >
               <Link to="/contact" className="btn-primary">
-                Démarrer un projet
+                {t('header.startProject')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <Link to="/services" className="btn-secondary">
-                Découvrir mes services
+                {t('header.discoverServices')}
               </Link>
             </motion.div>
 
@@ -224,10 +225,10 @@ const Home = () => {
               Expertise Technique
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 leading-tight">
-              Mes Compétences
+              {t('skills.title')}
             </h2>
             <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Maîtrise des technologies modernes pour des solutions performantes
+              {t('skills.subtitle')}
             </p>
           </motion.div>
 
@@ -417,10 +418,10 @@ const Home = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-              Projets Récents
+              {t('home.recentProjects', 'Projets Récents')}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez quelques-unes de mes réalisations les plus remarquables
+              {t('home.recentProjectsDesc', 'Découvrez quelques-unes de mes réalisations les plus remarquables')}
             </p>
           </motion.div>
 

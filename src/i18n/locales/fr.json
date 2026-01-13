@@ -1,0 +1,35 @@
+{
+  "common": {
+    "home": "Accueil",
+    "services": "Services", 
+    "blog": "Blog",
+    "contact": "Contact",
+    "downloadCV": "Télécharger CV",
+    "downloadCVEN": "Download CV",
+    "downloadCVFR": "Télécharger CV"
+  },
+  "header": {
+    "startProject": "Démarrer un projet",
+    "discoverServices": "Découvrir mes services"
+  },
+  "hero": {
+    "available": "Disponible pour nouveaux projets",
+    "title": "Développeur",
+    "titleGradient": "Full-Stack",
+    "subtitle": "Je crée des expériences web exceptionnelles et des applications modernes qui transforment vos idées en réalité numérique."
+  },
+  "stats": {
+    "projects": "Projets Livrés",
+    "clients": "Clients Actifs", 
+    "experience": "Années d'Expérience",
+    "satisfaction": "Satisfaction Client"
+  },
+  "skills": {
+    "title": "Mes Compétences",
+    "subtitle": "Maîtrise des technologies modernes pour des solutions performantes"
+  },
+  "home": {
+    "recentProjects": "Projets Récents",
+    "recentProjectsDesc": "Découvrez quelques-unes de mes réalisations les plus remarquables"
+  }
+}

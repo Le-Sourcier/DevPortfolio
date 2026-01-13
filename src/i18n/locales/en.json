@@ -1,0 +1,34 @@
+{
+  "common": {
+    "home": "Home",
+    "services": "Services", 
+    "blog": "Blog",
+    "contact": "Contact",
+    "downloadCV": "Download CV",
+    "downloadCVEN": "Download CV",
+    "downloadCVFR": "Télécharger CV"
+  },
+  "header": {
+    "startProject": "Start a project",
+    "discoverServices": "Discover my services"
+  },
+  "hero": {
+    "available": "Available for new projects",
+    "title": "Full-Stack Developer",
+    "subtitle": "I create exceptional web experiences and modern applications that transform your ideas into digital reality."
+  },
+  "stats": {
+    "projects": "Projects Delivered",
+    "clients": "Active Clients", 
+    "experience": "Years Experience",
+    "satisfaction": "Client Satisfaction"
+  },
+  "skills": {
+    "title": "My Skills",
+    "subtitle": "Mastery of modern technologies for performing solutions"
+  },
+  "home": {
+    "recentProjects": "Recent Projects",
+    "recentProjectsDesc": "Discover some of my most remarkable achievements"
+  }
+}
