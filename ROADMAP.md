@@ -1,7 +1,7 @@
 # 🚀 Roadmap de Finalisation du Portfolio
 
 ## 📊 Vue d'ensemble
-**Score actuel : 7.5/10** → Objectif : **9.5/10** (Production-ready)
+**Score actuel : 8.5/10** → Objectif : **9.5/10** (Production-ready)
 
 ---
 
