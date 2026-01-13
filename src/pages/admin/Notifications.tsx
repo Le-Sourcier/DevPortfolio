@@ -102,19 +102,7 @@ const Notifications = () => {
   const [selectedNotifications, setSelectedNotifications] = useState<string[]>(
     []
   );
-  const [showSettings, setShowSettings] = useState(false);
-  const [notificationSettings, setNotificationSettings] = useState({
-    emailNotifications: "immediate",
-    soundNotifications: "enabled",
-    doNotDisturb: false,
-    types: {
-      contactMessages: true,
-      blogComments: true,
-      systemNotifications: true,
-      backups: false,
-      updates: true,
-    },
-  });
+
   const [showDeleteAll, setShowDeleteAll] = useState(false);
   const [showMarkAllRead, setShowMarkAllRead] = useState(false);
 

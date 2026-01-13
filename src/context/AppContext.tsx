@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface BlogPost {
   id: string;
@@ -88,33 +88,53 @@ const initialBlogPosts: BlogPost[] = [
 const initialProjects: Project[] = [
   {
     id: '1',
-    title: 'E-commerce Platform',
-    description: 'Full-stack e-commerce solution with React, Node.js, and PostgreSQL featuring real-time inventory management.',
-    image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
-    technologies: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/example',
+    title: 'Portfolio Professionnel Full-Stack',
+    description: 'Portfolio moderne avec React, TypeScript, Tailwind CSS et panneau d\'administration. Design responsive et animations fluides.',
+    image: 'https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=800',
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    liveUrl: 'https://david-portfolio.vercel.app',
+    githubUrl: 'https://github.com/david/portfolio',
     featured: true
   },
   {
     id: '2',
-    title: 'Task Management App',
-    description: 'Collaborative project management tool with real-time updates, team collaboration, and advanced analytics.',
-    image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800',
-    technologies: ['React', 'Firebase', 'Material-UI'],
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/example',
+    title: 'Application de Gestion Scolaire',
+    description: 'Platforme complète pour la gestion des cours, étudiants et professeurs avec dashboards analytiques et système de notifications.',
+    image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+    technologies: ['Next.js', 'Node.js', 'PostgreSQL', 'Prisma'],
+    liveUrl: 'https://school-manager.app',
+    githubUrl: 'https://github.com/david/school-manager',
     featured: true
   },
   {
     id: '3',
-    title: 'Weather Dashboard',
-    description: 'Beautiful weather application with interactive maps, forecasts, and location-based recommendations.',
-    image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=800',
-    technologies: ['Vue.js', 'OpenWeather API', 'Chart.js'],
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/example',
+    title: 'E-commerce Marketplace',
+    description: 'Marketplace multi-vendeurs avec système de paiement intégré, gestion des stocks et interface admin complète.',
+    image: 'https://images.pexels.com/photos/5591963/pexels-photo-5591963.jpeg?auto=compress&cs=tinysrgb&w=800',
+    technologies: ['Vue.js', 'Express', 'MongoDB', 'Stripe'],
+    liveUrl: 'https://marketplace-demo.com',
+    githubUrl: 'https://github.com/david/marketplace',
     featured: false
+  },
+  {
+    id: '4',
+    title: 'API de Réservation Hôtelière',
+    description: 'REST API complète pour la gestion des réservations d\'hôtels avec authentification JWT et documentation Swagger.',
+    image: 'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=800',
+    technologies: ['Node.js', 'Express', 'MySQL', 'JWT'],
+    liveUrl: 'https://hotel-api-docs.com',
+    githubUrl: 'https://github.com/david/hotel-booking-api',
+    featured: false
+  },
+  {
+    id: '5',
+    title: 'Dashboard Analytics SaaS',
+    description: 'Dashboard analytique en temps réel avec graphiques interactifs, exports CSV et système d\'abonnement.',
+    image: 'https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=800',
+    technologies: ['React', 'D3.js', 'FastAPI', 'PostgreSQL'],
+    liveUrl: 'https://analytics-saas.com',
+    githubUrl: 'https://github.com/david/analytics-dashboard',
+    featured: true
   }
 ];
 

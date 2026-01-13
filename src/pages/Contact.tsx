@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import SEO from "../components/common/SEO";
 import {
   Mail,
   Phone,

@@ -215,7 +215,7 @@ export default function Backup() {
     }
   };
 
-  const handleDownload = (backup: any) => {
+  const handleDownload = (backup: { name: string; date: string; [key: string]: unknown }) => {
     // Simulation de téléchargement
     const link = document.createElement("a");
     link.href = `data:application/json;charset=utf-8,${encodeURIComponent(

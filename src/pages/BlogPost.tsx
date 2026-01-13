@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAppContext } from '../context/AppContext';
@@ -6,7 +6,6 @@ import {
   Calendar,
   Clock,
   ArrowLeft,
-  Share2,
   Tag,
   User,
   ArrowRight,

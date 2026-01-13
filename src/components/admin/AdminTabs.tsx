@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import AdminDashboard from "../../pages/admin/AdminDashboard";
 import BlogPost from "../../pages/admin/BlogPost";
-import ProjectsManagemenet from "../../pages/admin/ProjectsManagemenet";
+import ProjectsManagement from "../../pages/admin/ProjectsManagement";
 import Media from "../../pages/admin/Media";
 import Analytics from "../../pages/admin/Analytics";
 import Messages from "../../pages/admin/Messages";
@@ -21,7 +21,7 @@ function AdminTabs() {
       case "posts":
         return <BlogPost />;
       case "projects":
-        return <ProjectsManagemenet />;
+        return <ProjectsManagement />;
       case "media":
         return <Media />;
       case "analytics":

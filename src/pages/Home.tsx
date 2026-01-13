@@ -19,12 +19,16 @@ const Home = () => {
   const featuredPosts = blogPosts.filter((p) => p.featured).slice(0, 2);
 
   const skills = [
-    { name: "React", level: 95, color: "bg-blue-500" },
+    { name: "React/Next.js", level: 95, color: "bg-blue-500" },
     { name: "TypeScript", level: 90, color: "bg-blue-600" },
-    { name: "Node.js", level: 85, color: "bg-green-500" },
-    { name: "Python", level: 80, color: "bg-yellow-500" },
-    { name: "PostgreSQL", level: 88, color: "bg-indigo-500" },
-    { name: "AWS", level: 75, color: "bg-orange-500" },
+    { name: "Node.js/Express", level: 88, color: "bg-green-500" },
+    { name: "Vue.js/Nuxt", level: 82, color: "bg-emerald-500" },
+    { name: "PostgreSQL/MongoDB", level: 85, color: "bg-indigo-500" },
+    { name: "Docker/Kubernetes", level: 78, color: "bg-cyan-500" },
+    { name: "AWS/Vercel", level: 80, color: "bg-orange-500" },
+    { name: "Tailwind CSS", level: 92, color: "bg-teal-500" },
+    { name: "GraphQL/REST", level: 87, color: "bg-purple-500" },
+    { name: "Python/FastAPI", level: 75, color: "bg-yellow-500" },
   ];
 
   const services = [
@@ -52,10 +56,10 @@ const Home = () => {
   ];
 
   const stats = [
-    { number: "50+", label: "Projets Réalisés" },
-    { number: "30+", label: "Clients Satisfaits" },
-    { number: "5+", label: "Années d'Expérience" },
-    { number: "100%", label: "Engagement Qualité" },
+    { number: "25+", label: "Projets Livrés" },
+    { number: "15+", label: "Clients Actifs" },
+    { number: "3+", label: "Années d'Expérience" },
+    { number: "98%", label: "Satisfaction Client" },
   ];
 
   return (

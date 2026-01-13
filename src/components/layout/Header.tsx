@@ -19,11 +19,11 @@ const Header = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const downloadCV = () => {
-    // Simulate CV download
+  const downloadCV = (version: 'fr' | 'en' = 'fr') => {
+    // CV réel download
     const link = document.createElement("a");
-    link.href = "/cv.pdf";
-    link.download = "John_Doe_CV.pdf";
+    link.href = version === 'fr' ? "/cv.pdf" : "/cv-en.pdf";
+    link.download = version === 'fr' ? "CV_David.pdf" : "CV_David_EN.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -83,12 +83,24 @@ const Header = () => {
               </Link>
             ))}
 
+
+          </div>
+
+          {/* CV Download Buttons */}
+          <div className="hidden md:flex items-center space-x-3">
             <button
-              onClick={downloadCV}
+              onClick={() => downloadCV('fr')}
               className="inline-flex items-center space-x-2 btn-primary text-sm"
             >
               <Download className="w-4 h-4" />
               <span>Télécharger CV</span>
+            </button>
+            <button
+              onClick={() => downloadCV('en')}
+              className="inline-flex items-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 text-sm"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download CV</span>
             </button>
           </div>
 
@@ -131,16 +143,26 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <div className="pt-2">
+              <div className="pt-2 space-y-2">
                 <button
                   onClick={() => {
-                    downloadCV();
+                    downloadCV('fr');
                     setIsMenuOpen(false);
                   }}
                   className="w-full inline-flex items-center justify-center space-x-2 btn-primary text-sm"
                 >
                   <Download className="w-4 h-4" />
                   <span>Télécharger CV</span>
+                </button>
+                <button
+                  onClick={() => {
+                    downloadCV('en');
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full inline-flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200 text-sm"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download CV</span>
                 </button>
               </div>
             </div>
