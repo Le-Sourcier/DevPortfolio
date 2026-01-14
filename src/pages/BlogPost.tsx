@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useAppContext } from '../context/AppContext';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { atomOneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 import {
   Calendar,
