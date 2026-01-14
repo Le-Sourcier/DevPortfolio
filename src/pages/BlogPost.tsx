@@ -2,9 +2,12 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAppContext } from '../context/AppContext';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
 import {
   Calendar,
-  Clock,
   ArrowLeft,
   Tag,
   User,
@@ -16,8 +19,27 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+const CodeBlock = ({ node, inline, className, children, ...props }: any) => {
+  const match = /language-(\w+)/.exec(className || '');
+  return !inline && match ? (
+    <SyntaxHighlighter
+      style={atomOneDark}
+      language={match[1]}
+      PreTag="div"
+      {...props}
+    >
+      {String(children).replace(/\n$/, '')}
+    </SyntaxHighlighter>
+  ) : (
+    <code className={className} {...props}>
+      {children}
+    </code>
+  );
+};
+
 const BlogPost = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language as 'fr' | 'en';
   const { slug } = useParams();
   const navigate = useNavigate();
   const { blogPosts } = useAppContext();
@@ -28,8 +50,8 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen pt-16 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('blogPost.notFound')}</h1>
-          <Link to="/blog" className="text-blue-600 hover:text-blue-800">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('blogPost.notFound')}</h1>
+          <Link to="/blog" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
             {t('blogPost.backToBlog')}
           </Link>
         </div>
@@ -38,11 +60,11 @@ const BlogPost = () => {
   }
 
   const relatedPosts = blogPosts
-    .filter(p => p.id !== post.id && (p.category === post.category || p.tags.some(tag => post.tags.includes(tag))))
+    .filter(p => p.id !== post.id && (p.tags.some(tag => post.tags.includes(tag))))
     .slice(0, 3);
 
   const shareUrl = window.location.href;
-  const shareTitle = post.title;
+  const shareTitle = post.title[lang];
 
   const handleShare = (platform: string) => {
     let url = '';
@@ -58,13 +80,14 @@ const BlogPost = () => {
         break;
       case 'copy':
         navigator.clipboard.writeText(shareUrl);
+        // Add a small notification if you want
         return;
     }
     window.open(url, '_blank', 'width=600,height=400');
   };
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-16 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Back Navigation */}
         <motion.div
@@ -75,7 +98,7 @@ const BlogPost = () => {
         >
           <button
             onClick={() => navigate(-1)}
-            className="inline-flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-200"
+            className="inline-flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             {t('blogPost.back')}
@@ -90,64 +113,62 @@ const BlogPost = () => {
           className="mb-8"
         >
           <div className="mb-6">
-            <span className="inline-block px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-4">
-              {post.category}
-            </span>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-              {post.title}
+            {post.tags && post.tags.length > 0 && (
+              <span className="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 rounded-full text-sm font-semibold mb-4">
+                {post.tags[0]}
+              </span>
+            )}
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+              {post.title[lang]}
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              {post.excerpt}
+            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+              {post.summary[lang]}
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-200">
-            <div className="flex flex-wrap items-center gap-6 text-gray-600">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex flex-wrap items-center gap-6 text-gray-600 dark:text-gray-400">
               <div className="flex items-center">
                 <User className="w-5 h-5 mr-2" />
-                <span className="font-medium">John Doe</span>
+                <span className="font-medium">{post.author}</span>
               </div>
               <div className="flex items-center">
                 <Calendar className="w-5 h-5 mr-2" />
-                <span>{new Date(post.publishedAt).toLocaleDateString(undefined, {
+                <span>{new Date(post.publishedAt).toLocaleDateString(lang, {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric'
                 })}</span>
               </div>
-              <div className="flex items-center">
-                <Clock className="w-5 h-5 mr-2" />
-                <span>{post.readTime} {t('blog.readingTime')}</span>
-              </div>
             </div>
 
             {/* Share Buttons */}
             <div className="flex items-center space-x-3">
-              <span className="text-gray-600 text-sm font-medium">{t('blogPost.share')}</span>
+              <span className="text-sm font-medium">{t('blogPost.share')}</span>
               <button
                 onClick={() => handleShare('facebook')}
-                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                 title={`${t('blogPost.shareOn')} Facebook`}
               >
                 <Facebook className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare('twitter')}
-                className="p-2 text-gray-600 hover:text-blue-400 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-400 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                 title={`${t('blogPost.shareOn')} Twitter`}
               >
                 <Twitter className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare('linkedin')}
-                className="p-2 text-gray-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                 title={`${t('blogPost.shareOn')} LinkedIn`}
               >
                 <Linkedin className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare('copy')}
-                className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-200"
+                className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                 title={t('blogPost.copyLink')}
               >
                 <Link2 className="w-5 h-5" />
@@ -164,8 +185,8 @@ const BlogPost = () => {
           className="mb-12"
         >
           <img
-            src={post.image}
-            alt={post.title}
+            src={post.imageUrl || 'https://via.placeholder.com/800x400'}
+            alt={post.title[lang]}
             className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-lg"
           />
         </motion.div>
@@ -175,65 +196,14 @@ const BlogPost = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="prose prose-lg max-w-none mb-12"
+          className="prose prose-lg dark:prose-invert max-w-none mb-12"
         >
-          <div className="text-gray-800 leading-relaxed">
-            <p className="text-lg mb-6 first-letter:text-5xl first-letter:font-bold first-letter:text-blue-600 first-letter:float-left first-letter:mr-3 first-letter:mt-1">
-              {post.content}
-            </p>
-            
-            {/* Extended content for demonstration */}
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Introduction</h2>
-            <p className="mb-6">
-              Dans le monde du développement web moderne, la maîtrise de TypeScript avec React est devenue essentielle. 
-              Cette combinaison offre une robustesse et une maintenabilité exceptionnelles pour les applications à grande échelle.
-            </p>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Les avantages clés</h2>
-            <ul className="list-disc list-inside mb-6 space-y-2">
-              <li>Type safety qui prévient de nombreuses erreurs à l'exécution</li>
-              <li>IntelliSense amélioré pour une productivité accrue</li>
-              <li>Refactoring sûr et efficace</li>
-              <li>Documentation vivante du code</li>
-              <li>Meilleure collaboration en équipe</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Mise en pratique</h2>
-            <p className="mb-6">
-              L'implémentation de TypeScript dans un projet React nécessite une approche méthodique. 
-              Commencez par configurer correctement votre environnement de développement, puis migrez 
-              progressivement vos composants existants.
-            </p>
-
-            <div className="bg-gray-50 p-6 rounded-lg mb-6">
-              <h3 className="text-lg font-semibold mb-3">Code Example</h3>
-              <pre className="bg-gray-800 text-green-400 p-4 rounded overflow-x-auto text-sm">
-{`interface Props {
-  title: string;
-  isActive?: boolean;
-  onClick: () => void;
-}
-
-const Button: React.FC<Props> = ({ title, isActive = false, onClick }) => {
-  return (
-    <button
-      className={isActive ? 'active' : 'inactive'}
-      onClick={onClick}
-    >
-      {title}
-    </button>
-  );
-};`}
-              </pre>
-            </div>
-
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Conclusion</h2>
-            <p className="mb-6">
-              L'adoption de TypeScript avec React représente un investissement stratégique pour tout développeur 
-              ou équipe souhaitant créer des applications robustes et maintenables. Les bénéfices à long terme 
-              dépassent largement l'effort d'apprentissage initial.
-            </p>
-          </div>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{ code: CodeBlock }}
+          >
+            {post.content[lang]}
+          </ReactMarkdown>
         </motion.div>
 
         {/* Tags */}

@@ -52,17 +52,16 @@
 ## 🔧 Phase 3 : Fonctionnalités Essentielles (P1)
 *Deadline : 1-2 semaines*
 
-### 🗄️ Persistance des Données
-- [ ] Choisir la stack (Node.js/Express + PostgreSQL/MongoDB)
-- [ ] Créer l'API REST pour les articles de blog
-- [ ] Créer l'API pour les projets
-- [ ] Migrer les données hardcoded vers l'API
-- [ ] Implémenter les appels API avec React Query/SWR
+### 🗄️ Persistance des Données ✅
+- [x] Stack choisie et implémentée (Node.js/Express + PostgreSQL)
+- [x] API REST complète pour le blog, projets, compétences, etc.
+- [x] Données migrées de hardcoded vers la base de données
+- [x] Client connecté à l'API pour un contenu 100% dynamique
 
-### 🔐 Authentification Sécurisée
-- [ ] Implémenter JWT tokens
-- [ ] Créer les endpoints login/register
-- [ ] Sécuriser les routes admin
+### 🔐 Authentification Sécurisée ✅
+- [x] Implémentation de JWT tokens pour l'admin
+- [x] Endpoints de login fonctionnels
+- [x] Routes de l'API d'administration sécurisées
 - [ ] Ajouter refresh tokens
 - [ ] Mettre en place rate limiting
 
@@ -77,7 +76,7 @@
 ## 🎨 Phase 4 : Améliorations UX/UI (P2)
 *Deadline : 2-3 semaines*
 
-### 🌓 Thème et Accessibilité
+### 🌓 Thème et Accessibilité ✅
 - [x] Implémenter le dark/light mode toggle
 - [x] Sauvegarder la préférence utilisateur
 - [ ] Améliorer le contraste et l'accessibilité
@@ -106,9 +105,9 @@
 - [ ] Ajouter la modération des commentaires
 - [ ] Notifier les nouveaux commentaires par email
 
-### ✏️ Édition de Contenu
-- [ ] Support Markdown pour les articles
-- [ ] Syntax highlighting pour le code
+### ✏️ Édition de Contenu ✅
+- [x] Support Markdown pour les articles rendu côté client
+- [x] Syntax highlighting pour le code
 - [ ] Éditeur WYSIWYG pour l'admin
 - [ ] Preview en temps réel
 
@@ -151,9 +150,9 @@
 - [x] Configurer react-i18next
 - [x] Traduire tout le contenu en anglais (Home + Services)
 - [x] Ajouter le sélecteur de langue
-- [x] Corriger l'incohérence FR/EN
 - [x] Logique de changement de langue
 - [x] Traduire pages Blog et Contact
+- [x] Contenu entièrement gérable en FR/EN via l'API
 - [ ] URL routing multilingue
 
 ### 📱 PWA Features

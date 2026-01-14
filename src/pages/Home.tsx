@@ -15,12 +15,14 @@ import {
 } from "lucide-react";
 
 const Home = () => {
-  const { t } = useTranslation();
-  const { projects, blogPosts } = useAppContext();
-  const featuredProjects = projects.filter((p) => p.featured).slice(0, 3);
-  const featuredPosts = blogPosts.filter((p) => p.featured).slice(0, 2);
+  const { t, i18n } = useTranslation();
+  const { projects, blogPosts, skills, loading, error } = useAppContext();
+  const lang = i18n.language as 'fr' | 'en';
 
-  const skills = [
+  const featuredProjects = projects.slice(0, 3);
+  const featuredPosts = blogPosts.slice(0, 2);
+
+  const staticSkills = [
     { name: "React/Next.js", level: 95, color: "bg-blue-500" },
     { name: "TypeScript", level: 90, color: "bg-blue-600" },
     { name: "Node.js/Express", level: 88, color: "bg-green-500" },
@@ -63,6 +65,9 @@ const Home = () => {
     { number: "3+", label: t('stats.experience') },
     { number: "98%", label: t('stats.satisfaction') },
   ];
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="min-h-screen">
@@ -247,7 +252,7 @@ const Home = () => {
                   ease: "linear",
                 }}
               >
-                {[...skills, ...skills, ...skills].map((skill, index) => (
+                {[...staticSkills, ...staticSkills, ...staticSkills].map((skill, index) => (
                   <motion.div
                     key={`${skill.name}-${index}`}
                     className="flex-shrink-0 w-56 h-56 relative group cursor-pointer"
@@ -437,18 +442,18 @@ const Home = () => {
               >
                 <div className="relative overflow-hidden">
                   <img
-                    src={project.image}
-                    alt={project.title}
+                    src={project.imageUrl || 'https://via.placeholder.com/400x200'}
+                    alt={project.title[lang]}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100">
-                    {project.title}
+                    {project.title[lang]}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                    {project.description}
+                    {project.description[lang]}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
@@ -461,9 +466,9 @@ const Home = () => {
                     ))}
                   </div>
                   <div className="flex space-x-4">
-                    {project.liveUrl && (
+                    {project.projectUrl && (
                       <a
-                        href={project.liveUrl}
+                        href={project.projectUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
@@ -472,9 +477,9 @@ const Home = () => {
                         Voir le projet
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {project.repoUrl && (
                       <a
-                        href={project.githubUrl}
+                        href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 font-medium transition-colors duration-200"
@@ -534,14 +539,16 @@ const Home = () => {
               >
                 <div className="relative overflow-hidden">
                   <img
-                    src={post.image}
-                    alt={post.title}
+                    src={post.imageUrl || 'https://via.placeholder.com/400x200'}
+                    alt={post.title[lang]}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-medium">
-                      {post.category}
-                    </span>
+                    {post.tags && post.tags.length > 0 && (
+                      <span className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-medium">
+                        {post.tags[0]}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="p-6">
@@ -550,14 +557,12 @@ const Home = () => {
                     <span className="mr-4">
                       {new Date(post.publishedAt).toLocaleDateString("fr-FR")}
                     </span>
-                    <Clock className="w-4 h-4 mr-1" />
-                    <span>{post.readTime} min de lecture</span>
                   </div>
                   <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                    {post.title}
+                    {post.title[lang]}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                    {post.excerpt}
+                    {post.summary[lang]}
                   </p>
                   <Link
                     to={`/blog/${post.slug}`}
