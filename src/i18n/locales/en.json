@@ -1,10 +1,12 @@
 {
   "common": {
     "home": "Home",
-    "services": "Services", 
+    "services": "Services",
     "blog": "Blog",
     "contact": "Contact",
-    "downloadCV": "Download CV"
+    "downloadCV": "Download CV",
+    "viewAll": "View all",
+    "readMore": "Read more"
   },
   "header": {
     "startProject": "Start a project",
@@ -18,63 +20,96 @@
   },
   "stats": {
     "projects": "Projects Delivered",
-    "clients": "Active Clients", 
-    "experience": "Years Experience",
+    "clients": "Active Clients",
+    "experience": "Years of Experience",
     "satisfaction": "Client Satisfaction"
   },
   "skills": {
     "title": "My Skills",
-    "subtitle": "Mastery of modern technologies for performing solutions"
-  },
-  "home": {
-    "recentProjects": "Recent Projects",
-    "recentProjectsDesc": "Discover some of my most remarkable achievements",
-    "viewAllProjects": "View all projects",
-    "viewProject": "View project",
-    "recentArticles": "Recent Articles",
-    "recentArticlesDesc": "Latest articles on web development and modern technologies",
-    "readMore": "Read more",
-    "publishedOn": "Published on",
-    "viewAllArticles": "View all articles"
+    "subtitle": "Mastery of modern technologies for performant solutions",
+    "technicalExpertise": "Technical Expertise"
   },
   "services": {
-    "title": "Services",
-    "subtitle": "Custom solutions to transform your ideas into reality",
-    "discoverServices": "Discover all services",
-    "pricing": "Price",
-    "duration": "Duration",
+    "title": "My Services",
+    "subtitle": "Complete web and mobile development solutions to turn your ideas into high-performance digital products",
+    "qualityGuaranteed": "Quality guaranteed",
+    "supportIncluded": "Support included",
+    "onTimeDelivery": "On-time delivery",
     "features": "Features",
     "startingFrom": "Starting from",
     "weeks": "weeks",
+    "sendMessage": "Send a message",
     "service1": {
       "title": "Custom Web Development",
       "description": "Professional, modern and high-performance websites tailored to your business",
-      "features": ["React, Next.js, Vue.js", "Responsive & mobile-first design", "SEO optimization", "Web performance (Core Web Vitals)", "WCAG 2.1 Accessibility", "CMS integrations (WordPress, Strapi)"]
+      "features": [
+        "React, Next.js, Vue.js",
+        "Responsive & mobile-first design",
+        "SEO optimization",
+        "Web performance (Core Web Vitals)",
+        "WCAG 2.1 Accessibility",
+        "CMS integrations (WordPress, Strapi)"
+      ]
     },
     "service2": {
       "title": "Complex Web Applications",
       "description": "Full-stack web applications with advanced features and APIs",
-      "features": ["Node.js, Express, TypeScript", "REST & GraphQL architectures", "JWT/OAuth authentication", "Admin dashboard", "Payment systems", "Automated testing"]
+      "features": [
+        "Node.js, Express, TypeScript",
+        "REST & GraphQL architectures",
+        "JWT/OAuth authentication",
+        "Admin dashboard",
+        "Payment systems",
+        "Automated testing"
+      ]
     },
     "service3": {
       "title": "Hybrid Mobile Applications",
       "description": "Cross-platform mobile apps with native experience and optimal performance",
-      "features": ["React Native, Flutter", "iOS & Android", "Push notifications", "Offline mode", "Google Maps & geolocation", "App Stores deployment"]
+      "features": [
+        "React Native, Flutter",
+        "iOS & Android",
+        "Push notifications",
+        "Offline mode",
+        "Google Maps & geolocation",
+        "App Stores deployment"
+      ]
     },
     "service4": {
       "title": "E-commerce & Marketplaces",
       "description": "Online stores and multi-vendor platforms with complete sales management",
-      "features": ["Stripe, PayPal integration", "Inventory management", "Shopping carts & orders", "Advanced filters", "Seller dashboard", "Sales analytics"]
+      "features": [
+        "Stripe, PayPal integration",
+        "Inventory management",
+        "Shopping carts & orders",
+        "Advanced filters",
+        "Seller dashboard",
+        "Sales analytics"
+      ]
     },
     "service5": {
       "title": "DevOps & Infrastructure",
       "description": "Cloud infrastructure setup and CI/CD pipelines for continuous deployment",
-      "features": ["Docker & Kubernetes", "GitHub Actions/GitLab CI", "AWS, Vercel, Netlify", "Monitoring & alerting", "Automated backup", "Auto-scaling"]
+      "features": [
+        "Docker & Kubernetes",
+        "GitHub Actions/GitLab CI",
+        "AWS, Vercel, Netlify",
+        "Monitoring & alerting",
+        "Automated backup",
+        "Auto-scaling"
+      ]
     },
     "service6": {
       "title": "Redesign & Optimization",
       "description": "Modernization of existing websites and technical performance optimization",
-      "features": ["Performance audit", "Code refactoring", "Migration to React/Vue", "Technical SEO optimization", "Security & HTTPS", "Team training"]
+      "features": [
+        "Performance audit",
+        "Code refactoring",
+        "Migration to React/Vue",
+        "Technical SEO optimization",
+        "Security & HTTPS",
+        "Team training"
+      ]
     }
   },
   "process": {
@@ -85,7 +120,7 @@
       "description": "Analysis of your needs and definition of objectives"
     },
     "step2": {
-      "title": "Planning", 
+      "title": "Planning",
       "description": "Creation of specifications and detailed planning"
     },
     "step3": {
@@ -97,20 +132,176 @@
       "description": "Deployment and post-launch support"
     }
   },
-  "testimonials": {
-    "title": "Client Testimonials",
-    "subtitle": "What my clients say about my work"
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Discover some of the projects I've had the pleasure of working on",
+    "featured": "Featured"
   },
-  "faq": {
-    "title": "Frequently Asked Questions",
-    "subtitle": "Answers to the most common questions",
-    "q1": "What is your response time?",
-    "a1": "I typically respond within 24 business hours. For urgent matters, feel free to call me directly.",
-    "q2": "Do you offer free quotes?",
-    "a2": "Yes, I provide detailed free quotes after analyzing your needs during an initial consultation.",
-    "q3": "Do you work remotely?",
-    "a3": "Absolutely! I work with clients throughout France and internationally in remote mode.",
-    "q4": "What are your rates?",
-    "a4": "My rates vary depending on complexity and project duration. I offer packages starting from €2000."
+  "testimonials": {
+    "title": "What my clients say",
+    "subtitle": "Customer satisfaction is my top priority"
+  },
+  "cta": {
+    "title": "Ready to start your project?",
+    "subtitle": "Let's discuss your needs and create a solution that exceeds your expectations together.",
+    "freeQuote": "Request a free quote",
+    "seeAchievements": "See my achievements"
+  },
+  "technicalStats": {
+    "experience": "Years of experience",
+    "projects": "Projects completed",
+    "technologies": "Technologies",
+    "satisfaction": "Client satisfaction"
+  },
+  "home": {
+    "recentProjects": "Recent Projects",
+    "recentProjectsDesc": "Discover some of my most remarkable achievements.",
+    "viewAllProjects": "View all projects",
+    "viewProject": "View project",
+    "sourceCode": "Source code",
+    "recentArticles": "Recent Articles",
+    "recentArticlesDesc": "My latest thoughts on web development.",
+    "readMore": "Read more",
+    "viewAllArticles": "View all articles"
+  },
+  "contact": {
+    "title": "Let's discuss your project",
+    "subtitle": "Ready to bring your ideas to life? Contact me to discuss your needs and create a custom solution together.",
+    "responseIn24h": "Response within 24h",
+    "freeQuote": "Free quote",
+    "sendMessage": "Send a message",
+    "describeProject": "Describe your project in detail",
+    "fullName": "Full name *",
+    "yourName": "Your name",
+    "email": "Email *",
+    "yourEmail": "your@email.com",
+    "company": "Company",
+    "yourCompany": "Your company's name",
+    "service": "Desired service",
+    "selectService": "Select a service",
+    "webDevelopment": "Web Development",
+    "mobileApp": "Mobile App",
+    "backendApi": "Backend & API",
+    "consulting": "Consulting",
+    "maintenance": "Maintenance",
+    "other": "Other",
+    "budget": "Estimated budget",
+    "selectBudget": "Select your budget",
+    "budget1": "$1,000 - $3,000",
+    "budget2": "$3,000 - $5,000",
+    "budget3": "$5,000 - $10,000",
+    "budget4": "$10,000+",
+    "discuss": "To be discussed",
+    "timeline": "Timeline",
+    "desiredTimeline": "Desired timeline",
+    "asap": "As soon as possible",
+    "1month": "Within a month",
+    "2-3months": "2-3 months",
+    "3-6months": "3-6 months",
+    "flexible": "Flexible",
+    "message": "Message *",
+    "describeNeeds": "Describe your project, your goals, and your expectations...",
+    "sending": "Sending...",
+    "messageSent": "Message sent!",
+    "thanksForMessage": "Thank you for your message. I will get back to you as soon as possible.",
+    "autoRedirect": "Automatic redirection...",
+    "contactMeDirectly": "Contact me directly",
+    "emailDescription": "Response within 24h",
+    "phone": "Phone",
+    "phoneDescription": "Mon-Fri 9am-6pm",
+    "location": "Location",
+    "locationDescription": "Available for remote work",
+    "myExpertise": "My areas of expertise",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "database": "Database",
+    "devops": "DevOps",
+    "security": "Security",
+    "availabilityToday": "Availability today",
+    "available": "Available",
+    "busy": "Busy",
+    "timezone": "Timezone: Europe/Paris (UTC+1)",
+    "frequentQuestions": "Frequent questions",
+    "faqSubtitle": "Answers to the most common questions",
+    "faq1_q": "What is your response time?",
+    "faq1_a": "I usually respond within 24 business hours. For urgent matters, feel free to call me directly.",
+    "faq2_q": "Do you offer a free quote?",
+    "faq2_a": "Yes, I offer a detailed free quote after analyzing your needs during a first exchange.",
+    "faq3_q": "Do you work remotely?",
+    "faq3_a": "Absolutely! I work with clients all over France and internationally in remote mode.",
+    "faq4_q": "What are your rates?",
+    "faq4_a": "My rates vary depending on the complexity and duration of the project. I offer packages starting from $2000."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "My thoughts on web development, tech, and more.",
+    "search": "Search articles",
+    "allCategories": "All categories",
+    "noArticlesFound": "No articles found",
+    "backToBlog": "Back to Blog",
+    "by": "By",
+    "publishedOn": "Published on",
+    "readTime": "read",
+    "tags": "Tags",
+    "share": "Share this article"
+  },
+  "footer": {
+    "description": "Passionate Full-Stack Developer creating exceptional web experiences and driving technological innovation.",
+    "navigation": "Navigation",
+    "services": "Services",
+    "webDevelopment": "Web Development",
+    "mobileApps": "Mobile Apps",
+    "techConsulting": "Tech Consulting",
+    "training": "Training",
+    "contact": "Contact",
+    "madeWith": "Made with",
+    "by": "by",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use"
+  },
+  "privacy": {
+    "seo": {
+      "title": "Privacy Policy",
+      "description": "Privacy Policy of the portfolio.",
+      "name": "DevPortfolio - Privacy Policy",
+      "type": "website"
+    },
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: October 26, 2023",
+    "section1": {
+      "title": "1. Information We Collect",
+      "content": "We collect information that you provide to us directly, such as when you contact us through our contact form."
+    },
+    "section2": {
+      "title": "2. How We Use Your Information",
+      "content": "We use the information we collect to operate, maintain, and provide our services, and to communicate with you."
+    },
+    "section3": {
+      "title": "3. Sharing Your Information",
+      "content": "We do not share your personal information with third parties except as described in this Privacy Policy."
+    }
+  },
+  "terms": {
+    "seo": {
+      "title": "Terms of Use",
+      "description": "Terms of Use of the portfolio.",
+      "name": "DevPortfolio - Terms of Use",
+      "type": "website"
+    },
+    "title": "Terms of Use",
+    "lastUpdated": "Last updated: October 26, 2023",
+    "section1": {
+      "title": "1. Acceptance of Terms",
+      "content": "By accessing or using our website, you agree to be bound by these Terms of Use."
+    },
+    "section2": {
+      "title": "2. Use of the Website",
+      "content": "You may use the website for lawful purposes only and in accordance with these Terms of Use."
+    },
+    "section3": {
+      "title": "3. Intellectual Property",
+      "content": "The content of the website, including the text, graphics, and logos, is the property of DevPortfolio and is protected by copyright and other intellectual property laws."
+    }
   }
 }

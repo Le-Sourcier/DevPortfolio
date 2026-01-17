@@ -1,116 +1,309 @@
 {
   "common": {
     "home": "Accueil",
-    "services": "Services", 
+    "services": "Services",
     "blog": "Blog",
     "contact": "Contact",
-    "downloadCV": "Télécharger CV"
+    "downloadCV": "Télécharger CV",
+    "viewAll": "Voir tout",
+    "readMore": "Lire la suite"
   },
   "header": {
     "startProject": "Démarrer un projet",
     "discoverServices": "Découvrir mes services"
   },
   "hero": {
-    "available": "Disponible pour nouveaux projets",
+    "available": "Disponible pour de nouveaux projets",
     "title": "Développeur",
     "titleGradient": "Full-Stack",
     "subtitle": "Je crée des expériences web exceptionnelles et des applications modernes qui transforment vos idées en réalité numérique."
   },
   "stats": {
-    "projects": "Projets Livrés",
-    "clients": "Clients Actifs", 
-    "experience": "Années d'Expérience",
-    "satisfaction": "Satisfaction Client"
+    "projects": "Projets livrés",
+    "clients": "Clients actifs",
+    "experience": "Années d'expérience",
+    "satisfaction": "Satisfaction client"
   },
   "skills": {
-    "title": "Mes Compétences",
-    "subtitle": "Maîtrise des technologies modernes pour des solutions performantes"
-  },
-  "home": {
-    "recentProjects": "Projets Récents",
-    "recentProjectsDesc": "Découvrez quelques-unes de mes réalisations les plus remarquables",
-    "viewAllProjects": "Voir tous les projets",
-    "viewProject": "Voir le projet",
-    "recentArticles": "Articles Récents",
-    "recentArticlesDesc": "Derniers articles sur le développement web et les technologies modernes",
-    "readMore": "Lire la suite",
-    "publishedOn": "Publié le",
-    "viewAllArticles": "Voir tous les articles"
+    "title": "Mes compétences",
+    "subtitle": "Maîtrise des technologies modernes pour des solutions performantes",
+    "technicalExpertise": "Expertise Technique"
   },
   "services": {
-    "title": "Services",
-    "subtitle": "Des solutions sur mesure pour transformer vos idées en réalité",
-    "discoverServices": "Découvrir tous les services",
-    "pricing": "Tarif",
-    "duration": "Durée",
-    "features": "Caractéristiques",
+    "title": "Mes Services",
+    "subtitle": "Des solutions complètes de développement web et mobile pour transformer vos idées en produits numériques performants",
+    "qualityGuaranteed": "Qualité garantie",
+    "supportIncluded": "Support inclus",
+    "onTimeDelivery": "Livraison respectée",
+    "features": "Fonctionnalités",
     "startingFrom": "À partir de",
     "weeks": "semaines",
+    "sendMessage": "Envoyer un message",
     "service1": {
-      "title": "Sites Web Sur Mesure",
-      "description": "Création de sites web professionnels, modernes et performants adaptés à votre activité",
-      "features": ["React, Next.js, Vue.js", "Design responsive & mobile-first", "Optimisation SEO", "Performance web (Core Web Vitals)", "Accessibilité WCAG 2.1", "Intégrations CMS (WordPress, Strapi)"]
+      "title": "Développement Web sur mesure",
+      "description": "Sites web professionnels, modernes et performants, adaptés à votre activité",
+      "features": [
+        "React, Next.js, Vue.js",
+        "Design responsive & mobile-first",
+        "Optimisation SEO",
+        "Performance web (Core Web Vitals)",
+        "Accessibilité WCAG 2.1",
+        "Intégrations CMS (WordPress, Strapi)"
+      ]
     },
     "service2": {
-      "title": "Applications Web Complexes", 
-      "description": "Développement d'applications web full-stack avec fonctionnalités avancées et APIs",
-      "features": ["Node.js, Express, TypeScript", "Architectures REST & GraphQL", "Authentification JWT/OAuth", "Dashboard admin", "Systèmes de paiement", "Tests automatisés"]
+      "title": "Applications Web Complexes",
+      "description": "Applications web full-stack avec fonctionnalités avancées et APIs",
+      "features": [
+        "Node.js, Express, TypeScript",
+        "Architectures REST & GraphQL",
+        "Authentification JWT/OAuth",
+        "Tableau de bord d'administration",
+        "Systèmes de paiement",
+        "Tests automatisés"
+      ]
     },
     "service3": {
       "title": "Applications Mobiles Hybrides",
-      "description": "Applications mobiles cross-platform avec expérience native et performance optimale",
-      "features": ["React Native, Flutter", "iOS & Android", "Notifications push", "Offline mode", "Google Maps & géolocalisation", "App Stores deployment"]
+      "description": "Applications mobiles cross-platform avec expérience native et performances optimales",
+      "features": [
+        "React Native, Flutter",
+        "iOS & Android",
+        "Notifications push",
+        "Mode hors-ligne",
+        "Google Maps & géolocalisation",
+        "Déploiement sur les stores"
+      ]
     },
     "service4": {
       "title": "E-commerce & Marketplaces",
       "description": "Boutiques en ligne et plateformes multi-vendeurs avec gestion complète des ventes",
-      "features": ["Stripe, PayPal intégration", "Gestion des stocks", "Paniers et commandes", "Filtres avancés", "Dashboard vendeur", "Analytics ventes"]
+      "features": [
+        "Intégration Stripe, PayPal",
+        "Gestion des stocks",
+        "Paniers & commandes",
+        "Filtres avancés",
+        "Tableau de bord vendeur",
+        "Analyse des ventes"
+      ]
     },
     "service5": {
       "title": "DevOps & Infrastructure",
-      "description": "Mise en place d'infrastructure cloud et pipelines CI/CD pour le déploiement continu",
-      "features": ["Docker & Kubernetes", "GitHub Actions/GitLab CI", "AWS, Vercel, Netlify", "Monitoring & alerting", "Backup automatisé", "Scaling automatique"]
+      "description": "Mise en place d'infrastructures cloud et de pipelines CI/CD pour un déploiement continu",
+      "features": [
+        "Docker & Kubernetes",
+        "GitHub Actions/GitLab CI",
+        "AWS, Vercel, Netlify",
+        "Monitoring & alertes",
+        "Sauvegarde automatisée",
+        "Auto-scaling"
+      ]
     },
     "service6": {
       "title": "Refonte & Optimisation",
-      "description": "Modernisation de sites existants et optimisation des performances techniques",
-      "features": ["Audit de performance", "Refactoring code", "Migration vers React/Vue", "Optimisation SEO technique", "Sécurité & HTTPS", "Formation équipe"]
+      "description": "Modernisation de sites web existants et optimisation des performances techniques",
+      "features": [
+        "Audit de performance",
+        "Refactoring de code",
+        "Migration vers React/Vue",
+        "Optimisation SEO technique",
+        "Sécurité & HTTPS",
+        "Formation des équipes"
+      ]
     }
   },
   "process": {
-    "title": "Mon Processus de Travail",
-    "subtitle": "Une approche structurée pour garantir le succès de votre projet",
+    "title": "Mon processus de travail",
+    "subtitle": "Une approche structurée pour garantir la réussite de votre projet",
     "step1": {
       "title": "Découverte",
       "description": "Analyse de vos besoins et définition des objectifs"
     },
     "step2": {
-      "title": "Planification", 
-      "description": "Création du cahier des charges et planning détaillé"
+      "title": "Planification",
+      "description": "Création du cahier des charges et planification détaillée"
     },
     "step3": {
       "title": "Développement",
-      "description": "Développement itératif avec feedback régulier"
+      "description": "Développement itératif avec des retours réguliers"
     },
     "step4": {
       "title": "Livraison",
-      "description": "Déploiement et accompagnement post-lancement"
+      "description": "Déploiement et support post-lancement"
     }
   },
-  "testimonials": {
-    "title": "Témoignages Clients",
-    "subtitle": "Ce que mes clients disent de mon travail"
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Découvrez quelques-uns des projets que j'ai eu le plaisir de réaliser",
+    "featured": "En vedette"
   },
-  "faq": {
-    "title": "Questions Fréquentes",
-    "subtitle": "Les réponses aux questions les plus courantes",
-    "q1": "Quel est votre délai de réponse ?",
-    "a1": "Je réponds généralement sous 24h ouvrées. Pour les urgences, n'hésitez pas à m'appeler directement.",
-    "q2": "Proposez-vous un devis gratuit ?",
-    "a2": "Oui, je propose un devis détaillé gratuit après analyse de vos besoins lors d'un premier échange.",
-    "q3": "Travaillez-vous en remote ?",
-    "a3": "Absolument ! Je travaille avec des clients partout en France et à l'international en mode remote.",
-    "q4": "Quels sont vos tarifs ?",
-    "a4": "Mes tarifs varient selon la complexité et la durée du projet. Je propose des forfaits à partir de 2000€."
+  "testimonials": {
+    "title": "Ce que disent mes clients",
+    "subtitle": "La satisfaction client est ma priorité absolue"
+  },
+  "cta": {
+    "title": "Prêt à démarrer votre projet ?",
+    "subtitle": "Discutons de vos besoins et créons ensemble une solution qui dépasse vos attentes.",
+    "freeQuote": "Demander un devis gratuit",
+    "seeAchievements": "Voir mes réalisations",
+    "discussProject": "Démarrer un projet",
+    "discoverServices": "Explorer mes services"
+  },
+  "technicalStats": {
+    "experience": "Années d'expérience",
+    "projects": "Projets réalisés",
+    "technologies": "Technologies",
+    "satisfaction": "Satisfaction client"
+  },
+  "home": {
+    "recentProjects": "Projets Récents",
+    "recentProjectsDesc": "Découvrez quelques-unes de mes réalisations les plus remarquables.",
+    "viewAllProjects": "Voir tous les projets",
+    "viewProject": "Voir le projet",
+    "sourceCode": "Code source",
+    "recentArticles": "Articles Récents",
+    "recentArticlesDesc": "Découvrez mes dernières réflexions sur le développement web.",
+    "readMore": "Lire la suite",
+    "viewAllArticles": "Voir tous les articles"
+  },
+  "contact": {
+    "title": "Discutons de votre projet",
+    "subtitle": "Prêt à donner vie à vos idées ? Contactez-moi pour discuter de vos besoins et créer ensemble une solution sur mesure.",
+    "responseIn24h": "Réponse sous 24h",
+    "freeQuote": "Devis gratuit",
+    "sendMessage": "Envoyer un message",
+    "describeProject": "Décrivez votre projet en détail",
+    "fullName": "Nom complet *",
+    "yourName": "Votre nom",
+    "email": "Email *",
+    "yourEmail": "votre@email.com",
+    "company": "Entreprise",
+    "yourCompany": "Nom de votre entreprise",
+    "service": "Service souhaité",
+    "selectService": "Sélectionnez un service",
+    "webDevelopment": "Développement Web",
+    "mobileApp": "Application Mobile",
+    "backendApi": "Backend & API",
+    "consulting": "Consultation",
+    "maintenance": "Maintenance",
+    "other": "Autre",
+    "budget": "Budget estimé",
+    "selectBudget": "Sélectionnez votre budget",
+    "budget1": "1 000€ - 3 000€",
+    "budget2": "3 000€ - 5 000€",
+    "budget3": "5 000€ - 10 000€",
+    "budget4": "10 000€+",
+    "discuss": "À discuter",
+    "timeline": "Délai",
+    "desiredTimeline": "Délai souhaité",
+    "asap": "Dès que possible",
+    "1month": "Dans le mois",
+    "2-3months": "2-3 mois",
+    "3-6months": "3-6 mois",
+    "flexible": "Flexible",
+    "message": "Message *",
+    "describeNeeds": "Décrivez votre projet, vos objectifs et vos attentes...",
+    "sending": "Envoi en cours...",
+    "messageSent": "Message envoyé !",
+    "thanksForMessage": "Merci pour votre message. Je vous répondrai dans les plus brefs délais.",
+    "autoRedirect": "Redirection automatique...",
+    "contactMeDirectly": "Me contacter directement",
+    "emailDescription": "Réponse sous 24h",
+    "phone": "Téléphone",
+    "phoneDescription": "Lun-Ven 9h-18h",
+    "location": "Localisation",
+    "locationDescription": "Disponible en remote",
+    "myExpertise": "Mes domaines d'expertise",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "mobile": "Mobile",
+    "database": "Base de données",
+    "devops": "DevOps",
+    "security": "Sécurité",
+    "availabilityToday": "Disponibilités aujourd'hui",
+    "available": "Disponible",
+    "busy": "Occupé",
+    "timezone": "Fuseau horaire : Europe/Paris (UTC+1)",
+    "frequentQuestions": "Questions fréquentes",
+    "faqSubtitle": "Les réponses aux questions les plus courantes",
+    "faq1_q": "Quel est votre délai de réponse ?",
+    "faq1_a": "Je réponds généralement sous 24h ouvrées. Pour les urgences, n'hésitez pas à m'appeler directement.",
+    "faq2_q": "Proposez-vous un devis gratuit ?",
+    "faq2_a": "Oui, je propose un devis détaillé gratuit après analyse de vos besoins lors d'un premier échange.",
+    "faq3_q": "Travaillez-vous en remote ?",
+    "faq3_a": "Absolument ! Je travaille avec des clients partout en France et à l'international en mode remote.",
+    "faq4_q": "Quels sont vos tarifs ?",
+    "faq4_a": "Mes tarifs varient selon la complexité et la durée du projet. Je propose des forfaits à partir de 2000€."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Mes réflexions sur le développement web, la technologie et plus encore.",
+    "search": "Rechercher des articles",
+    "allCategories": "Toutes les catégories",
+    "noArticlesFound": "Aucun article trouvé",
+    "backToBlog": "Retour au Blog",
+    "by": "Par",
+    "publishedOn": "Publié le",
+    "readTime": "de lecture",
+    "tags": "Tags",
+    "share": "Partager cet article"
+  },
+  "footer": {
+    "description": "Développeur Full-Stack passionné par la création d'expériences web exceptionnelles et l'innovation technologique.",
+    "navigation": "Navigation",
+    "services": "Services",
+    "webDevelopment": "Développement Web",
+    "mobileApps": "Applications Mobiles",
+    "techConsulting": "Conseil Tech",
+    "training": "Formation",
+    "contact": "Contact",
+    "madeWith": "Fait avec",
+    "by": "par",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfUse": "Conditions d'utilisation"
+  },
+  "privacy": {
+    "seo": {
+      "title": "Politique de confidentialité",
+      "description": "Politique de confidentialité du portfolio.",
+      "name": "DevPortfolio - Politique de confidentialité",
+      "type": "website"
+    },
+    "title": "Politique de confidentialité",
+    "lastUpdated": "Dernière mise à jour : 26 octobre 2023",
+    "section1": {
+      "title": "1. Informations que nous collectons",
+      "content": "Nous collectons les informations que vous nous fournissez directement, par exemple lorsque vous nous contactez via notre formulaire de contact."
+    },
+    "section2": {
+      "title": "2. Comment nous utilisons vos informations",
+      "content": "Nous utilisons les informations que nous collectons pour exploiter, maintenir et fournir nos services, et pour communiquer avec vous."
+    },
+    "section3": {
+      "title": "3. Partage de vos informations",
+      "content": "Nous ne partageons pas vos informations personnelles avec des tiers, sauf tel que décrit dans cette politique de confidentialité."
+    }
+  },
+  "terms": {
+    "seo": {
+      "title": "Conditions d'utilisation",
+      "description": "Conditions d'utilisation du portfolio.",
+      "name": "DevPortfolio - Conditions d'utilisation",
+      "type": "website"
+    },
+    "title": "Conditions d'utilisation",
+    "lastUpdated": "Dernière mise à jour : 26 octobre 2023",
+    "section1": {
+      "title": "1. Acceptation des conditions",
+      "content": "En accédant ou en utilisant notre site web, vous acceptez d'être lié par ces conditions d'utilisation."
+    },
+    "section2": {
+      "title": "2. Utilisation du site web",
+      "content": "Vous pouvez utiliser le site web uniquement à des fins légales et conformément à ces conditions d'utilisation."
+    },
+    "section3": {
+      "title": "3. Propriété intellectuelle",
+      "content": "Le contenu du site web, y compris le texte, les graphiques et les logos, est la propriété de DevPortfolio et est protégé par le droit d'auteur et autres lois sur la propriété intellectuelle."
+    }
   }
 }

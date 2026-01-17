@@ -15,11 +15,17 @@ import {
   Calendar,
 } from "lucide-react";
 import React from "react";
-import { useAppContext } from "../../context/AppContext";
+import {
+  useBlogPosts,
+  useCreateBlogPost,
+  useDeleteBlogPost,
+} from "../../api/blogposts";
 import { useSearchParams } from "react-router-dom";
 
 function BlogPost() {
-  const { blogPosts, addBlogPost, deleteBlogPost } = useAppContext();
+  const { data: apiPosts, isLoading, error } = useBlogPosts();
+  const createPost = useCreateBlogPost();
+  const deletePost = useDeleteBlogPost();
 
   const [editingPost, setEditingPost] = React.useState<string | null>(null);
   const [showNewPostForm, setShowNewPostForm] = React.useState(false);
@@ -52,24 +58,32 @@ function BlogPost() {
 
   const handleAddPost = () => {
     if (newPost.title && newPost.content) {
-      addBlogPost({
-        ...newPost,
-        tags: newPost.tags.split(",").map((tag) => tag.trim()),
-        publishedAt: new Date().toISOString().split("T")[0],
+      const payload = {
+        title: { fr: newPost.title, en: newPost.title },
+        summary: { fr: newPost.excerpt, en: newPost.excerpt },
+        content: { fr: newPost.content, en: newPost.content },
         slug: newPost.slug || newPost.title.toLowerCase().replace(/\s+/g, "-"),
+        author: "Admin",
+        publishedAt: new Date().toISOString(),
+        tags: newPost.tags ? newPost.tags.split(",").map((t) => t.trim()) : [],
+        imageUrl: newPost.image || undefined,
+      } as const;
+      createPost.mutate(payload as any, {
+        onSuccess: () => {
+          setNewPost({
+            title: "",
+            excerpt: "",
+            content: "",
+            slug: "",
+            image: "",
+            category: "",
+            tags: "",
+            readTime: 5,
+            featured: false,
+          });
+          setShowNewPostForm(false);
+        },
       });
-      setNewPost({
-        title: "",
-        excerpt: "",
-        content: "",
-        slug: "",
-        image: "",
-        category: "",
-        tags: "",
-        readTime: 5,
-        featured: false,
-      });
-      setShowNewPostForm(false);
     }
   };
 
@@ -78,8 +92,7 @@ function BlogPost() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="space-y-6"
-    >
+      className="space-y-6">
       <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 p-8">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 space-y-4 lg:space-y-0">
           <div>
@@ -107,8 +120,7 @@ function BlogPost() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white/50"
-            >
+              className="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white/50">
               <option value="all">Tous les articles</option>
               <option value="featured">Articles vedettes</option>
               <option value="draft">Brouillons</option>
@@ -118,8 +130,7 @@ function BlogPost() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowNewPostForm(true)}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
-            >
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center">
               <Plus className="w-5 h-5 mr-2" />
               Nouvel article
             </motion.button>
@@ -132,16 +143,14 @@ function BlogPost() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-8 border border-blue-200 shadow-lg"
-          >
+            className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-8 border border-blue-200 shadow-lg">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-gray-900">
                 Créer un nouvel article
               </h3>
               <button
                 onClick={() => setShowNewPostForm(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-white rounded-lg transition-all duration-200"
-              >
+                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-white rounded-lg transition-all duration-200">
                 <X className="w-6 h-6" />
               </button>
             </div>
@@ -193,8 +202,7 @@ function BlogPost() {
                         category: e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 bg-white/70"
-                  >
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 bg-white/70">
                     <option value="">Sélectionner une catégorie</option>
                     <option value="React">React</option>
                     <option value="JavaScript">JavaScript</option>
@@ -310,16 +318,14 @@ function BlogPost() {
               <div className="flex space-x-4">
                 <button
                   onClick={() => setShowNewPostForm(false)}
-                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors duration-200"
-                >
+                  className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors duration-200">
                   Annuler
                 </button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleAddPost}
-                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
-                >
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center">
                   <Save className="w-5 h-5 mr-2" />
                   Publier l'article
                 </motion.button>
@@ -330,7 +336,28 @@ function BlogPost() {
 
         {/* Enhanced Posts List */}
         <div className="space-y-4">
-          {blogPosts
+          {isLoading && (
+            <div className="py-4 text-center">Chargement des articles...</div>
+          )}
+          {error && (
+            <div className="py-4 text-center text-red-600">
+              Erreur lors du chargement des articles.
+            </div>
+          )}
+          {(Array.isArray(apiPosts) ? apiPosts : [])
+            .map((p) => ({
+              id: p.id,
+              title: p.title?.fr ?? p.slug,
+              excerpt: p.summary?.fr ?? "",
+              content: p.content?.fr ?? "",
+              slug: p.slug,
+              image: p.imageUrl ?? "",
+              category: "Général",
+              tags: p.tags ?? [],
+              publishedAt: p.publishedAt ?? new Date().toISOString(),
+              readTime: 5,
+              featured: false,
+            }))
             .filter(
               (post) =>
                 post.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -343,8 +370,7 @@ function BlogPost() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-              >
+                className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                 <div className="flex items-start space-x-6">
                   <img
                     src={post.image}
@@ -370,8 +396,7 @@ function BlogPost() {
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-all duration-200"
-                        >
+                          className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-all duration-200">
                           <Eye className="w-5 h-5" />
                         </motion.button>
                         <motion.button
@@ -382,16 +407,14 @@ function BlogPost() {
                               editingPost === post.id ? null : post.id
                             )
                           }
-                          className="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-all duration-200"
-                        >
+                          className="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-all duration-200">
                           <Edit3 className="w-5 h-5" />
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          onClick={() => deleteBlogPost(post.id)}
-                          className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-all duration-200"
-                        >
+                          onClick={() => deletePost.mutate(post.id)}
+                          className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-all duration-200">
                           <Trash2 className="w-5 h-5" />
                         </motion.button>
                       </div>
@@ -422,8 +445,7 @@ function BlogPost() {
                         {post.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs"
-                          >
+                            className="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs">
                             #{tag}
                           </span>
                         ))}

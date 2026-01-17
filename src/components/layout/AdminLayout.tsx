@@ -1,12 +1,13 @@
+import React from "react";
 import { motion } from "framer-motion";
-import { useAppContext } from "../../context/AppContext";
+import { useAuthStore } from "../../stores/auth";
+import { useLogin } from "../../api/auth";
 import {
   Plus,
   FileText,
   Folder,
   BarChart3,
   Lock,
-  Unlock,
   TrendingUp,
   Mail,
   Download,
@@ -17,12 +18,15 @@ import { useNavigate } from "react-router-dom";
 import AdminTabs from "../admin/AdminTabs";
 
 const AdminLayout = () => {
-  const { isAdmin, toggleAdmin } = useAppContext();
-
+  const token = useAuthStore((s) => s.token);
+  const clearAuth = useAuthStore((s) => s.clearAuth);
+  const login = useLogin();
   const navigate = useNavigate();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   // Check if user has admin access
-  if (!isAdmin) {
+  if (!token) {
     return (
       <div className="min-h-screen pt-16 flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
         {/* Animated background */}
@@ -42,45 +46,78 @@ const AdminLayout = () => {
           initial={{ opacity: 0, scale: 0.8, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-          className="relative z-10 text-center p-12 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 max-w-md mx-4"
-        >
+          className="relative z-10 text-center p-12 bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 max-w-md mx-4">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-            className="w-20 h-20 bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg"
-          >
+            className="w-20 h-20 bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg">
             <Lock className="w-10 h-10 text-white" />
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-3xl font-bold text-white mb-4"
-          >
+            className="text-3xl font-bold text-white mb-4">
             Accès Administrateur
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
-            className="text-blue-100 mb-8 leading-relaxed"
-          >
+            className="text-blue-100 mb-8 leading-relaxed">
             Cette section est réservée aux administrateurs. Veuillez vous
             connecter pour accéder au panneau d'administration avancé.
           </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleAdmin}
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
-          >
-            <Unlock className="w-5 h-5 mr-3" />
-            Se connecter (Demo)
-          </motion.button>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              login.mutate({ email, password });
+            }}
+            className="space-y-4">
+            <div className="text-left">
+              <label className="block text-sm text-blue-100 mb-1">
+                Email ou Nom d'utilisateur
+              </label>
+              <input
+                className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 text-white placeholder-blue-200 outline-none"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="email ou nom d'utilisateur"
+                required
+              />
+            </div>
+            <div className="text-left">
+              <label className="block text-sm text-blue-100 mb-1">
+                Mot de passe
+              </label>
+              <input
+                className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/20 text-white placeholder-blue-200 outline-none"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center"
+              disabled={login.isPending}>
+              {login.isPending ? "Connexion..." : "Se connecter"}
+            </motion.button>
+            {login.isError && (
+              <div className="text-red-300 text-sm">
+                Échec de connexion. Vérifiez vos identifiants.
+              </div>
+            )}
+          </form>
         </motion.div>
       </div>
     );
@@ -152,7 +189,7 @@ const AdminLayout = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50">
       {/* Enhanced Header */}
 
-      <AdminHeader onClick={toggleAdmin} />
+      <AdminHeader onClick={clearAuth} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex gap-8">
@@ -174,8 +211,7 @@ const AdminLayout = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={action.action}
-                      className={`${action.color} text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col items-center space-y-2`}
-                    >
+                      className={`${action.color} text-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col items-center space-y-2`}>
                       <action.icon className="w-6 h-6" />
                       <span className="text-xs font-medium text-center">
                         {action.label}
@@ -197,13 +233,11 @@ const AdminLayout = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200"
-                    >
+                      className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors duration-200">
                       <div
                         className={`w-8 h-8 rounded-lg flex items-center justify-center ${activity.color
                           .replace("text-", "bg-")
-                          .replace("-600", "-100")}`}
-                      >
+                          .replace("-600", "-100")}`}>
                         <activity.icon
                           className={`w-4 h-4 ${activity.color}`}
                         />

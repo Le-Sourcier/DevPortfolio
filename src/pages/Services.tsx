@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { useAppContext } from '../context/AppContext';
-import { useTranslation } from 'react-i18next';
-import SEO from '../components/common/SEO';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { useProjects } from "../api/projects";
+import { useTranslation } from "react-i18next";
+import SEO from "../components/common/SEO";
 import {
   Globe,
   Smartphone,
@@ -18,116 +18,126 @@ import {
   Github,
   Calendar,
   DollarSign,
-  MessageSquare
-} from 'lucide-react';
+  MessageSquare,
+} from "lucide-react";
 
 const Services = () => {
   const { t } = useTranslation();
-  const { projects } = useAppContext();
+  const { data: apiProjects, isLoading, error } = useProjects();
+  const projects = (apiProjects || []).map((p) => ({
+    id: p.id,
+    title: p.title?.fr ?? "Projet",
+    description: p.description?.fr ?? "",
+    image: p.imageUrl ?? "",
+    technologies: p.technologies ?? [],
+    liveUrl: p.projectUrl,
+    githubUrl: p.repoUrl,
+    featured: false,
+  }));
 
   const services = [
     {
       icon: Globe,
-      titleKey: 'services.service1.title',
-      descriptionKey: 'services.service1.description',
-      featuresKey: 'services.service1.features',
+      titleKey: "services.service1.title",
+      descriptionKey: "services.service1.description",
+      featuresKey: "services.service1.features",
       price: 2000,
-      duration: '3-6',
-      color: 'from-blue-500 to-blue-600'
+      duration: "3-6",
+      color: "from-blue-500 to-blue-600",
     },
     {
       icon: Code2,
-      titleKey: 'services.service2.title',
-      descriptionKey: 'services.service2.description',
-      featuresKey: 'services.service2.features',
+      titleKey: "services.service2.title",
+      descriptionKey: "services.service2.description",
+      featuresKey: "services.service2.features",
       price: 4000,
-      duration: '6-12',
-      color: 'from-green-500 to-green-600'
+      duration: "6-12",
+      color: "from-green-500 to-green-600",
     },
     {
       icon: Smartphone,
-      titleKey: 'services.service3.title',
-      descriptionKey: 'services.service3.description',
-      featuresKey: 'services.service3.features',
+      titleKey: "services.service3.title",
+      descriptionKey: "services.service3.description",
+      featuresKey: "services.service3.features",
       price: 5000,
-      duration: '8-16',
-      color: 'from-purple-500 to-purple-600'
+      duration: "8-16",
+      color: "from-purple-500 to-purple-600",
     },
     {
       icon: Database,
-      titleKey: 'services.service4.title',
-      descriptionKey: 'services.service4.description',
-      featuresKey: 'services.service4.features',
+      titleKey: "services.service4.title",
+      descriptionKey: "services.service4.description",
+      featuresKey: "services.service4.features",
       price: 3500,
-      duration: '6-10',
-      color: 'from-orange-500 to-orange-600'
+      duration: "6-10",
+      color: "from-orange-500 to-orange-600",
     },
     {
       icon: Cloud,
-      titleKey: 'services.service5.title',
-      descriptionKey: 'services.service5.description',
-      featuresKey: 'services.service5.features',
+      titleKey: "services.service5.title",
+      descriptionKey: "services.service5.description",
+      featuresKey: "services.service5.features",
       price: 1500,
-      duration: '2-4',
-      color: 'from-teal-500 to-teal-600'
+      duration: "2-4",
+      color: "from-teal-500 to-teal-600",
     },
     {
       icon: Shield,
-      titleKey: 'services.service6.title',
-      descriptionKey: 'services.service6.description',
-      featuresKey: 'services.service6.features',
+      titleKey: "services.service6.title",
+      descriptionKey: "services.service6.description",
+      featuresKey: "services.service6.features",
       price: 1800,
-      duration: '2-5',
-      color: 'from-red-500 to-red-600'
-    }
+      duration: "2-5",
+      color: "from-red-500 to-red-600",
+    },
   ];
 
   const processSteps = [
     {
-      number: '01',
-      titleKey: 'process.step1.title',
-      descriptionKey: 'process.step1.description',
-      icon: MessageSquare
+      number: "01",
+      titleKey: "process.step1.title",
+      descriptionKey: "process.step1.description",
+      icon: MessageSquare,
     },
     {
-      number: '02',
-      titleKey: 'process.step2.title',
-      descriptionKey: 'process.step2.description',
-      icon: Calendar
+      number: "02",
+      titleKey: "process.step2.title",
+      descriptionKey: "process.step2.description",
+      icon: Calendar,
     },
     {
-      number: '03',
-      titleKey: 'process.step3.title',
-      descriptionKey: 'process.step3.description',
-      icon: Code2
+      number: "03",
+      titleKey: "process.step3.title",
+      descriptionKey: "process.step3.description",
+      icon: Code2,
     },
     {
-      number: '04',
-      titleKey: 'process.step4.title',
-      descriptionKey: 'process.step4.description',
-      icon: Zap
-    }
+      number: "04",
+      titleKey: "process.step4.title",
+      descriptionKey: "process.step4.description",
+      icon: Zap,
+    },
   ];
 
   const testimonials = [
     {
-      name: 'Sarah Martin',
-      company: 'TechStart',
+      name: "Sarah Martin",
+      company: "TechStart",
       rating: 5,
-      text: 'Travail exceptionnel ! L\'application développée a dépassé toutes nos attentes. Communication parfaite tout au long du projet.'
+      text: "Travail exceptionnel ! L'application développée a dépassé toutes nos attentes. Communication parfaite tout au long du projet.",
     },
     {
-      name: 'Thomas Dubois',
-      company: 'E-Commerce Plus',
+      name: "Thomas Dubois",
+      company: "E-Commerce Plus",
       rating: 5,
-      text: 'Très professionnel et réactif. L\'API développée gère parfaitement notre trafic important. Je recommande vivement !'
+      text: "Très professionnel et réactif. L'API développée gère parfaitement notre trafic important. Je recommande vivement !",
     },
     {
-      name: 'Marie Leroy',
-      company: 'StartupTech',
+      name: "Marie Leroy",
+      company: "StartupTech",
       rating: 5,
-      text: 'Excellent développeur ! Il a su comprendre nos besoins spécifiques et livrer une solution parfaitement adaptée.'
-    }
+      text: "Excellent développeur ! Il a su comprendre nos besoins spécifiques et livrer une solution parfaitement adaptée.",
+    },
   ];
 
   return (
@@ -135,7 +145,14 @@ const Services = () => {
       <SEO
         title="Services"
         description="Services de développement web et mobile. Création d'applications React, API Node.js, applications mobiles et consultation technique."
-        keywords={['services', 'développement web', 'application mobile', 'API', 'consultation', 'freelance']}
+        keywords={[
+          "services",
+          "développement web",
+          "application mobile",
+          "API",
+          "consultation",
+          "freelance",
+        ]}
         url="/services"
       />
       {/* Hero Section */}
@@ -145,14 +162,13 @@ const Services = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center"
-          >
+            className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
               Mes <span className="text-gradient">Services</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Des solutions complètes de développement web et mobile pour transformer 
-              vos idées en produits numériques performants
+              Des solutions complètes de développement web et mobile pour
+              transformer vos idées en produits numériques performants
             </p>
             <div className="flex justify-center space-x-8 text-sm text-gray-500">
               <div className="flex items-center">
@@ -183,45 +199,60 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover-lift group"
-              >
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover-lift group">
                 <div className="flex items-start space-x-4">
-                  <div className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                  <div
+                    className={`w-16 h-16 bg-gradient-to-r ${service.color} rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                     <service.icon className="w-8 h-8 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold mb-3 text-gray-900">{t(service.titleKey)}</h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{t(service.descriptionKey)}</p>
+                    <h3 className="text-2xl font-bold mb-3 text-gray-900">
+                      {t(service.titleKey)}
+                    </h3>
+                    <p className="text-gray-600 mb-4 leading-relaxed">
+                      {t(service.descriptionKey)}
+                    </p>
                   </div>
                 </div>
-                
+
                 <div className="mt-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">{t('services.features')}</h4>
+                  <h4 className="font-semibold text-gray-900 mb-3">
+                    {t("services.features")}
+                  </h4>
                   <div className="grid grid-cols-2 gap-2 mb-6">
-                    {(t(service.featuresKey) as unknown as string[]).map((feature: string, featureIndex: number) => (
-                      <div key={featureIndex} className="flex items-center text-gray-700">
+                    {(
+                      t(service.featuresKey, {
+                        returnObjects: true,
+                      }) as string[]
+                    ).map((feature: string, featureIndex: number) => (
+                      <div
+                        key={featureIndex}
+                        className="flex items-center text-gray-700">
                         <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                         <span className="text-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
-                  
+
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                     <div className="space-y-1">
                       <div className="flex items-center text-gray-600">
                         <DollarSign className="w-4 h-4 mr-1" />
-                        <span className="font-semibold text-blue-600">{t('services.startingFrom')} {service.price}€</span>
+                        <span className="font-semibold text-blue-600">
+                          {t("services.startingFrom")} {service.price}€
+                        </span>
                       </div>
                       <div className="flex items-center text-gray-600 text-sm">
                         <Calendar className="w-4 h-4 mr-1" />
-                        <span>{service.duration} {t('services.weeks')}</span>
+                        <span>
+                          {service.duration} {t("services.weeks")}
+                        </span>
                       </div>
                     </div>
                     <Link
                       to="/contact"
-                      className="inline-flex items-center btn-primary text-sm"
-                    >
-                      {t('contact.sendMessage')}
+                      className="inline-flex items-center btn-primary text-sm">
+                      {t("contact.sendMessage")}
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </div>
@@ -240,13 +271,12 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+            className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-              {t('process.title')}
+              {t("process.title")}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {t('process.subtitle')}
+              {t("process.subtitle")}
             </p>
           </motion.div>
 
@@ -258,18 +288,23 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="text-center group"
-              >
+                className="text-center group">
                 <div className="relative mb-6">
                   <div className="w-20 h-20 bg-white rounded-2xl shadow-lg mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <step.icon className="w-10 h-10 text-blue-600" />
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">{step.number}</span>
+                    <span className="text-white text-sm font-bold">
+                      {step.number}
+                    </span>
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-900">{t(step.titleKey)}</h3>
-                <p className="text-gray-600 leading-relaxed">{t(step.descriptionKey)}</p>
+                <h3 className="text-xl font-bold mb-3 text-gray-900">
+                  {t(step.titleKey)}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {t(step.descriptionKey)}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -284,16 +319,24 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+            className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-              {t('home.recentProjects')}
+              {t("home.recentProjects")}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez quelques-uns des projets que j'ai eu le plaisir de réaliser
+              Découvrez quelques-uns des projets que j'ai eu le plaisir de
+              réaliser
             </p>
           </motion.div>
 
+          {isLoading && (
+            <div className="py-10 text-center">Chargement des projets...</div>
+          )}
+          {error && (
+            <div className="py-10 text-center text-red-600">
+              Erreur lors du chargement des projets.
+            </div>
+          )}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.div
@@ -302,11 +345,10 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover-lift group"
-              >
+                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover-lift group">
                 <div className="relative overflow-hidden">
-                  <img 
-                    src={project.image} 
+                  <img
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -321,11 +363,17 @@ const Services = () => {
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">{project.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900">
+                    {project.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech) => (
-                      <span key={tech} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
                         {tech}
                       </span>
                     ))}
@@ -336,8 +384,7 @@ const Services = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200"
-                      >
+                        className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors duration-200">
                         <ExternalLink className="w-4 h-4 mr-1" />
                         Voir le projet
                       </a>
@@ -347,8 +394,7 @@ const Services = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
-                      >
+                        className="flex items-center text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200">
                         <Github className="w-4 h-4 mr-1" />
                         Code source
                       </a>
@@ -369,8 +415,7 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+            className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
               Ce que disent mes clients
             </h2>
@@ -387,19 +432,25 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
-              >
+                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                 <div className="flex mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    <Star
+                      key={i}
+                      className="w-5 h-5 text-yellow-400 fill-current"
+                    />
                   ))}
                 </div>
                 <blockquote className="text-gray-700 mb-6 leading-relaxed">
                   "{testimonial.text}"
                 </blockquote>
                 <div>
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-blue-600 text-sm">{testimonial.company}</div>
+                  <div className="font-semibold text-gray-900">
+                    {testimonial.name}
+                  </div>
+                  <div className="text-blue-600 text-sm">
+                    {testimonial.company}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -414,19 +465,23 @@ const Services = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
+            viewport={{ once: true }}>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Prêt à démarrer votre projet ?
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-              Discutons de vos besoins et créons ensemble une solution qui dépasse vos attentes
+              Discutons de vos besoins et créons ensemble une solution qui
+              dépasse vos attentes
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact" className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105">
+              <Link
+                to="/contact"
+                className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105">
                 Demander un devis gratuit
               </Link>
-              <Link to="/" className="border-2 border-white text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 hover:bg-white hover:text-blue-600">
+              <Link
+                to="/"
+                className="border-2 border-white text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 hover:bg-white hover:text-blue-600">
                 Voir mes réalisations
               </Link>
             </div>
