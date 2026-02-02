@@ -161,17 +161,17 @@ const Contact = () => {
         url="/contact"
       />
 
-      {/* Hero Section - starts from top, under the header */}
-      <section className="relative pt-28 lg:pt-36 pb-20 lg:pb-28 overflow-hidden">
+      {/* Hero Section - immersive, extends behind header */}
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         {/* Background - extends beyond section to cover header area */}
-        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
-        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-[url('/grid-pattern-white.svg')] opacity-10" />
+        <div className="absolute inset-0 -top-20 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
+        <div className="absolute inset-0 -top-20 bg-[url('/grid-pattern-white.svg')] opacity-10" />
 
         {/* Floating shapes */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 py-20">
           <div className="max-w-4xl mx-auto text-center text-white">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

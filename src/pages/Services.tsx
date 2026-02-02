@@ -257,18 +257,18 @@ const Services = () => {
         url="/services"
       />
 
-      {/* Hero Section - starts from top, under the header */}
-      <section className="relative pt-32 lg:pt-40 pb-24 lg:pb-32 overflow-hidden">
+      {/* Hero Section - immersive, extends behind header */}
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background - extends beyond section to cover header area */}
-        <div className="absolute -top-32 left-0 right-0 bottom-0 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900" />
-        <div className="absolute -top-32 left-0 right-0 bottom-0 bg-[url('/grid-pattern-white.svg')] opacity-5" />
+        <div className="absolute inset-0 -top-20 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900" />
+        <div className="absolute inset-0 -top-20 bg-[url('/grid-pattern-white.svg')] opacity-5" />
 
         {/* Animated blobs */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-full blur-3xl" />
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 py-20">
           <div className="max-w-4xl mx-auto text-center text-white">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
