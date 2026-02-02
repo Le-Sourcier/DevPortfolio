@@ -1,10 +1,15 @@
-import { LogOut, Menu } from "lucide-react";
+import { LogOut, Menu, Sun, Moon, Monitor } from "lucide-react";
+import { useTheme } from "../../context/ThemeContext";
 
 interface AdminHeaderProps {
   onClick: () => void;
 }
 
 function AdminHeader({ onClick }: AdminHeaderProps) {
+  const { theme, toggleTheme } = useTheme();
+
+  const ThemeIcon = theme === "light" ? Sun : theme === "dark" ? Moon : Monitor;
+
   return (
     <header className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50">
       <div className="h-16 px-6 flex items-center justify-between">
@@ -43,6 +48,15 @@ function AdminHeader({ onClick }: AdminHeaderProps) {
               En ligne
             </span>
           </div>
+
+          {/* Theme toggle button */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            title={`Thème: ${theme === "light" ? "Clair" : theme === "dark" ? "Sombre" : "Système"}`}
+          >
+            <ThemeIcon className="w-5 h-5" />
+          </button>
 
           {/* Logout button */}
           <button

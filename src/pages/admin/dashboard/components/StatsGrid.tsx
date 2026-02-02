@@ -16,7 +16,7 @@ const statsConfig = [
 
 export function StatsGrid({ stats }: StatsGridProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl">
       {statsConfig.map((config, index) => (
         <StatCard
           key={config.key}

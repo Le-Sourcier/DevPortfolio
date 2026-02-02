@@ -82,17 +82,30 @@ export interface Project {
   updatedAt?: string;
 }
 
+// BlogPost Categories
+export type BlogCategory = 'tutorial' | 'news' | 'project' | 'thoughts';
+export type BlogStatus = 'draft' | 'published';
+
+export const BLOG_CATEGORIES: { value: BlogCategory; labelFr: string; labelEn: string }[] = [
+  { value: 'tutorial', labelFr: 'Tutoriel', labelEn: 'Tutorial' },
+  { value: 'news', labelFr: 'Actualité', labelEn: 'News' },
+  { value: 'project', labelFr: 'Projet', labelEn: 'Project' },
+  { value: 'thoughts', labelFr: 'Réflexion', labelEn: 'Thoughts' },
+];
+
 // BlogPost Interface
 export interface BlogPost {
   id: string;
   title: LocalizedString;
   slug: string;
+  category: BlogCategory;
   summary: LocalizedString;
   content: LocalizedString;
   author: string;
   publishedAt: string;
   tags: string[];
   imageUrl?: string;
+  status: BlogStatus;
   createdAt?: string;
   updatedAt?: string;
 }

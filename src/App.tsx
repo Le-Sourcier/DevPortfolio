@@ -14,6 +14,7 @@ import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/dashboard";
 import AdminProjects from "./pages/admin/ProjectsManagement";
 import AdminBlogPosts from "./pages/admin/BlogPost";
+import AdminBlogPostEdit from "./pages/admin/BlogPostEdit";
 import AdminMessages from "./pages/admin/Messages";
 import AdminSettings from "./pages/admin/Settings";
 import AdminSkills from "./pages/admin/SkillsManagement";
@@ -44,6 +45,7 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="projects" element={<AdminProjects />} />
           <Route path="posts" element={<AdminBlogPosts />} />
+          <Route path="posts/:id" element={<AdminBlogPostEdit />} />
           <Route path="skills" element={<AdminSkills />} />
           <Route path="experiences" element={<AdminExperiences />} />
           <Route path="education" element={<AdminEducation />} />

@@ -18,7 +18,7 @@ export function StatCard({ title, value, icon: Icon, link, index }: StatCardProp
       transition={{ delay: index * 0.06, duration: 0.4, ease: "easeOut" }}
     >
       <Link to={link} className="block group">
-        <div className="relative bg-white dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-100/80 dark:border-gray-800/80 transition-all duration-300 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-900/50 hover:border-gray-200 dark:hover:border-gray-700 hover:-translate-y-0.5">
+        <div className="relative bg-white dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl p-5 border border-gray-100/80 dark:border-gray-800/80 transition-all duration-300 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-900/50 hover:border-gray-200 dark:hover:border-gray-700 hover:-translate-y-0.5 max-w-[200px]">
           {/* Subtle gradient overlay */}
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gray-50/50 to-transparent dark:from-gray-800/30 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 

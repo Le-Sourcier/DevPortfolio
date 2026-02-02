@@ -8,16 +8,21 @@ export interface ApiResponse<T = any> {
 export type Locale = "fr" | "en";
 export type Localized<T = string> = Record<Locale, T>;
 
+export type BlogCategory = 'tutorial' | 'news' | 'project' | 'thoughts';
+export type BlogStatus = 'draft' | 'published';
+
 export interface BlogPost {
   id: string;
   title: Localized<string>;
   slug: string;
+  category: BlogCategory;
   summary: Localized<string>;
   content: Localized<string>;
   author: string;
   publishedAt: string;
   tags: string[];
   imageUrl?: string;
+  status: BlogStatus;
 }
 
 export interface Project {

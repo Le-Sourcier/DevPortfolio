@@ -78,7 +78,7 @@ export default function AdminSideBar() {
                     className={`
                       flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200
                       ${isActive
-                        ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900"
+                        ? "bg-gray-900 dark:bg-gray-700 text-white"
                         : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
                       }
                     `}
