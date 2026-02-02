@@ -24,7 +24,7 @@ export default function AdminDashboard() {
   const totalContent = stats.posts + stats.projects;
 
   return (
-    <div className="space-y-6 pb-8">
+    <div className="max-w-6xl mx-auto space-y-8 pb-12">
       <WelcomeHeader
         totalContent={totalContent}
         completionPercent={completionPercent}
@@ -32,9 +32,13 @@ export default function AdminDashboard() {
 
       <StatsGrid stats={stats} />
 
-      <div className="grid lg:grid-cols-2 gap-6">
-        <RecentActivity activities={recentActivity} />
-        <QuickActions />
+      <div className="grid lg:grid-cols-5 gap-6">
+        <div className="lg:col-span-3">
+          <RecentActivity activities={recentActivity} />
+        </div>
+        <div className="lg:col-span-2">
+          <QuickActions />
+        </div>
       </div>
 
       <ProfileCompletion

@@ -7,18 +7,18 @@ const AdminLayout = () => {
   const clearAuth = useAuthStore((s) => s.clearAuth);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50/50 dark:bg-gray-950">
       <AdminHeader onClick={clearAuth} />
 
-      <div className="flex h-[calc(100vh-64px)] overflow-hidden">
+      <div className="flex h-[calc(100vh-64px)]">
         {/* Sidebar */}
-        <aside className="w-64 flex-shrink-0 border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 overflow-y-auto hidden md:block">
+        <div className="w-60 flex-shrink-0 hidden lg:block">
           <AdminSideBar />
-        </aside>
+        </div>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50 dark:bg-gray-950">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 overflow-y-auto">
+          <div className="p-6 lg:p-8">
             <Outlet />
           </div>
         </main>
