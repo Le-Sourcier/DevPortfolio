@@ -250,18 +250,18 @@ const Services = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen">
       <SEO
         title="Services"
         description="Services de développement web, mobile et architecture logicielle."
         url="/services"
       />
 
-      {/* Hero Section - Dark Gradient like Home/Contact */}
-      <section className="relative py-24 lg:py-32 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900" />
-        <div className="absolute inset-0 bg-[url('/grid-pattern-white.svg')] opacity-5" />
+      {/* Hero Section - starts from top, under the header */}
+      <section className="relative pt-32 lg:pt-40 pb-24 lg:pb-32 overflow-hidden">
+        {/* Background - extends beyond section to cover header area */}
+        <div className="absolute -top-32 left-0 right-0 bottom-0 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900" />
+        <div className="absolute -top-32 left-0 right-0 bottom-0 bg-[url('/grid-pattern-white.svg')] opacity-5" />
 
         {/* Animated blobs */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse" />

@@ -111,18 +111,18 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen">
       <SEO
         title={settings?.seoTitle?.[lang] || "Portfolio"}
         description={settings?.seoDescription?.[lang] || "Développeur Full Stack"}
         url="/"
       />
 
-      {/* Hero Section */}
+      {/* Hero Section - starts from top, under the header */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900" />
-        <div className="absolute inset-0 bg-[url('/grid-pattern-white.svg')] opacity-5" />
+        {/* Background - extends beyond section to cover header area */}
+        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900" />
+        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-[url('/grid-pattern-white.svg')] opacity-5" />
 
         {/* Animated blobs */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl animate-pulse" />

@@ -133,17 +133,18 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen">
       <SEO
         title="Blog"
         description="Articles sur le développement web, React, et l'écosystème Tech."
         url="/blog"
       />
 
-      {/* Hero Section */}
-      <section className="relative py-20 lg:py-28 overflow-hidden bg-gradient-to-br from-gray-900 via-emerald-900 to-blue-900">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-[url('/grid-pattern-white.svg')] opacity-5" />
+      {/* Hero Section - starts from top, under the header */}
+      <section className="relative pt-28 lg:pt-36 pb-20 lg:pb-28 overflow-hidden">
+        {/* Background - extends beyond section to cover header area */}
+        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-gradient-to-br from-gray-900 via-emerald-900 to-blue-900" />
+        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-[url('/grid-pattern-white.svg')] opacity-5" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-500/30 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-emerald-600/10 to-blue-600/10 rounded-full blur-3xl" />

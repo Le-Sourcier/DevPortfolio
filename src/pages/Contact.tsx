@@ -154,18 +154,18 @@ const Contact = () => {
   const canProceedStep2 = formData.projectType;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen">
       <SEO
         title="Contact"
         description="Contactez-moi pour discuter de votre projet web ou mobile."
         url="/contact"
       />
 
-      {/* Hero Section */}
-      <section className="relative py-20 lg:py-28 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
-        <div className="absolute inset-0 bg-[url('/grid-pattern-white.svg')] opacity-10" />
+      {/* Hero Section - starts from top, under the header */}
+      <section className="relative pt-28 lg:pt-36 pb-20 lg:pb-28 overflow-hidden">
+        {/* Background - extends beyond section to cover header area */}
+        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
+        <div className="absolute -top-20 left-0 right-0 bottom-0 bg-[url('/grid-pattern-white.svg')] opacity-10" />
 
         {/* Floating shapes */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl" />

@@ -3,20 +3,18 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Menu, X, Code2, Download, Moon, Sun, Search, Monitor, Globe } from "lucide-react";
+import { Menu, X, Code2, Download, Moon, Sun, Search, Monitor, Globe, Command } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext";
 import { useSiteSettings } from "../../api/settings";
 
 // Theme Toggle Button Component with professional animation
-const ThemeToggleButton = ({ className = "" }: { className?: string }) => {
+const ThemeToggleButton = ({ transparent = false, className = "" }: { transparent?: boolean; className?: string }) => {
   const { theme, toggleTheme, isTransitioning } = useTheme();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // Pass the event to toggleTheme for click position capture
     toggleTheme(e);
   };
 
-  // Icon variants for smooth transitions
   const iconVariants = {
     initial: { scale: 0, rotate: -180, opacity: 0 },
     animate: { scale: 1, rotate: 0, opacity: 1 },
@@ -49,11 +47,13 @@ const ThemeToggleButton = ({ className = "" }: { className?: string }) => {
     <button
       onClick={handleClick}
       disabled={isTransitioning}
-      className={`relative p-2.5 rounded-xl text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white
-        bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700
-        transition-all duration-300 hover:scale-105 active:scale-95
+      className={`relative p-2.5 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95
         disabled:opacity-50 disabled:cursor-not-allowed
-        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950
+        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+        ${transparent
+          ? "text-white/80 hover:text-white bg-white/10 hover:bg-white/20 focus:ring-offset-transparent"
+          : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-950"
+        }
         ${className}`}
       aria-label={getTooltip()}
       title={getTooltip()}
@@ -65,39 +65,42 @@ const ThemeToggleButton = ({ className = "" }: { className?: string }) => {
           initial="initial"
           animate="animate"
           exit="exit"
-          transition={{
-            duration: 0.3,
-            ease: [0.4, 0, 0.2, 1]
-          }}
+          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
         >
           {getIcon()}
         </motion.div>
       </AnimatePresence>
-
-      {/* Subtle glow effect on hover */}
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0
-        hover:from-blue-500/10 hover:via-purple-500/10 hover:to-pink-500/10 transition-all duration-500 pointer-events-none" />
     </button>
   );
 };
 
 const Header = () => {
   const { i18n, t } = useTranslation();
-  const { theme } = useTheme();
   const { data: settings } = useSiteSettings();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
 
+  // Pages with dark hero backgrounds that need transparent header
+  const pagesWithHero = ['/', '/services', '/blog', '/contact'];
+  const currentPath = location.pathname.replace(/\/$/, '') || '/'; // Remove trailing slash
+  const hasHero = pagesWithHero.includes(currentPath);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check initial scroll position
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   // Keyboard shortcut for command palette (Ctrl+K)
   useEffect(() => {
@@ -105,6 +108,9 @@ const Header = () => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setSearchOpen((open) => !open);
+      }
+      if (e.key === "Escape") {
+        setSearchOpen(false);
       }
     };
     document.addEventListener("keydown", down);
@@ -129,40 +135,55 @@ const Header = () => {
 
   if (location.pathname.startsWith("/admin")) return null;
 
+  // Determine if header should be transparent (at top of page with hero)
+  const isTransparent = hasHero && !scrolled && !isMenuOpen;
+
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-          scrolled
-            ? "bg-white/80 dark:bg-gray-950/80 backdrop-blur-md shadow-sm border-gray-200 dark:border-gray-800"
-            : "bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-gray-100 dark:border-gray-900"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isTransparent
+            ? "bg-transparent border-transparent"
+            : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-xl shadow-sm border-b border-gray-200/50 dark:border-gray-800/50"
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-16 lg:h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
-              <div className="p-2 bg-blue-600 rounded-lg group-hover:bg-blue-700 transition-colors">
+            <Link to="/" className="flex items-center space-x-3 group">
+              <div className={`p-2 rounded-xl transition-all duration-300 group-hover:scale-105 ${
+                isTransparent
+                  ? "bg-white/20 backdrop-blur"
+                  : "bg-blue-600 group-hover:bg-blue-700"
+              }`}>
                 <Code2 className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300">
+              <span className={`text-xl font-bold transition-colors duration-300 ${
+                isTransparent
+                  ? "text-white"
+                  : "bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300"
+              }`}>
                 {settings?.siteName || "DevPortfolio"}
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-1">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-blue-400 ${
-                    isActive(item.path)
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-gray-600 dark:text-gray-300"
+                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                    isTransparent
+                      ? isActive(item.path)
+                        ? "text-white bg-white/20"
+                        : "text-white/80 hover:text-white hover:bg-white/10"
+                      : isActive(item.path)
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
                 >
                   {item.label}
@@ -171,28 +192,40 @@ const Header = () => {
             </div>
 
             {/* Right Actions */}
-            <div className="hidden md:flex items-center space-x-3">
+            <div className="hidden md:flex items-center space-x-2">
               {/* Command Palette Trigger */}
               <button
                 onClick={() => setSearchOpen(true)}
-                className="flex items-center px-3 py-1.5 text-sm text-gray-500 bg-gray-100 dark:bg-gray-900 dark:text-gray-300 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors border border-transparent hover:border-gray-300 dark:hover:border-gray-700"
+                className={`flex items-center px-3 py-2 text-sm rounded-xl transition-all duration-300 ${
+                  isTransparent
+                    ? "text-white/80 hover:text-white bg-white/10 hover:bg-white/20"
+                    : "text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+                }`}
               >
-                <Search className="w-3.5 h-3.5 mr-2" />
-                <span className="mr-2">Rechercher...</span>
-                <kbd className="hidden lg:inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                  <span className="text-xs">⌘</span>K
+                <Search className="w-4 h-4 mr-2" />
+                <span className="hidden lg:inline mr-3">Rechercher</span>
+                <kbd className={`hidden lg:inline-flex h-5 items-center gap-1 rounded px-1.5 font-mono text-[10px] font-medium ${
+                  isTransparent
+                    ? "bg-white/20 text-white/70"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                }`}>
+                  ⌘K
                 </kbd>
               </button>
 
-              <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-2" />
+              <div className={`h-6 w-px mx-1 ${isTransparent ? "bg-white/20" : "bg-gray-200 dark:bg-gray-800"}`} />
 
               {/* Theme Toggle */}
-              <ThemeToggleButton />
+              <ThemeToggleButton transparent={isTransparent} />
 
               {/* Language Toggle */}
               <button
-                 onClick={() => i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr')}
-                 className="p-2 text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors font-medium text-sm"
+                onClick={() => i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr')}
+                className={`p-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  isTransparent
+                    ? "text-white/80 hover:text-white bg-white/10 hover:bg-white/20"
+                    : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+                }`}
               >
                 {i18n.resolvedLanguage === 'fr' ? 'EN' : 'FR'}
               </button>
@@ -201,7 +234,11 @@ const Header = () => {
               {settings?.cvUrlFr && (
                 <button
                   onClick={downloadCV}
-                  className="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:scale-105"
+                  className={`ml-2 inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 hover:scale-105 ${
+                    isTransparent
+                      ? "bg-white text-gray-900 hover:bg-gray-100 shadow-lg shadow-white/20"
+                      : "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/25"
+                  }`}
                 >
                   <Download className="w-4 h-4 mr-2" />
                   CV
@@ -210,11 +247,15 @@ const Header = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
-              <ThemeToggleButton className="mr-2" />
+            <div className="md:hidden flex items-center space-x-2">
+              <ThemeToggleButton transparent={isTransparent} />
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                className={`p-2.5 rounded-xl transition-all duration-300 ${
+                  isTransparent
+                    ? "text-white bg-white/10 hover:bg-white/20"
+                    : "text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700"
+                }`}
               >
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -229,17 +270,18 @@ const Header = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950"
+              transition={{ duration: 0.3 }}
+              className="md:hidden bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800"
             >
-              <div className="px-4 pt-2 pb-6 space-y-2">
+              <div className="px-4 py-6 space-y-2">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                       isActive(item.path)
                         ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20"
-                        : "text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-900"
+                        : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900"
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -248,22 +290,22 @@ const Header = () => {
                 ))}
                 <div className="pt-4 flex flex-col gap-3 border-t border-gray-100 dark:border-gray-800 mt-4">
                   <button
-                     onClick={() => {
-                        i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr');
-                        setIsMenuOpen(false);
-                     }}
-                     className="flex items-center px-3 py-2 text-gray-700 dark:text-gray-200"
+                    onClick={() => {
+                      i18n.changeLanguage(i18n.resolvedLanguage === 'fr' ? 'en' : 'fr');
+                      setIsMenuOpen(false);
+                    }}
+                    className="flex items-center px-4 py-3 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900"
                   >
                     <Globe className="w-5 h-5 mr-3" />
                     {i18n.resolvedLanguage === 'fr' ? 'English' : 'Français'}
                   </button>
                   {settings?.cvUrlFr && (
-                     <button
-                       onClick={downloadCV}
-                       className="flex items-center justify-center w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-medium"
-                     >
-                       <Download className="w-4 h-4 mr-2" /> Télécharger CV
-                     </button>
+                    <button
+                      onClick={downloadCV}
+                      className="flex items-center justify-center w-full px-4 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors"
+                    >
+                      <Download className="w-4 h-4 mr-2" /> Télécharger CV
+                    </button>
                   )}
                 </div>
               </div>
@@ -272,41 +314,50 @@ const Header = () => {
         </AnimatePresence>
       </motion.header>
 
-      {/* Command Palette Model (Placeholders) */}
-      {searchOpen && (
-         <div className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-start justify-center pt-[20vh] px-4">
-             <div onClick={() => setSearchOpen(false)} className="absolute inset-0" />
-             <motion.div
-               initial={{ opacity: 0, scale: 0.95 }}
-               animate={{ opacity: 1, scale: 1 }}
-               className="w-full max-w-lg bg-white dark:bg-gray-950 rounded-xl shadow-2xl overflow-hidden relative z-10 border border-gray-200 dark:border-gray-800"
-             >
-                <div className="p-4 border-b border-gray-200 dark:border-gray-800 flex items-center">
-                   <Search className="w-5 h-5 text-gray-400 mr-3" />
-                   <input
-                     autoFocus
-                     placeholder="Rechercher une page, un projet..."
-                     className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-500"
-                   />
-                   <kbd className="ml-2 text-xs text-gray-400 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5">ESC</kbd>
-                </div>
-                <div className="p-2">
-                   <div className="text-xs font-medium text-gray-500 px-2 py-1.5 mb-1 uppercase tracking-wider">Navigation</div>
-                   {navItems.map(item => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        onClick={() => setSearchOpen(false)}
-                        className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
-                      >
-                         <Command className="w-4 h-4 mr-2 text-gray-400" />
-                         {item.label}
-                      </Link>
-                   ))}
-                </div>
-             </motion.div>
-         </div>
-      )}
+      {/* Command Palette */}
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center pt-[15vh] px-4"
+          >
+            <div onClick={() => setSearchOpen(false)} className="absolute inset-0" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-xl bg-white dark:bg-gray-950 rounded-2xl shadow-2xl overflow-hidden relative z-10 border border-gray-200 dark:border-gray-800"
+            >
+              <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex items-center">
+                <Search className="w-5 h-5 text-gray-400 mr-3" />
+                <input
+                  autoFocus
+                  placeholder="Rechercher une page, un projet..."
+                  className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-400 text-lg"
+                />
+                <kbd className="ml-2 text-xs text-gray-400 bg-gray-100 dark:bg-gray-800 rounded px-2 py-1">ESC</kbd>
+              </div>
+              <div className="p-2 max-h-[50vh] overflow-y-auto">
+                <div className="text-xs font-semibold text-gray-400 px-3 py-2 uppercase tracking-wider">Navigation</div>
+                {navItems.map(item => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setSearchOpen(false)}
+                    className="flex items-center px-3 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+                  >
+                    <Command className="w-4 h-4 mr-3 text-gray-400" />
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
