@@ -1,29 +1,24 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Briefcase, MapPin, Calendar } from "lucide-react";
+import { useExperiences, useCreateExperience, useUpdateExperience, useDeleteExperience } from "../../api/experiences";
 import {
-  Plus,
-  Search,
-  Edit2,
-  Trash2,
-  Loader2,
-  Briefcase,
-  MapPin,
-  Calendar,
-  X,
-  Check,
-  Building2,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
-import { Button } from "../../components/ui/Button";
-import { Input } from "../../components/ui/Input";
-import { Card, CardContent } from "../../components/ui/Card";
-import {
-  useExperiences,
-  useCreateExperience,
-  useUpdateExperience,
-  useDeleteExperience,
-} from "../../api/experiences";
+  PageHeader,
+  SearchBar,
+  EmptyState,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  FormField,
+  FormInput,
+  FormTextarea,
+  ActionButton,
+  DataCard,
+  DataCardTitle,
+  DataCardDescription,
+  DataCardMeta,
+  DataCardTags,
+  LoadingScreen,
+} from "../../components/admin/ui";
 
 interface Experience {
   id: string;
@@ -36,17 +31,33 @@ interface Experience {
   technologies: string[];
 }
 
-const emptyForm: Omit<Experience, "id"> = {
-  title: { fr: "", en: "" },
-  company: "",
-  location: "",
-  startDate: "",
-  endDate: null,
-  description: { fr: "", en: "" },
-  technologies: [],
-};
+interface FormData {
+  titleFr: string;
+  titleEn: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  descriptionFr: string;
+  descriptionEn: string;
+  technologies: string;
+  currentJob: boolean;
+}
 
-function ExperiencesManagement() {
+const getInitialFormData = (exp?: Experience | null): FormData => ({
+  titleFr: exp?.title?.fr || "",
+  titleEn: exp?.title?.en || "",
+  company: exp?.company || "",
+  location: exp?.location || "",
+  startDate: exp?.startDate ? exp.startDate.split("T")[0] : "",
+  endDate: exp?.endDate ? exp.endDate.split("T")[0] : "",
+  descriptionFr: exp?.description?.fr || "",
+  descriptionEn: exp?.description?.en || "",
+  technologies: exp?.technologies?.join(", ") || "",
+  currentJob: !exp?.endDate,
+});
+
+export default function ExperiencesManagement() {
   const { data, isLoading } = useExperiences();
   const createExperience = useCreateExperience();
   const updateExperience = useUpdateExperience();
@@ -54,63 +65,48 @@ function ExperiencesManagement() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingExperience, setEditingExperience] = useState<Experience | null>(null);
-  const [formData, setFormData] = useState<Omit<Experience, "id">>(emptyForm);
-  const [techInput, setTechInput] = useState("");
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [currentJob, setCurrentJob] = useState(false);
+  const [editingExp, setEditingExp] = useState<Experience | null>(null);
+  const [formData, setFormData] = useState<FormData>(getInitialFormData());
 
   const experiences: Experience[] = data?.data || [];
 
   // Sort by date (most recent first)
   const sortedExperiences = [...experiences].sort((a, b) => {
-    const dateA = new Date(a.startDate).getTime();
-    const dateB = new Date(b.startDate).getTime();
-    return dateB - dateA;
+    return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
   });
 
-  // Filter experiences
-  const filteredExperiences = sortedExperiences.filter((exp) => {
-    const searchLower = searchTerm.toLowerCase();
-    return (
-      exp.title.fr.toLowerCase().includes(searchLower) ||
-      exp.title.en.toLowerCase().includes(searchLower) ||
-      exp.company.toLowerCase().includes(searchLower) ||
-      exp.technologies.some((t) => t.toLowerCase().includes(searchLower))
-    );
-  });
+  const filteredExperiences = sortedExperiences.filter((exp) =>
+    exp.title.fr.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    exp.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    exp.technologies.some((t) => t.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
 
-  const openCreateModal = () => {
-    setEditingExperience(null);
-    setFormData(emptyForm);
-    setCurrentJob(false);
+  const openCreate = () => {
+    setEditingExp(null);
+    setFormData(getInitialFormData());
     setIsModalOpen(true);
   };
 
-  const openEditModal = (exp: Experience) => {
-    setEditingExperience(exp);
-    setFormData({
-      title: exp.title,
-      company: exp.company,
-      location: exp.location || "",
-      startDate: exp.startDate ? exp.startDate.split("T")[0] : "",
-      endDate: exp.endDate ? exp.endDate.split("T")[0] : null,
-      description: exp.description,
-      technologies: exp.technologies,
-    });
-    setCurrentJob(!exp.endDate);
+  const openEdit = (exp: Experience) => {
+    setEditingExp(exp);
+    setFormData(getInitialFormData(exp));
     setIsModalOpen(true);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const payload = {
-      ...formData,
-      endDate: currentJob ? null : formData.endDate,
+      title: { fr: formData.titleFr, en: formData.titleEn },
+      company: formData.company,
+      location: formData.location || undefined,
+      startDate: formData.startDate,
+      endDate: formData.currentJob ? null : formData.endDate || null,
+      description: { fr: formData.descriptionFr, en: formData.descriptionEn },
+      technologies: formData.technologies.split(",").map((t) => t.trim()).filter(Boolean),
     };
 
-    if (editingExperience) {
-      await updateExperience.mutateAsync({ id: editingExperience.id, ...payload });
+    if (editingExp) {
+      await updateExperience.mutateAsync({ id: editingExp.id, ...payload });
     } else {
       await createExperience.mutateAsync(payload);
     }
@@ -119,455 +115,224 @@ function ExperiencesManagement() {
 
   const handleDelete = async (id: string) => {
     await deleteExperience.mutateAsync(id);
-    setDeleteConfirm(null);
   };
 
-  const addTechnology = () => {
-    if (techInput.trim() && !formData.technologies.includes(techInput.trim())) {
-      setFormData({
-        ...formData,
-        technologies: [...formData.technologies, techInput.trim()],
-      });
-      setTechInput("");
-    }
-  };
-
-  const removeTechnology = (tech: string) => {
-    setFormData({
-      ...formData,
-      technologies: formData.technologies.filter((t) => t !== tech),
-    });
+  const updateField = (field: keyof FormData, value: string | boolean) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const formatDate = (dateStr: string) => {
-    if (!dateStr) return "";
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("fr-FR", { month: "short", year: "numeric" });
+    return new Date(dateStr).toLocaleDateString("fr-FR", { month: "short", year: "numeric" });
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Expériences
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Gérez votre parcours professionnel ({experiences.length} expériences)
-          </p>
-        </div>
-        <Button onClick={openCreateModal} className="flex items-center gap-2">
-          <Plus className="w-4 h-4" />
-          Ajouter une expérience
-        </Button>
-      </div>
+    <div className="max-w-6xl mx-auto">
+      <PageHeader
+        title="Expériences"
+        description="Gérez votre parcours professionnel"
+        count={experiences.length}
+        icon={Briefcase}
+        actionLabel="Ajouter"
+        onAction={openCreate}
+      />
 
       {/* Search */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <Input
-              placeholder="Rechercher par titre, entreprise ou technologie..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="mb-6">
+        <SearchBar
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Rechercher une expérience..."
+        />
+      </div>
 
       {/* Experiences List */}
       {filteredExperiences.length === 0 ? (
-        <Card>
-          <CardContent className="p-12 text-center">
-            <Briefcase className="w-12 h-12 text-gray-300 dark:text-gray-700 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-              Aucune expérience trouvée
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-4">
-              {searchTerm
-                ? "Essayez de modifier votre recherche"
-                : "Commencez par ajouter votre parcours professionnel"}
-            </p>
-            {!searchTerm && (
-              <Button onClick={openCreateModal}>
-                <Plus className="w-4 h-4 mr-2" />
-                Ajouter une expérience
-              </Button>
-            )}
-          </CardContent>
-        </Card>
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800">
+          <EmptyState
+            icon={Briefcase}
+            title="Aucune expérience"
+            description={searchTerm ? "Modifiez votre recherche" : "Ajoutez votre parcours professionnel"}
+            actionLabel="Ajouter une expérience"
+            onAction={openCreate}
+          />
+        </div>
       ) : (
         <div className="space-y-4">
           {filteredExperiences.map((exp, index) => (
-            <motion.div
+            <DataCard
               key={exp.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
+              index={index}
+              onEdit={() => openEdit(exp)}
+              onDelete={() => handleDelete(exp.id)}
             >
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <div
-                    className="p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
-                    onClick={() => setExpandedId(expandedId === exp.id ? null : exp.id)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
-                          <Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                            {exp.title.fr}
-                          </h3>
-                          <p className="text-gray-600 dark:text-gray-400 font-medium">
-                            {exp.company}
-                          </p>
-                          <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
-                            {exp.location && (
-                              <span className="flex items-center gap-1">
-                                <MapPin className="w-3.5 h-3.5" />
-                                {exp.location}
-                              </span>
-                            )}
-                            <span className="flex items-center gap-1">
-                              <Calendar className="w-3.5 h-3.5" />
-                              {formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : "Présent"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center flex-shrink-0">
+                  <Briefcase className="w-5 h-5 text-gray-500 dark:text-gray-400" strokeWidth={1.5} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <DataCardTitle>{exp.title.fr}</DataCardTitle>
+                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mt-0.5">
+                    {exp.company}
+                  </p>
 
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openEditModal(exp);
-                          }}
-                          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                        >
-                          <Edit2 className="w-4 h-4 text-gray-500" />
-                        </button>
-                        {deleteConfirm === exp.id ? (
-                          <div className="flex items-center gap-1">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDelete(exp.id);
-                              }}
-                              className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-red-600"
-                            >
-                              <Check className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setDeleteConfirm(null);
-                              }}
-                              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
-                            >
-                              <X className="w-4 h-4 text-gray-500" />
-                            </button>
-                          </div>
-                        ) : (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setDeleteConfirm(exp.id);
-                            }}
-                            className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg"
-                          >
-                            <Trash2 className="w-4 h-4 text-red-500" />
-                          </button>
-                        )}
-                        {expandedId === exp.id ? (
-                          <ChevronUp className="w-5 h-5 text-gray-400" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5 text-gray-400" />
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Technologies */}
-                    {exp.technologies.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {exp.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
+                  <DataCardMeta>
+                    {exp.location && (
+                      <>
+                        <span className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          {exp.location}
+                        </span>
+                        <span>·</span>
+                      </>
                     )}
-                  </div>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      {formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : "Présent"}
+                    </span>
+                  </DataCardMeta>
 
-                  {/* Expanded content */}
-                  <AnimatePresence>
-                    {expandedId === exp.id && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="border-t border-gray-100 dark:border-gray-800"
-                      >
-                        <div className="p-6 bg-gray-50 dark:bg-gray-800/30">
-                          <div className="grid md:grid-cols-2 gap-6">
-                            <div>
-                              <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                                Description (FR)
-                              </h4>
-                              <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">
-                                {exp.description.fr || "Non renseigné"}
-                              </p>
-                            </div>
-                            <div>
-                              <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                                Description (EN)
-                              </h4>
-                              <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">
-                                {exp.description.en || "Not specified"}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </CardContent>
-              </Card>
-            </motion.div>
+                  {exp.description.fr && (
+                    <DataCardDescription>{exp.description.fr}</DataCardDescription>
+                  )}
+
+                  {exp.technologies.length > 0 && (
+                    <DataCardTags tags={exp.technologies} max={6} />
+                  )}
+                </div>
+              </div>
+            </DataCard>
           ))}
         </div>
       )}
 
       {/* Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto"
-            onClick={() => setIsModalOpen(false)}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="w-full max-w-2xl bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden my-8"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-6 border-b border-gray-100 dark:border-gray-800">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                  {editingExperience ? "Modifier l'expérience" : "Nouvelle expérience"}
-                </h2>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={editingExp ? "Modifier l'expérience" : "Nouvelle expérience"}
+        size="lg"
+      >
+        <form onSubmit={handleSubmit}>
+          <ModalBody>
+            <div className="space-y-5">
+              {/* Company & Location */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormField label="Entreprise" required>
+                  <FormInput
+                    value={formData.company}
+                    onChange={(v) => updateField("company", v)}
+                    placeholder="Nom de l'entreprise"
+                    required
+                  />
+                </FormField>
+                <FormField label="Localisation">
+                  <FormInput
+                    value={formData.location}
+                    onChange={(v) => updateField("location", v)}
+                    placeholder="Paris, France"
+                  />
+                </FormField>
               </div>
 
-              <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
-                {/* Company & Location */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Entreprise *
-                    </label>
-                    <Input
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      placeholder="Nom de l'entreprise"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Localisation
-                    </label>
-                    <Input
-                      value={formData.location || ""}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Paris, France"
-                    />
-                  </div>
-                </div>
+              {/* Titles */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormField label="Poste (FR)" required>
+                  <FormInput
+                    value={formData.titleFr}
+                    onChange={(v) => updateField("titleFr", v)}
+                    placeholder="Développeur Full-Stack"
+                    required
+                  />
+                </FormField>
+                <FormField label="Position (EN)" required>
+                  <FormInput
+                    value={formData.titleEn}
+                    onChange={(v) => updateField("titleEn", v)}
+                    placeholder="Full-Stack Developer"
+                    required
+                  />
+                </FormField>
+              </div>
 
-                {/* Title FR/EN */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Poste (FR) *
-                    </label>
-                    <Input
-                      value={formData.title.fr}
-                      onChange={(e) =>
-                        setFormData({ ...formData, title: { ...formData.title, fr: e.target.value } })
-                      }
-                      placeholder="Développeur Full-Stack"
+              {/* Dates */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormField label="Date de début" required>
+                  <FormInput
+                    type="date"
+                    value={formData.startDate}
+                    onChange={(v) => updateField("startDate", v)}
+                    required
+                  />
+                </FormField>
+                <FormField label="Date de fin">
+                  <FormInput
+                    type="date"
+                    value={formData.endDate}
+                    onChange={(v) => updateField("endDate", v)}
+                    disabled={formData.currentJob}
+                  />
+                  <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData.currentJob}
+                      onChange={(e) => updateField("currentJob", e.target.checked)}
+                      className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-gray-900 focus:ring-gray-900 dark:focus:ring-white"
                     />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Poste (EN) *
-                    </label>
-                    <Input
-                      value={formData.title.en}
-                      onChange={(e) =>
-                        setFormData({ ...formData, title: { ...formData.title, en: e.target.value } })
-                      }
-                      placeholder="Full-Stack Developer"
-                    />
-                  </div>
-                </div>
-
-                {/* Dates */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Date de début *
-                    </label>
-                    <Input
-                      type="date"
-                      value={formData.startDate}
-                      onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Date de fin
-                    </label>
-                    <div className="space-y-2">
-                      <Input
-                        type="date"
-                        value={formData.endDate || ""}
-                        onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                        disabled={currentJob}
-                      />
-                      <label className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={currentJob}
-                          onChange={(e) => setCurrentJob(e.target.checked)}
-                          className="w-4 h-4 text-blue-600 rounded"
-                        />
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Poste actuel
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Description FR/EN */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Description (FR)
-                    </label>
-                    <textarea
-                      value={formData.description.fr}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          description: { ...formData.description, fr: e.target.value },
-                        })
-                      }
-                      placeholder="Décrivez vos missions et réalisations..."
-                      rows={4}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Description (EN)
-                    </label>
-                    <textarea
-                      value={formData.description.en}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          description: { ...formData.description, en: e.target.value },
-                        })
-                      }
-                      placeholder="Describe your missions and achievements..."
-                      rows={4}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
-                {/* Technologies */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Technologies utilisées
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      Poste actuel
+                    </span>
                   </label>
-                  <div className="flex gap-2 mb-3">
-                    <Input
-                      value={techInput}
-                      onChange={(e) => setTechInput(e.target.value)}
-                      onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addTechnology())}
-                      placeholder="Ajouter une technologie..."
-                    />
-                    <Button type="button" onClick={addTechnology} variant="outline">
-                      <Plus className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {formData.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg text-sm"
-                      >
-                        {tech}
-                        <button
-                          type="button"
-                          onClick={() => removeTechnology(tech)}
-                          className="hover:text-blue-900 dark:hover:text-blue-200"
-                        >
-                          <X className="w-3.5 h-3.5" />
-                        </button>
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                </FormField>
               </div>
 
-              <div className="p-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3">
-                <Button variant="outline" onClick={() => setIsModalOpen(false)}>
-                  Annuler
-                </Button>
-                <Button
-                  onClick={handleSubmit}
-                  disabled={
-                    !formData.title.fr ||
-                    !formData.title.en ||
-                    !formData.company ||
-                    !formData.startDate ||
-                    createExperience.isPending ||
-                    updateExperience.isPending
-                  }
-                >
-                  {(createExperience.isPending || updateExperience.isPending) && (
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  )}
-                  {editingExperience ? "Enregistrer" : "Créer"}
-                </Button>
+              {/* Descriptions */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormField label="Description (FR)">
+                  <FormTextarea
+                    value={formData.descriptionFr}
+                    onChange={(v) => updateField("descriptionFr", v)}
+                    placeholder="Vos missions..."
+                    rows={4}
+                  />
+                </FormField>
+                <FormField label="Description (EN)">
+                  <FormTextarea
+                    value={formData.descriptionEn}
+                    onChange={(v) => updateField("descriptionEn", v)}
+                    placeholder="Your responsibilities..."
+                    rows={4}
+                  />
+                </FormField>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+              {/* Technologies */}
+              <FormField label="Technologies" hint="Séparées par des virgules">
+                <FormInput
+                  value={formData.technologies}
+                  onChange={(v) => updateField("technologies", v)}
+                  placeholder="React, Node.js, PostgreSQL..."
+                />
+              </FormField>
+            </div>
+          </ModalBody>
+
+          <ModalFooter>
+            <ActionButton variant="secondary" onClick={() => setIsModalOpen(false)}>
+              Annuler
+            </ActionButton>
+            <ActionButton
+              type="submit"
+              loading={createExperience.isPending || updateExperience.isPending}
+            >
+              {editingExp ? "Enregistrer" : "Créer"}
+            </ActionButton>
+          </ModalFooter>
+        </form>
+      </Modal>
     </div>
   );
 }
-
-export default ExperiencesManagement;

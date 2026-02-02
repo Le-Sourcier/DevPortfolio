@@ -1,298 +1,318 @@
-// admin/Projects
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useSearchParams } from "react-router-dom";
-import {
-  Folder,
-  Plus,
-  X,
-  Loader2,
-  Trash2,
-  Edit2,
-  ExternalLink,
-  Github,
-  Search,
-} from "lucide-react";
-
-import { useAuthStore } from "../../stores/auth";
+import { useState } from "react";
+import { Folder, ExternalLink, Github, Star } from "lucide-react";
 import { useProjects, useCreateProject, useDeleteProject, useUpdateProject } from "../../api/projects";
-import { Button } from "../../components/ui/Button";
-import { Input } from "../../components/ui/Input";
-import { Card, CardHeader, CardTitle, CardContent } from "../../components/ui/Card";
 import { Project } from "../../types/models";
+import {
+  PageHeader,
+  SearchBar,
+  EmptyState,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  FormField,
+  FormInput,
+  FormTextarea,
+  ActionButton,
+  DataCard,
+  DataCardTitle,
+  DataCardDescription,
+  DataCardTags,
+  LoadingScreen,
+} from "../../components/admin/ui";
 
-const ProjectForm = ({
-  project,
-  onSave,
-  onCancel,
-  isSubmitting
-}: {
-  project?: Partial<Project> | null,
-  onSave: (data: any) => void,
-  onCancel: () => void,
-  isSubmitting: boolean
-}) => {
-  const [formData, setFormData] = useState({
-    titleFr: project?.title?.fr || "",
-    titleEn: project?.title?.en || "",
-    descriptionFr: project?.description?.fr || "",
-    descriptionEn: project?.description?.en || "",
-    technologies: project?.technologies?.join(", ") || "",
-    imageUrl: project?.imageUrl || "",
-    projectUrl: project?.projectUrl || "",
-    repoUrl: project?.repoUrl || "",
-    featured: project?.featured || false,
-  });
+interface ProjectFormData {
+  titleFr: string;
+  titleEn: string;
+  descriptionFr: string;
+  descriptionEn: string;
+  technologies: string;
+  imageUrl: string;
+  projectUrl: string;
+  repoUrl: string;
+  featured: boolean;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
+const getInitialFormData = (project?: Project | null): ProjectFormData => ({
+  titleFr: project?.title?.fr || "",
+  titleEn: project?.title?.en || "",
+  descriptionFr: project?.description?.fr || "",
+  descriptionEn: project?.description?.en || "",
+  technologies: project?.technologies?.join(", ") || "",
+  imageUrl: project?.imageUrl || "",
+  projectUrl: project?.projectUrl || "",
+  repoUrl: project?.repoUrl || "",
+  featured: project?.featured || false,
+});
+
+export default function ProjectsManagement() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [formData, setFormData] = useState<ProjectFormData>(getInitialFormData());
+
+  const { data: projectsData, isLoading } = useProjects();
+  const createProject = useCreateProject();
+  const updateProject = useUpdateProject();
+  const deleteProject = useDeleteProject();
+
+  const projects = (projectsData?.data || []) as Project[];
+  const filteredProjects = projects.filter(p =>
+    p.title.fr.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    p.title.en.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    p.technologies.some(t => t.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  const openCreate = () => {
+    setEditingProject(null);
+    setFormData(getInitialFormData());
+    setIsModalOpen(true);
+  };
+
+  const openEdit = (project: Project) => {
+    setEditingProject(project);
+    setFormData(getInitialFormData(project));
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({
+    const payload = {
       title: { fr: formData.titleFr, en: formData.titleEn },
       description: { fr: formData.descriptionFr, en: formData.descriptionEn },
       technologies: formData.technologies.split(",").map(t => t.trim()).filter(Boolean),
       imageUrl: formData.imageUrl,
       projectUrl: formData.projectUrl,
       repoUrl: formData.repoUrl,
-      featured: formData.featured
-    });
-  };
+      featured: formData.featured,
+    };
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="text-sm font-medium dark:text-gray-300">Titre (FR)</label>
-          <Input
-             value={formData.titleFr}
-             onChange={e => setFormData(prev => ({ ...prev, titleFr: e.target.value }))}
-             required
-             className="dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-          />
-        </div>
-        <div>
-           <label className="text-sm font-medium dark:text-gray-300">Title (EN)</label>
-           <Input
-              value={formData.titleEn}
-              onChange={e => setFormData(prev => ({ ...prev, titleEn: e.target.value }))}
-              required
-              className="dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-           />
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="text-sm font-medium dark:text-gray-300">Description (FR)</label>
-          <textarea
-             className="w-full rounded-md border border-gray-200 dark:border-gray-700 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] dark:bg-gray-800 dark:text-white"
-             value={formData.descriptionFr}
-             onChange={e => setFormData(prev => ({ ...prev, descriptionFr: e.target.value }))}
-             required
-          />
-        </div>
-        <div>
-           <label className="text-sm font-medium dark:text-gray-300">Description (EN)</label>
-           <textarea
-              className="w-full rounded-md border border-gray-200 dark:border-gray-700 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] dark:bg-gray-800 dark:text-white"
-              value={formData.descriptionEn}
-              onChange={e => setFormData(prev => ({ ...prev, descriptionEn: e.target.value }))}
-              required
-           />
-        </div>
-      </div>
-
-      <div>
-        <label className="text-sm font-medium dark:text-gray-300">Technologies (séparées par des virgules)</label>
-        <Input
-           value={formData.technologies}
-           onChange={e => setFormData(prev => ({ ...prev, technologies: e.target.value }))}
-           placeholder="React, Node.js, TypeScript"
-           className="dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-        />
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        <div>
-          <label className="text-sm font-medium dark:text-gray-300">Image URL</label>
-          <Input
-             value={formData.imageUrl}
-             onChange={e => setFormData(prev => ({ ...prev, imageUrl: e.target.value }))}
-             className="dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium dark:text-gray-300">Live URL</label>
-          <Input
-             value={formData.projectUrl}
-             onChange={e => setFormData(prev => ({ ...prev, projectUrl: e.target.value }))}
-             className="dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium dark:text-gray-300">Repo URL</label>
-          <Input
-             value={formData.repoUrl}
-             onChange={e => setFormData(prev => ({ ...prev, repoUrl: e.target.value }))}
-             className="dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-          />
-        </div>
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <input
-          type="checkbox"
-          id="featured"
-          checked={formData.featured}
-          onChange={e => setFormData(prev => ({ ...prev, featured: e.target.checked }))}
-          className="rounded border-gray-300 dark:border-gray-700 text-blue-600 focus:ring-blue-500 dark:bg-gray-800"
-        />
-        <label htmlFor="featured" className="text-sm font-medium dark:text-gray-300">Mettre en avant ce projet</label>
-      </div>
-
-      <div className="flex justify-end gap-2 pt-4">
-        <Button type="button" variant="outline" onClick={onCancel}>Annuler</Button>
-        <Button type="submit" isLoading={isSubmitting}>Enregistrer</Button>
-      </div>
-    </form>
-  )
-}
-
-export default function ProjectsManagement() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingProject, setEditingProject] = useState<Project | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const { data: projectsData, isLoading } = useProjects();
-  const createProject = useCreateProject();
-  const updateProject = useUpdateProject();
-  const deleteProject = useDeleteProject();
-  const [searchParams] = useSearchParams();
-
-  useEffect(() => {
-    if (searchParams.get("open") === "true") {
-      setIsFormOpen(true);
-    }
-  }, [searchParams]);
-
-  const handleSave = async (data: any) => {
     if (editingProject) {
-      await updateProject.mutateAsync({ id: editingProject.id, ...data });
+      await updateProject.mutateAsync({ id: editingProject.id, ...payload });
     } else {
-      await createProject.mutateAsync(data);
+      await createProject.mutateAsync(payload);
     }
-    setIsFormOpen(false);
-    setEditingProject(null);
+    setIsModalOpen(false);
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Êtes-vous sûr de vouloir supprimer ce projet ?")) {
-      await deleteProject.mutateAsync(id);
-    }
+    await deleteProject.mutateAsync(id);
   };
 
-  const projects = (projectsData?.data || []) as Project[];
-  const filteredProjects = projects.filter(p =>
-    p.title.fr.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    p.description.fr.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const updateField = (field: keyof ProjectFormData, value: string | boolean) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Projets</h1>
-          <p className="text-gray-500 dark:text-gray-400">Gérez votre portfolio de projets.</p>
-        </div>
-        <Button onClick={() => { setEditingProject(null); setIsFormOpen(true); }}>
-          <Plus className="w-4 h-4 mr-2" /> Nouveau Projet
-        </Button>
-      </div>
+    <div className="max-w-6xl mx-auto">
+      <PageHeader
+        title="Projets"
+        description="Gérez votre portfolio de projets"
+        count={projects.length}
+        icon={Folder}
+        actionLabel="Nouveau projet"
+        onAction={openCreate}
+      />
 
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex items-center space-x-2">
-        <Search className="w-5 h-5 text-gray-400" />
-        <input
-          placeholder="Rechercher..."
-          className="flex-1 outline-none text-sm dark:bg-gray-800 dark:text-white"
+      {/* Search */}
+      <div className="mb-6">
+        <SearchBar
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={setSearchTerm}
+          placeholder="Rechercher un projet..."
         />
       </div>
 
-      <AnimatePresence>
-        {isFormOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
-          >
-            <Card className="border-blue-200 bg-blue-50/50 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="dark:text-white">{editingProject ? "Modifier le projet" : "Nouveau projet"}</CardTitle>
-                <Button variant="ghost" size="sm" onClick={() => setIsFormOpen(false)} className="dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700"><X className="w-4 h-4" /></Button>
-              </CardHeader>
-              <CardContent>
-                <ProjectForm
-                  project={editingProject}
-                  onSave={handleSave}
-                  onCancel={() => setIsFormOpen(false)}
-                  isSubmitting={createProject.isPending || updateProject.isPending}
-                />
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {isLoading ? (
-        <div className="text-center py-20"><Loader2 className="w-8 h-8 animate-spin mx-auto text-blue-600" /></div>
+      {/* Projects Grid */}
+      {filteredProjects.length === 0 ? (
+        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800">
+          <EmptyState
+            icon={Folder}
+            title="Aucun projet"
+            description={searchTerm ? "Aucun projet ne correspond à votre recherche" : "Commencez par créer votre premier projet"}
+            actionLabel="Créer un projet"
+            onAction={openCreate}
+          />
+        </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project) => (
-            <motion.div
-              layout
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {filteredProjects.map((project, index) => (
+            <DataCard
               key={project.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              index={index}
+              onEdit={() => openEdit(project)}
+              onDelete={() => handleDelete(project.id)}
+              onView={project.projectUrl ? () => window.open(project.projectUrl, "_blank") : undefined}
             >
-              <Card className="h-full flex flex-col hover:shadow-md transition-shadow dark:bg-gray-900 dark:border-gray-800">
-                <div className="aspect-video bg-gray-100 dark:bg-gray-800 relative overflow-hidden group">
-                  {project.imageUrl ? (
-                    <img src={project.imageUrl} alt={project.title.fr} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400"><Folder size={32} /></div>
-                  )}
-                  {project.featured && (
-                    <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded shadow-sm">Featured</div>
-                  )}
+              {/* Featured badge */}
+              {project.featured && (
+                <div className="flex items-center gap-1 text-xs font-medium text-amber-600 dark:text-amber-400 mb-2">
+                  <Star className="w-3 h-3 fill-current" />
+                  <span>Mis en avant</span>
                 </div>
-                <CardContent className="flex-1 p-4 flex flex-col">
-                  <h3 className="font-bold text-lg mb-2 line-clamp-1 dark:text-white">{project.title.fr}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 flex-1">{project.description.fr}</p>
+              )}
 
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {project.technologies.slice(0, 3).map(t => (
-                      <span key={t} className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-gray-600 dark:text-gray-300">{t}</span>
-                    ))}
-                    {project.technologies.length > 3 && <span className="text-xs text-gray-400 px-1">+{project.technologies.length - 3}</span>}
-                  </div>
+              <DataCardTitle>{project.title.fr}</DataCardTitle>
+              <DataCardDescription>{project.description.fr}</DataCardDescription>
 
-                  <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <div className="flex space-x-2">
-                       {project.projectUrl && <a href={project.projectUrl} target="_blank" rel="noopener" className="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"><ExternalLink size={16} /></a>}
-                       {project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noopener" className="text-gray-400 hover:text-gray-900 dark:hover:text-white"><Github size={16} /></a>}
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button variant="ghost" size="icon" onClick={() => { setEditingProject(project); setIsFormOpen(true); }} className="dark:text-blue-400 dark:hover:bg-gray-800"><Edit2 className="w-4 h-4" /></Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(project.id)} className="dark:text-red-400 dark:hover:bg-gray-800"><Trash2 className="w-4 h-4" /></Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+              {project.technologies.length > 0 && (
+                <DataCardTags tags={project.technologies} />
+              )}
+
+              {/* Links */}
+              <div className="flex items-center gap-3 mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
+                {project.projectUrl && (
+                  <a
+                    href={project.projectUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Demo</span>
+                  </a>
+                )}
+                {project.repoUrl && (
+                  <a
+                    href={project.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                  >
+                    <Github className="w-3.5 h-3.5" />
+                    <span>Code</span>
+                  </a>
+                )}
+              </div>
+            </DataCard>
           ))}
         </div>
       )}
+
+      {/* Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={editingProject ? "Modifier le projet" : "Nouveau projet"}
+        size="lg"
+      >
+        <form onSubmit={handleSubmit}>
+          <ModalBody>
+            <div className="space-y-5">
+              {/* Titles */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormField label="Titre (FR)" required>
+                  <FormInput
+                    value={formData.titleFr}
+                    onChange={(v) => updateField("titleFr", v)}
+                    placeholder="Mon super projet"
+                    required
+                  />
+                </FormField>
+                <FormField label="Title (EN)" required>
+                  <FormInput
+                    value={formData.titleEn}
+                    onChange={(v) => updateField("titleEn", v)}
+                    placeholder="My awesome project"
+                    required
+                  />
+                </FormField>
+              </div>
+
+              {/* Descriptions */}
+              <div className="grid grid-cols-2 gap-4">
+                <FormField label="Description (FR)" required>
+                  <FormTextarea
+                    value={formData.descriptionFr}
+                    onChange={(v) => updateField("descriptionFr", v)}
+                    placeholder="Description du projet..."
+                    rows={3}
+                    required
+                  />
+                </FormField>
+                <FormField label="Description (EN)" required>
+                  <FormTextarea
+                    value={formData.descriptionEn}
+                    onChange={(v) => updateField("descriptionEn", v)}
+                    placeholder="Project description..."
+                    rows={3}
+                    required
+                  />
+                </FormField>
+              </div>
+
+              {/* Technologies */}
+              <FormField label="Technologies" hint="Séparées par des virgules">
+                <FormInput
+                  value={formData.technologies}
+                  onChange={(v) => updateField("technologies", v)}
+                  placeholder="React, Node.js, TypeScript..."
+                />
+              </FormField>
+
+              {/* URLs */}
+              <div className="grid grid-cols-3 gap-4">
+                <FormField label="Image URL">
+                  <FormInput
+                    value={formData.imageUrl}
+                    onChange={(v) => updateField("imageUrl", v)}
+                    placeholder="https://..."
+                    type="url"
+                  />
+                </FormField>
+                <FormField label="Demo URL">
+                  <FormInput
+                    value={formData.projectUrl}
+                    onChange={(v) => updateField("projectUrl", v)}
+                    placeholder="https://..."
+                    type="url"
+                  />
+                </FormField>
+                <FormField label="Repo URL">
+                  <FormInput
+                    value={formData.repoUrl}
+                    onChange={(v) => updateField("repoUrl", v)}
+                    placeholder="https://github.com/..."
+                    type="url"
+                  />
+                </FormField>
+              </div>
+
+              {/* Featured */}
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    checked={formData.featured}
+                    onChange={(e) => updateField("featured", e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-10 h-6 bg-gray-200 dark:bg-gray-700 rounded-full peer-checked:bg-gray-900 dark:peer-checked:bg-white transition-colors" />
+                  <div className="absolute top-1 left-1 w-4 h-4 bg-white dark:bg-gray-900 rounded-full peer-checked:translate-x-4 transition-transform" />
+                </div>
+                <span className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+                  Mettre en avant ce projet
+                </span>
+              </label>
+            </div>
+          </ModalBody>
+
+          <ModalFooter>
+            <ActionButton variant="secondary" onClick={() => setIsModalOpen(false)}>
+              Annuler
+            </ActionButton>
+            <ActionButton
+              type="submit"
+              loading={createProject.isPending || updateProject.isPending}
+            >
+              {editingProject ? "Enregistrer" : "Créer"}
+            </ActionButton>
+          </ModalFooter>
+        </form>
+      </Modal>
     </div>
   );
 }

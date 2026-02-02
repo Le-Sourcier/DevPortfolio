@@ -1,26 +1,11 @@
-// admin/settings
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  Globe,
-  Users,
-  Palette,
-  Shield,
-  Save,
-  Loader2,
-  FileText,
-  Search,
-  Link as LinkIcon,
-  Check,
-  AlertCircle,
-} from "lucide-react";
-import { Button } from "../../components/ui/Button";
-import { Input } from "../../components/ui/Input";
-import { Card, CardContent } from "../../components/ui/Card";
+import { Settings as SettingsIcon, Globe, FileText, Search, Link as LinkIcon, Users, Palette, Check, Save } from "lucide-react";
 import { useSiteSettings, useUpdateSiteSettings } from "../../api/settings";
 import { SiteSettings } from "../../types/models";
+import { PageHeader, FormField, FormInput, FormTextarea, ActionButton, LoadingScreen } from "../../components/admin/ui";
 
-function Settings() {
+function SettingsPage() {
   const { data: settings, isLoading } = useSiteSettings();
   const updateSettings = useUpdateSiteSettings();
 
@@ -53,424 +38,281 @@ function Settings() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
+  const colors = [
+    { name: "gray", class: "bg-gray-900" },
+    { name: "blue", class: "bg-blue-600" },
+    { name: "indigo", class: "bg-indigo-600" },
+    { name: "violet", class: "bg-violet-600" },
+    { name: "purple", class: "bg-purple-600" },
+    { name: "pink", class: "bg-pink-600" },
+    { name: "red", class: "bg-red-600" },
+    { name: "orange", class: "bg-orange-600" },
+    { name: "amber", class: "bg-amber-600" },
+    { name: "green", class: "bg-green-600" },
+    { name: "teal", class: "bg-teal-600" },
+    { name: "cyan", class: "bg-cyan-600" },
+  ];
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Paramètres
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400">
-            Configuration générale de votre portfolio
-          </p>
-        </div>
-        <Button
-          size="lg"
-          onClick={handleSubmit}
-          disabled={updateSettings.isPending}
-          className="flex items-center gap-2"
-        >
-          {updateSettings.isPending ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : saved ? (
-            <Check className="w-4 h-4" />
-          ) : (
-            <Save className="w-4 h-4" />
-          )}
-          {saved ? "Enregistré !" : "Enregistrer"}
-        </Button>
-      </div>
+    <div className="max-w-4xl mx-auto">
+      <PageHeader
+        title="Paramètres"
+        description="Configuration de votre portfolio"
+        icon={SettingsIcon}
+      />
 
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* General Settings */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30">
-                  <Globe className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                </div>
-                Informations générales
-              </h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Nom du site
-                  </label>
-                  <Input
-                    value={formData.siteName || ""}
-                    onChange={(e) => handleChange("siteName", e.target.value)}
-                    placeholder="Mon Portfolio"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Email de contact
-                  </label>
-                  <Input
-                    type="email"
-                    value={formData.emailContact || ""}
-                    onChange={(e) => handleChange("emailContact", e.target.value)}
-                    placeholder="contact@example.com"
-                  />
-                </div>
+      <div className="space-y-6">
+        {/* General */}
+        <Section icon={Globe} title="Informations générales">
+          <div className="grid gap-5">
+            <FormField label="Nom du site">
+              <FormInput
+                value={formData.siteName || ""}
+                onChange={(v) => handleChange("siteName", v)}
+                placeholder="Mon Portfolio"
+              />
+            </FormField>
+            <FormField label="Email de contact">
+              <FormInput
+                type="email"
+                value={formData.emailContact || ""}
+                onChange={(v) => handleChange("emailContact", v)}
+                placeholder="contact@example.com"
+              />
+            </FormField>
+          </div>
+        </Section>
+
+        {/* Hero */}
+        <Section icon={FileText} title="Section Hero">
+          <div className="grid md:grid-cols-2 gap-5">
+            <FormField label="Titre (FR)">
+              <FormInput
+                value={formData.heroTitle?.fr || ""}
+                onChange={(v) => handleNestedChange("heroTitle", "fr", v)}
+                placeholder="Bonjour, je suis..."
+              />
+            </FormField>
+            <FormField label="Title (EN)">
+              <FormInput
+                value={formData.heroTitle?.en || ""}
+                onChange={(v) => handleNestedChange("heroTitle", "en", v)}
+                placeholder="Hi, I am..."
+              />
+            </FormField>
+            <FormField label="Sous-titre (FR)">
+              <FormInput
+                value={formData.heroSubtitle?.fr || ""}
+                onChange={(v) => handleNestedChange("heroSubtitle", "fr", v)}
+                placeholder="Développeur Full-Stack"
+              />
+            </FormField>
+            <FormField label="Subtitle (EN)">
+              <FormInput
+                value={formData.heroSubtitle?.en || ""}
+                onChange={(v) => handleNestedChange("heroSubtitle", "en", v)}
+                placeholder="Full-Stack Developer"
+              />
+            </FormField>
+          </div>
+        </Section>
+
+        {/* SEO */}
+        <Section icon={Search} title="SEO & Métadonnées">
+          <div className="grid md:grid-cols-2 gap-5">
+            <FormField label="Titre SEO (FR)">
+              <FormInput
+                value={formData.seoTitle?.fr || ""}
+                onChange={(v) => handleNestedChange("seoTitle", "fr", v)}
+                placeholder="Portfolio Développeur"
+              />
+            </FormField>
+            <FormField label="SEO Title (EN)">
+              <FormInput
+                value={formData.seoTitle?.en || ""}
+                onChange={(v) => handleNestedChange("seoTitle", "en", v)}
+                placeholder="Developer Portfolio"
+              />
+            </FormField>
+            <FormField label="Description SEO (FR)">
+              <FormTextarea
+                value={formData.seoDescription?.fr || ""}
+                onChange={(v) => handleNestedChange("seoDescription", "fr", v)}
+                placeholder="Description pour les moteurs de recherche..."
+                rows={2}
+              />
+            </FormField>
+            <FormField label="SEO Description (EN)">
+              <FormTextarea
+                value={formData.seoDescription?.en || ""}
+                onChange={(v) => handleNestedChange("seoDescription", "en", v)}
+                placeholder="Description for search engines..."
+                rows={2}
+              />
+            </FormField>
+          </div>
+        </Section>
+
+        {/* CV */}
+        <Section icon={LinkIcon} title="CV / Resume">
+          <div className="grid md:grid-cols-2 gap-5">
+            <FormField label="URL du CV (FR)" hint="Lien vers votre CV français">
+              <FormInput
+                type="url"
+                value={formData.cvUrlFr || ""}
+                onChange={(v) => handleChange("cvUrlFr", v)}
+                placeholder="https://drive.google.com/..."
+              />
+            </FormField>
+            <FormField label="CV URL (EN)" hint="Link to your English resume">
+              <FormInput
+                type="url"
+                value={formData.cvUrlEn || ""}
+                onChange={(v) => handleChange("cvUrlEn", v)}
+                placeholder="https://drive.google.com/..."
+              />
+            </FormField>
+          </div>
+        </Section>
+
+        {/* Social */}
+        <Section icon={Users} title="Réseaux sociaux">
+          <div className="grid md:grid-cols-3 gap-5">
+            <FormField label="GitHub">
+              <FormInput
+                type="url"
+                value={formData.githubUrl || ""}
+                onChange={(v) => handleChange("githubUrl", v)}
+                placeholder="https://github.com/..."
+              />
+            </FormField>
+            <FormField label="LinkedIn">
+              <FormInput
+                type="url"
+                value={formData.linkedinUrl || ""}
+                onChange={(v) => handleChange("linkedinUrl", v)}
+                placeholder="https://linkedin.com/in/..."
+              />
+            </FormField>
+            <FormField label="Twitter / X">
+              <FormInput
+                type="url"
+                value={formData.twitterUrl || ""}
+                onChange={(v) => handleChange("twitterUrl", v)}
+                placeholder="https://twitter.com/..."
+              />
+            </FormField>
+          </div>
+        </Section>
+
+        {/* Appearance */}
+        <Section icon={Palette} title="Apparence">
+          <div className="space-y-6">
+            {/* Color picker */}
+            <FormField label="Couleur principale">
+              <div className="flex flex-wrap gap-2">
+                {colors.map((color) => (
+                  <button
+                    key={color.name}
+                    type="button"
+                    onClick={() => handleChange("primaryColor", color.name)}
+                    className={`w-9 h-9 rounded-xl ${color.class} flex items-center justify-center transition-transform hover:scale-110 ${
+                      formData.primaryColor === color.name ? "ring-2 ring-offset-2 ring-gray-900 dark:ring-white dark:ring-offset-gray-900" : ""
+                    }`}
+                  >
+                    {formData.primaryColor === color.name && (
+                      <Check className="w-4 h-4 text-white" strokeWidth={3} />
+                    )}
+                  </button>
+                ))}
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+            </FormField>
 
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
-                  <FileText className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                </div>
-                Section Hero
-              </h3>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Titre (FR)
-                    </label>
-                    <Input
-                      value={formData.heroTitle?.fr || ""}
-                      onChange={(e) => handleNestedChange("heroTitle", "fr", e.target.value)}
-                      placeholder="Bonjour, je suis..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Titre (EN)
-                    </label>
-                    <Input
-                      value={formData.heroTitle?.en || ""}
-                      onChange={(e) => handleNestedChange("heroTitle", "en", e.target.value)}
-                      placeholder="Hi, I am..."
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Sous-titre (FR)
-                    </label>
-                    <Input
-                      value={formData.heroSubtitle?.fr || ""}
-                      onChange={(e) => handleNestedChange("heroSubtitle", "fr", e.target.value)}
-                      placeholder="Développeur Full-Stack"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Sous-titre (EN)
-                    </label>
-                    <Input
-                      value={formData.heroSubtitle?.en || ""}
-                      onChange={(e) => handleNestedChange("heroSubtitle", "en", e.target.value)}
-                      placeholder="Full-Stack Developer"
-                    />
-                  </div>
-                </div>
+            {/* Availability toggle */}
+            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+              <div>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  Disponible pour mission
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  Affiche un badge sur votre site
+                </p>
               </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+              <button
+                type="button"
+                onClick={() => handleChange("availableForWork", !formData.availableForWork)}
+                className="relative"
+              >
+                <div className={`w-12 h-7 rounded-full transition-colors ${
+                  formData.availableForWork ? "bg-gray-900 dark:bg-white" : "bg-gray-200 dark:bg-gray-700"
+                }`}>
+                  <div className={`absolute top-1 w-5 h-5 rounded-full bg-white dark:bg-gray-900 shadow transition-transform ${
+                    formData.availableForWork ? "translate-x-6" : "translate-x-1"
+                  }`} />
+                </div>
+              </button>
+            </div>
+          </div>
+        </Section>
 
-        {/* SEO Settings */}
+        {/* Save button */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          className="flex justify-end pt-4"
         >
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/30">
-                  <Search className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                </div>
-                SEO & Métadonnées
-              </h3>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Titre SEO (FR)
-                    </label>
-                    <Input
-                      value={formData.seoTitle?.fr || ""}
-                      onChange={(e) => handleNestedChange("seoTitle", "fr", e.target.value)}
-                      placeholder="Portfolio Développeur"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Titre SEO (EN)
-                    </label>
-                    <Input
-                      value={formData.seoTitle?.en || ""}
-                      onChange={(e) => handleNestedChange("seoTitle", "en", e.target.value)}
-                      placeholder="Developer Portfolio"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Description SEO (FR)
-                    </label>
-                    <textarea
-                      value={formData.seoDescription?.fr || ""}
-                      onChange={(e) => handleNestedChange("seoDescription", "fr", e.target.value)}
-                      placeholder="Description pour les moteurs de recherche..."
-                      rows={3}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Description SEO (EN)
-                    </label>
-                    <textarea
-                      value={formData.seoDescription?.en || ""}
-                      onChange={(e) => handleNestedChange("seoDescription", "en", e.target.value)}
-                      placeholder="Description for search engines..."
-                      rows={3}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                    />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* CV/Resume Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/30">
-                  <LinkIcon className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-                </div>
-                CV / Resume
-              </h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    URL du CV (Français)
-                  </label>
-                  <Input
-                    type="url"
-                    value={formData.cvUrlFr || ""}
-                    onChange={(e) => handleChange("cvUrlFr", e.target.value)}
-                    placeholder="https://drive.google.com/file/cv-fr.pdf"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Lien vers votre CV en français (Google Drive, Dropbox, etc.)
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    URL du CV (English)
-                  </label>
-                  <Input
-                    type="url"
-                    value={formData.cvUrlEn || ""}
-                    onChange={(e) => handleChange("cvUrlEn", e.target.value)}
-                    placeholder="https://drive.google.com/file/cv-en.pdf"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Link to your English resume
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Social Links */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
-                  <Users className="w-5 h-5 text-green-600 dark:text-green-400" />
-                </div>
-                Réseaux sociaux
-              </h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    GitHub
-                  </label>
-                  <Input
-                    type="url"
-                    value={formData.githubUrl || ""}
-                    onChange={(e) => handleChange("githubUrl", e.target.value)}
-                    placeholder="https://github.com/username"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    LinkedIn
-                  </label>
-                  <Input
-                    type="url"
-                    value={formData.linkedinUrl || ""}
-                    onChange={(e) => handleChange("linkedinUrl", e.target.value)}
-                    placeholder="https://linkedin.com/in/username"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Twitter / X
-                  </label>
-                  <Input
-                    type="url"
-                    value={formData.twitterUrl || ""}
-                    onChange={(e) => handleChange("twitterUrl", e.target.value)}
-                    placeholder="https://twitter.com/username"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Appearance & Status */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-pink-100 dark:bg-pink-900/30">
-                  <Palette className="w-5 h-5 text-pink-600 dark:text-pink-400" />
-                </div>
-                Apparence & Statut
-              </h3>
-              <div className="space-y-6">
-                {/* Primary Color */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                    Couleur principale
-                  </label>
-                  <div className="flex flex-wrap gap-3">
-                    {[
-                      { name: "blue", class: "bg-blue-500" },
-                      { name: "purple", class: "bg-purple-500" },
-                      { name: "green", class: "bg-green-500" },
-                      { name: "orange", class: "bg-orange-500" },
-                      { name: "pink", class: "bg-pink-500" },
-                      { name: "red", class: "bg-red-500" },
-                      { name: "indigo", class: "bg-indigo-500" },
-                      { name: "teal", class: "bg-teal-500" },
-                    ].map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => handleChange("primaryColor", color.name)}
-                        className={`w-10 h-10 ${color.class} rounded-xl shadow-lg hover:scale-110 transition-transform duration-200 flex items-center justify-center ${
-                          formData.primaryColor === color.name
-                            ? "ring-2 ring-offset-2 ring-gray-900 dark:ring-white"
-                            : ""
-                        }`}
-                      >
-                        {formData.primaryColor === color.name && (
-                          <Check className="w-5 h-5 text-white" />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Availability Status */}
-                <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-                  <label className="flex items-center justify-between cursor-pointer group">
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-lg ${formData.availableForWork ? 'bg-green-100 dark:bg-green-900/30' : 'bg-gray-100 dark:bg-gray-800'}`}>
-                        <Shield className={`w-5 h-5 ${formData.availableForWork ? 'text-green-600 dark:text-green-400' : 'text-gray-500'}`} />
-                      </div>
-                      <div>
-                        <span className="text-gray-900 dark:text-white font-medium block">
-                          Disponible pour mission
-                        </span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
-                          Affiche un badge "Disponible" sur votre site
-                        </span>
-                      </div>
-                    </div>
-                    <div className="relative">
-                      <input
-                        type="checkbox"
-                        className="sr-only"
-                        checked={formData.availableForWork || false}
-                        onChange={(e) => handleChange("availableForWork", e.target.checked)}
-                      />
-                      <div
-                        className={`w-14 h-8 rounded-full transition-colors ${
-                          formData.availableForWork
-                            ? "bg-green-500"
-                            : "bg-gray-300 dark:bg-gray-700"
-                        }`}
-                      >
-                        <div
-                          className={`w-6 h-6 rounded-full bg-white shadow-md transform transition-transform mt-1 ${
-                            formData.availableForWork ? "translate-x-7" : "translate-x-1"
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <ActionButton
+            onClick={handleSubmit}
+            loading={updateSettings.isPending}
+            disabled={saved}
+          >
+            {saved ? (
+              <>
+                <Check className="w-4 h-4" />
+                Enregistré
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                Enregistrer
+              </>
+            )}
+          </ActionButton>
         </motion.div>
       </div>
-
-      {/* Success Message */}
-      {saved && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-6 right-6 flex items-center gap-3 px-6 py-4 bg-green-500 text-white rounded-xl shadow-lg"
-        >
-          <Check className="w-5 h-5" />
-          <span className="font-medium">Paramètres enregistrés avec succès !</span>
-        </motion.div>
-      )}
     </div>
   );
 }
 
-export default Settings;
+interface SectionProps {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  children: React.ReactNode;
+}
+
+function Section({ icon: Icon, title, children }: SectionProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden"
+    >
+      <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-800 flex items-center gap-3">
+        <div className="w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+          <Icon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        </div>
+        <h2 className="text-sm font-medium text-gray-900 dark:text-white">
+          {title}
+        </h2>
+      </div>
+      <div className="p-6">
+        {children}
+      </div>
+    </motion.div>
+  );
+}
+
+export default SettingsPage;
