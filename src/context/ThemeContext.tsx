@@ -114,63 +114,42 @@ export function ThemeProvider({
     }
 
     // Fallback animation for browsers without View Transitions API
-    if (isDarkening) {
-      // Light → Dark: On montre d'abord le light qui se rétracte vers le bouton
-      // Créer overlay LIGHT par-dessus, appliquer dark, puis rétracter le light
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 99999;
-        pointer-events: none;
-        background-color: #ffffff;
-        clip-path: circle(${endRadius}px at ${x}px ${y}px);
-      `;
-      document.body.appendChild(overlay);
+    // Créer un screenshot du state actuel avec un canvas
+    const oldBg = isDarkening ? '#f9fafb' : '#030712';
+    const newBg = isDarkening ? '#030712' : '#f9fafb';
 
-      // Appliquer le thème dark immédiatement (caché sous l'overlay)
-      root.classList.remove("light", "dark");
-      root.classList.add(newResolved);
-      setResolvedTheme(newResolved);
+    // Overlay de l'ancien thème (plein écran)
+    const oldOverlay = document.createElement('div');
+    oldOverlay.style.cssText = `
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      pointer-events: none;
+      background-color: ${oldBg};
+    `;
 
-      // Animer l'overlay light qui se rétracte
-      const animation = overlay.animate(
-        [
-          { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` },
-          { clipPath: `circle(0px at ${x}px ${y}px)` }
-        ],
-        {
-          duration: 500,
-          easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-          fill: 'forwards'
-        }
-      );
+    // Overlay du nouveau thème (commence en cercle de 0 ou plein)
+    const newOverlay = document.createElement('div');
+    newOverlay.style.cssText = `
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      pointer-events: none;
+      background-color: ${newBg};
+      clip-path: circle(0px at ${x}px ${y}px);
+    `;
 
-      animation.onfinish = () => {
-        overlay.remove();
-        setIsTransitioning(false);
-      };
-    } else {
-      // Dark → Light: Le cercle light s'étend depuis le bouton
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 99999;
-        pointer-events: none;
-        background-color: #ffffff;
-        clip-path: circle(0px at ${x}px ${y}px);
-      `;
-      document.body.appendChild(overlay);
+    document.body.appendChild(oldOverlay);
+    document.body.appendChild(newOverlay);
 
-      // Animer l'overlay light qui s'étend
-      const animation = overlay.animate(
+    // Appliquer le nouveau thème (caché sous les overlays)
+    root.classList.remove("light", "dark");
+    root.classList.add(newResolved);
+    setResolvedTheme(newResolved);
+
+    requestAnimationFrame(() => {
+      // Animer le nouveau thème qui s'étend
+      const animation = newOverlay.animate(
         [
           { clipPath: `circle(0px at ${x}px ${y}px)` },
           { clipPath: `circle(${endRadius}px at ${x}px ${y}px)` }
@@ -182,18 +161,12 @@ export function ThemeProvider({
         }
       );
 
-      // Appliquer le thème à mi-parcours
-      setTimeout(() => {
-        root.classList.remove("light", "dark");
-        root.classList.add(newResolved);
-        setResolvedTheme(newResolved);
-      }, 250);
-
       animation.onfinish = () => {
-        overlay.remove();
+        oldOverlay.remove();
+        newOverlay.remove();
         setIsTransitioning(false);
       };
-    }
+    });
 
   }, []);
 
