@@ -1,44 +1,54 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   Mail,
   Phone,
   MapPin,
   Send,
-  User,
-  MessageSquare,
-  Clock,
   CheckCircle,
+  Clock,
+  MessageSquare,
+  Calendar,
   Github,
   Linkedin,
   Twitter,
-  Calendar,
   Globe,
-  Smartphone,
-  Code2,
-  Database,
-  Cloud,
+  ArrowRight,
+  Sparkles,
+  User,
+  Building2,
+  FileText,
+  Zap,
   Shield,
+  HeartHandshake,
+  Coffee,
+  Video,
+  CalendarDays,
 } from "lucide-react";
 
-const Contact = () => {
+import SEO from "../components/common/SEO";
+import { Button } from "../components/ui/Button";
+import { Input } from "../components/ui/Input";
+import { Card, CardContent } from "../components/ui/Card";
 
+const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
-    service: "",
+    projectType: "",
     budget: "",
-    message: "",
     timeline: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [activeStep, setActiveStep] = useState(1);
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -48,570 +58,648 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Simulate submission
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     setIsSubmitting(false);
     setIsSubmitted(true);
 
-    // Reset form after 3 seconds
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({
         name: "",
         email: "",
         company: "",
-        service: "",
+        projectType: "",
         budget: "",
-        message: "",
         timeline: "",
+        message: "",
       });
-    }, 3000);
+      setActiveStep(1);
+    }, 5000);
   };
-
-  const services = [
-    { value: "", label: "Sélectionnez un service" },
-    { value: "web-development", label: "Développement Web" },
-    { value: "mobile-app", label: "Application Mobile" },
-    { value: "backend-api", label: "Backend & API" },
-    { value: "consulting", label: "Consultation" },
-    { value: "maintenance", label: "Maintenance" },
-    { value: "other", label: "Autre" },
-  ];
-
-  const budgets = [
-    { value: "", label: "Sélectionnez votre budget" },
-    { value: "1000-3000", label: "1 000€ - 3 000€" },
-    { value: "3000-5000", label: "3 000€ - 5 000€" },
-    { value: "5000-10000", label: "5 000€ - 10 000€" },
-    { value: "10000+", label: "10 000€+" },
-    { value: "discuss", label: "À discuter" },
-  ];
-
-  const timelines = [
-    { value: "", label: "Délai souhaité" },
-    { value: "asap", label: "Dès que possible" },
-    { value: "1-month", label: "Dans le mois" },
-    { value: "2-3-months", label: "2-3 mois" },
-    { value: "3-6-months", label: "3-6 mois" },
-    { value: "flexible", label: "Flexible" },
-  ];
 
   const contactMethods = [
     {
       icon: Mail,
       title: "Email",
-      value: "contact@example.com",
+      value: "yaodavidlogan02@gmail.com",
       description: "Réponse sous 24h",
-      color: "text-blue-600",
+      action: "mailto:yaodavidlogan02@gmail.com",
+      color: "blue",
     },
     {
       icon: Phone,
       title: "Téléphone",
-      value: "+33 1 23 45 67 89",
+      value: "+228 91 68 09 67",
       description: "Lun-Ven 9h-18h",
-      color: "text-green-600",
+      action: "tel:+22891680967",
+      color: "emerald",
     },
     {
       icon: MapPin,
       title: "Localisation",
-      value: "Paris, France",
-      description: "Disponible en remote",
-      color: "text-purple-600",
+      value: "Lomé, Togo",
+      description: "Remote & International",
+      action: "#",
+      color: "purple",
     },
   ];
 
-  const availabilitySlots = [
-    { time: "09:00 - 10:00", available: true },
-    { time: "10:00 - 11:00", available: false },
-    { time: "11:00 - 12:00", available: true },
-    { time: "14:00 - 15:00", available: true },
-    { time: "15:00 - 16:00", available: false },
-    { time: "16:00 - 17:00", available: true },
+  const socialLinks = [
+    { icon: Github, href: "https://github.com/Le-Sourcier", label: "GitHub" },
+    { icon: Linkedin, href: "https://linkedin.com/in/yao-logan", label: "LinkedIn" },
+    { icon: Twitter, href: "#", label: "Twitter" },
   ];
 
-  const expertise = [
-    {
-      icon: Globe,
-      title: "Frontend",
-      skills: ["React", "Vue.js", "TypeScript"],
-    },
-    {
-      icon: Code2,
-      title: "Backend",
-      skills: ["Node.js", "Python", "API Design"],
-    },
-    { icon: Smartphone, title: "Mobile", skills: ["React Native", "Flutter"] },
-    { icon: Database, title: "Database", skills: ["PostgreSQL", "MongoDB"] },
-    { icon: Cloud, title: "DevOps", skills: ["AWS", "Docker", "CI/CD"] },
-    {
-      icon: Shield,
-      title: "Security",
-      skills: ["Auth", "Encryption", "Best Practices"],
-    },
+  const projectTypes = [
+    { value: "web", label: "Application Web" },
+    { value: "mobile", label: "Application Mobile" },
+    { value: "backend", label: "Backend / API" },
+    { value: "fullstack", label: "Solution Full-Stack" },
+    { value: "consulting", label: "Consulting / Audit" },
+    { value: "other", label: "Autre" },
   ];
 
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen pt-16 flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-center p-8 bg-white rounded-2xl shadow-lg border border-gray-100 max-w-md mx-4"
-        >
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-8 h-8 text-green-600" />
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            Message envoyé !
-          </h2>
-          <p className="text-gray-600 mb-6">
-            Merci pour votre message. Je vous répondrai dans les plus brefs
-            délais.
-          </p>
-          <div className="animate-pulse-custom">
-            <p className="text-sm text-gray-500">Redirection automatique...</p>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
+  const budgetRanges = [
+    { value: "small", label: "< 2 000 €" },
+    { value: "medium", label: "2 000 € - 5 000 €" },
+    { value: "large", label: "5 000 € - 15 000 €" },
+    { value: "enterprise", label: "> 15 000 €" },
+    { value: "discuss", label: "À discuter" },
+  ];
+
+  const timelines = [
+    { value: "urgent", label: "Urgent (< 2 semaines)" },
+    { value: "short", label: "Court terme (1-2 mois)" },
+    { value: "medium", label: "Moyen terme (2-4 mois)" },
+    { value: "flexible", label: "Flexible" },
+  ];
+
+  const features = [
+    { icon: Zap, title: "Réponse rapide", description: "Sous 24h ouvrées" },
+    { icon: Shield, title: "Confidentialité", description: "Vos données sont protégées" },
+    { icon: HeartHandshake, title: "Sans engagement", description: "Devis gratuit" },
+  ];
+
+  const nextStep = () => {
+    if (activeStep < 3) setActiveStep(activeStep + 1);
+  };
+
+  const prevStep = () => {
+    if (activeStep > 1) setActiveStep(activeStep - 1);
+  };
+
+  const canProceedStep1 = formData.name && formData.email;
+  const canProceedStep2 = formData.projectType;
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      <SEO
+        title="Contact"
+        description="Contactez-moi pour discuter de votre projet web ou mobile."
+        url="/contact"
+      />
+
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              Discutons de votre <span className="text-gradient">Projet</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              Prêt à donner vie à vos idées ? Contactez-moi pour discuter de vos
-              besoins et créer ensemble une solution sur mesure.
-            </p>
-            <div className="flex justify-center space-x-8 text-sm text-gray-500">
-              <div className="flex items-center">
-                <Clock className="w-4 h-4 text-blue-500 mr-2" />
-                Réponse sous 24h
+      <section className="relative py-20 lg:py-28 overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600" />
+        <div className="absolute inset-0 bg-[url('/grid-pattern-white.svg')] opacity-10" />
+
+        {/* Floating shapes */}
+        <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center text-white">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 backdrop-blur text-white text-sm font-semibold mb-6">
+                <Sparkles className="w-4 h-4 mr-2" />
+                Disponible pour de nouveaux projets
+              </span>
+
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                Transformons votre{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">
+                  vision
+                </span>{" "}
+                en réalité
+              </h1>
+
+              <p className="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+                Une idée ? Un projet ? Discutons ensemble et créons quelque chose d'extraordinaire.
+              </p>
+
+              {/* Quick contact methods */}
+              <div className="flex flex-wrap justify-center gap-4">
+                <a
+                  href="mailto:yaodavidlogan02@gmail.com"
+                  className="inline-flex items-center px-6 py-3 rounded-full bg-white text-gray-900 font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+                >
+                  <Mail className="w-5 h-5 mr-2" />
+                  Envoyer un email
+                </a>
+                <a
+                  href="tel:+22891680967"
+                  className="inline-flex items-center px-6 py-3 rounded-full bg-white/20 backdrop-blur text-white font-semibold hover:bg-white/30 transition-colors"
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  +228 91 68 09 67
+                </a>
               </div>
-              <div className="flex items-center">
-                <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                Devis gratuit
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Wave decoration */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+              className="fill-white dark:fill-gray-950"
+            />
+          </svg>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
-            >
-              <div className="flex items-center mb-8">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center mr-4">
-                  <Send className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Envoyer un message
-                  </h2>
-                  <p className="text-gray-600">
-                    Décrivez votre projet en détail
-                  </p>
+      {/* Main Content */}
+      <section className="py-16 lg:py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
+
+            {/* Left Column - Contact Info */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Contact Methods */}
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  Restons en contact
+                </h2>
+                <div className="space-y-4">
+                  {contactMethods.map((method, idx) => (
+                    <motion.a
+                      key={idx}
+                      href={method.action}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      className="group flex items-start gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-blue-200 dark:hover:border-blue-800 transition-all hover:shadow-lg"
+                    >
+                      <div className={`w-12 h-12 rounded-xl bg-${method.color}-100 dark:bg-${method.color}-900/30 text-${method.color}-600 dark:text-${method.color}-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                        <method.icon size={24} />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                          {method.title}
+                        </h3>
+                        <p className="text-blue-600 dark:text-blue-400 font-medium">
+                          {method.value}
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          {method.description}
+                        </p>
+                      </div>
+                    </motion.a>
+                  ))}
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
+              {/* Social Links */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  Retrouvez-moi sur
+                </h3>
+                <div className="flex gap-3">
+                  {socialLinks.map((social, idx) => (
+                    <a
+                      key={idx}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center transition-all hover:scale-110"
+                      aria-label={social.label}
                     >
-                      Nom complet *
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                        placeholder="Votre nom"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
-                    >
-                      Email *
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                        placeholder="votre@email.com"
-                      />
-                    </div>
-                  </div>
+                      <social.icon size={22} />
+                    </a>
+                  ))}
                 </div>
+              </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
-                    >
-                      Entreprise
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                      placeholder="Nom de votre entreprise"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="service"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
-                    >
-                      Service souhaité
-                    </label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                    >
-                      {services.map((service) => (
-                        <option key={service.value} value={service.value}>
-                          {service.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="budget"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
-                    >
-                      Budget estimé
-                    </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                    >
-                      {budgets.map((budget) => (
-                        <option key={budget.value} value={budget.value}>
-                          {budget.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="timeline"
-                      className="block text-sm font-semibold text-gray-900 mb-2"
-                    >
-                      Timeline
-                    </label>
-                    <select
-                      id="timeline"
-                      name="timeline"
-                      value={formData.timeline}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200"
-                    >
-                      {timelines.map((timeline) => (
-                        <option key={timeline.value} value={timeline.value}>
-                          {timeline.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-semibold text-gray-900 mb-2"
-                  >
-                    Message *
-                  </label>
-                  <div className="relative">
-                    <MessageSquare className="absolute left-3 top-4 w-5 h-5 text-gray-400" />
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 resize-vertical"
-                      placeholder="Décrivez votre projet, vos objectifs et vos attentes..."
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full btn-primary ${
-                    isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="spinner w-5 h-5 mr-2" />
-                      Envoi en cours...
-                    </>
-                  ) : (
-                    <>
-                      Envoyer le message
-                      <Send className="ml-2 w-5 h-5" />
-                    </>
-                  )}
-                </button>
-              </form>
-            </motion.div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-8">
-            {/* Contact Methods */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
-            >
-              <h3 className="text-xl font-bold text-gray-900 mb-6">
-                Me contacter directement
-              </h3>
-              <div className="space-y-4">
-                {contactMethods.map((method, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div
-                      className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                        method.color === "text-blue-600"
-                          ? "bg-blue-100"
-                          : method.color === "text-green-600"
-                          ? "bg-green-100"
-                          : "bg-purple-100"
-                      }`}
-                    >
-                      <method.icon className={`w-5 h-5 ${method.color}`} />
+              {/* Availability Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Card className="border-0 bg-gradient-to-br from-blue-600 to-purple-600 text-white overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                  <CardContent className="p-6 relative">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="relative flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+                      </span>
+                      <span className="font-semibold">Disponible maintenant</span>
                     </div>
-                    <div>
-                      <div className="font-semibold text-gray-900">
-                        {method.title}
-                      </div>
-                      <div className="text-gray-800">{method.value}</div>
-                      <div className="text-sm text-gray-500">
-                        {method.description}
-                      </div>
+                    <p className="text-white/80 mb-4">
+                      Je suis actuellement disponible pour de nouveaux projets freelance et des collaborations long terme.
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-white/70">
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        Réponse 24h
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Globe className="w-4 h-4" />
+                        Remote
+                      </span>
                     </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Features */}
+              <div className="grid grid-cols-3 gap-4">
+                {features.map((feature, idx) => (
+                  <div key={idx} className="text-center p-4 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
+                    <feature.icon className="w-6 h-6 mx-auto mb-2 text-blue-600 dark:text-blue-400" />
+                    <h4 className="font-semibold text-sm text-gray-900 dark:text-white mb-1">
+                      {feature.title}
+                    </h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {feature.description}
+                    </p>
                   </div>
                 ))}
               </div>
+            </div>
 
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <div className="flex space-x-4">
-                  <a
-                    href="https://github.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200"
-                  >
-                    <Github className="w-5 h-5 text-gray-700" />
-                  </a>
-                  <a
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200"
-                  >
-                    <Linkedin className="w-5 h-5 text-gray-700" />
-                  </a>
-                  <a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200"
-                  >
-                    <Twitter className="w-5 h-5 text-gray-700" />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
+            {/* Right Column - Contact Form */}
+            <div className="lg:col-span-3">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <Card className="border border-gray-100 dark:border-gray-800 shadow-xl bg-white dark:bg-gray-900 overflow-hidden">
+                  <CardContent className="p-8 lg:p-10">
+                    <AnimatePresence mode="wait">
+                      {isSubmitted ? (
+                        <motion.div
+                          key="success"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          className="text-center py-16"
+                        >
+                          <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
+                          </div>
+                          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                            Message envoyé !
+                          </h2>
+                          <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                            Merci pour votre message. Je vous réponds sous 24h.
+                          </p>
+                          <div className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                            <Coffee className="w-4 h-4" />
+                            En attendant, prenez un café !
+                          </div>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="form"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          {/* Progress Steps */}
+                          <div className="flex items-center justify-between mb-8">
+                            {[1, 2, 3].map((step) => (
+                              <div key={step} className="flex items-center">
+                                <div
+                                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-colors ${
+                                    activeStep >= step
+                                      ? "bg-blue-600 text-white"
+                                      : "bg-gray-100 dark:bg-gray-800 text-gray-400"
+                                  }`}
+                                >
+                                  {step}
+                                </div>
+                                {step < 3 && (
+                                  <div
+                                    className={`w-16 sm:w-24 lg:w-32 h-1 mx-2 rounded transition-colors ${
+                                      activeStep > step
+                                        ? "bg-blue-600"
+                                        : "bg-gray-100 dark:bg-gray-800"
+                                    }`}
+                                  />
+                                )}
+                              </div>
+                            ))}
+                          </div>
 
-            {/* Expertise */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
-            >
-              <h3 className="text-xl font-bold text-gray-900 mb-6">
-                Mes domaines d'expertise
-              </h3>
-              <div className="space-y-4">
-                {expertise.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <div>
-                      <div className="font-medium text-gray-900">
-                        {item.title}
-                      </div>
-                      <div className="text-sm text-gray-600">
-                        {item.skills.join(", ")}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+                          <form onSubmit={handleSubmit}>
+                            <AnimatePresence mode="wait">
+                              {/* Step 1: Personal Info */}
+                              {activeStep === 1 && (
+                                <motion.div
+                                  key="step1"
+                                  initial={{ opacity: 0, x: 20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  exit={{ opacity: 0, x: -20 }}
+                                  className="space-y-6"
+                                >
+                                  <div>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                                      Vos coordonnées
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-400">
+                                      Comment puis-je vous contacter ?
+                                    </p>
+                                  </div>
 
-            {/* Availability */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
-            >
-              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <Calendar className="w-5 h-5 mr-2" />
-                Disponibilités aujourd'hui
-              </h3>
-              <div className="space-y-2">
-                {availabilitySlots.map((slot, index) => (
-                  <div
-                    key={index}
-                    className={`flex items-center justify-between p-3 rounded-lg ${
-                      slot.available
-                        ? "bg-green-50 text-green-800 border border-green-200"
-                        : "bg-gray-50 text-gray-500 border border-gray-200"
-                    }`}
-                  >
-                    <span className="text-sm font-medium">{slot.time}</span>
-                    <span
-                      className={`text-xs px-2 py-1 rounded-full ${
-                        slot.available
-                          ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-600"
-                      }`}
-                    >
-                      {slot.available ? "Disponible" : "Occupé"}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-gray-600 mt-4">
-                Fuseau horaire: Europe/Paris (UTC+1)
-              </p>
-            </motion.div>
+                                  <div className="grid sm:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                        <User className="w-4 h-4" /> Nom complet *
+                                      </label>
+                                      <Input
+                                        name="name"
+                                        placeholder="Jean Dupont"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="h-12 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                                      />
+                                    </div>
+                                    <div className="space-y-2">
+                                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                        <Mail className="w-4 h-4" /> Email *
+                                      </label>
+                                      <Input
+                                        name="email"
+                                        type="email"
+                                        placeholder="jean@example.com"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="h-12 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                      <Building2 className="w-4 h-4" /> Entreprise (optionnel)
+                                    </label>
+                                    <Input
+                                      name="company"
+                                      placeholder="Nom de votre entreprise"
+                                      value={formData.company}
+                                      onChange={handleInputChange}
+                                      className="h-12 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                                    />
+                                  </div>
+
+                                  <div className="flex justify-end">
+                                    <Button
+                                      type="button"
+                                      onClick={nextStep}
+                                      disabled={!canProceedStep1}
+                                      className="h-12 px-8 rounded-xl"
+                                    >
+                                      Continuer <ArrowRight className="ml-2 w-4 h-4" />
+                                    </Button>
+                                  </div>
+                                </motion.div>
+                              )}
+
+                              {/* Step 2: Project Details */}
+                              {activeStep === 2 && (
+                                <motion.div
+                                  key="step2"
+                                  initial={{ opacity: 0, x: 20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  exit={{ opacity: 0, x: -20 }}
+                                  className="space-y-6"
+                                >
+                                  <div>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                                      Votre projet
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-400">
+                                      Parlez-moi de ce que vous souhaitez réaliser.
+                                    </p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                      Type de projet *
+                                    </label>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                      {projectTypes.map((type) => (
+                                        <button
+                                          key={type.value}
+                                          type="button"
+                                          onClick={() => setFormData({ ...formData, projectType: type.value })}
+                                          className={`p-4 rounded-xl border-2 text-left transition-all ${
+                                            formData.projectType === type.value
+                                              ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"
+                                              : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 text-gray-700 dark:text-gray-300"
+                                          }`}
+                                        >
+                                          <span className="font-medium text-sm">{type.label}</span>
+                                        </button>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  <div className="grid sm:grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        Budget estimé
+                                      </label>
+                                      <select
+                                        name="budget"
+                                        value={formData.budget}
+                                        onChange={handleInputChange}
+                                        className="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                      >
+                                        <option value="">Sélectionner</option>
+                                        {budgetRanges.map((range) => (
+                                          <option key={range.value} value={range.value}>
+                                            {range.label}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                      <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                        Délai souhaité
+                                      </label>
+                                      <select
+                                        name="timeline"
+                                        value={formData.timeline}
+                                        onChange={handleInputChange}
+                                        className="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                      >
+                                        <option value="">Sélectionner</option>
+                                        {timelines.map((tl) => (
+                                          <option key={tl.value} value={tl.value}>
+                                            {tl.label}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex justify-between">
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      onClick={prevStep}
+                                      className="h-12 px-6 rounded-xl"
+                                    >
+                                      Retour
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      onClick={nextStep}
+                                      disabled={!canProceedStep2}
+                                      className="h-12 px-8 rounded-xl"
+                                    >
+                                      Continuer <ArrowRight className="ml-2 w-4 h-4" />
+                                    </Button>
+                                  </div>
+                                </motion.div>
+                              )}
+
+                              {/* Step 3: Message */}
+                              {activeStep === 3 && (
+                                <motion.div
+                                  key="step3"
+                                  initial={{ opacity: 0, x: 20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  exit={{ opacity: 0, x: -20 }}
+                                  className="space-y-6"
+                                >
+                                  <div>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                                      Détails du projet
+                                    </h3>
+                                    <p className="text-gray-600 dark:text-gray-400">
+                                      Décrivez votre projet en quelques lignes.
+                                    </p>
+                                  </div>
+
+                                  <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                      <FileText className="w-4 h-4" /> Votre message *
+                                    </label>
+                                    <textarea
+                                      name="message"
+                                      rows={6}
+                                      placeholder="Décrivez votre projet, vos objectifs, vos contraintes..."
+                                      value={formData.message}
+                                      onChange={handleInputChange}
+                                      required
+                                      className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-4 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none resize-none"
+                                    />
+                                  </div>
+
+                                  {/* Summary */}
+                                  <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 space-y-2">
+                                    <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+                                      Récapitulatif
+                                    </h4>
+                                    <div className="grid grid-cols-2 gap-2 text-sm">
+                                      <div>
+                                        <span className="text-gray-500 dark:text-gray-400">Contact:</span>
+                                        <span className="ml-2 text-gray-900 dark:text-white">{formData.name}</span>
+                                      </div>
+                                      <div>
+                                        <span className="text-gray-500 dark:text-gray-400">Projet:</span>
+                                        <span className="ml-2 text-gray-900 dark:text-white">
+                                          {projectTypes.find((t) => t.value === formData.projectType)?.label}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex justify-between">
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      onClick={prevStep}
+                                      className="h-12 px-6 rounded-xl"
+                                    >
+                                      Retour
+                                    </Button>
+                                    <Button
+                                      type="submit"
+                                      disabled={isSubmitting || !formData.message}
+                                      className="h-12 px-8 rounded-xl min-w-[180px]"
+                                    >
+                                      {isSubmitting ? (
+                                        <span className="flex items-center">
+                                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                          </svg>
+                                          Envoi...
+                                        </span>
+                                      ) : (
+                                        <>
+                                          Envoyer <Send className="ml-2 w-4 h-4" />
+                                        </>
+                                      )}
+                                    </Button>
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </form>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Questions fréquentes
+      {/* Map / Location Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Travaillons ensemble, où que vous soyez
             </h2>
-            <p className="text-gray-600">
-              Les réponses aux questions les plus courantes
+            <p className="text-gray-600 dark:text-gray-400 mb-8">
+              Basé à Lomé, Togo - Je collabore avec des clients du monde entier en remote.
             </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            {[
-              {
-                question: "Quel est votre délai de réponse ?",
-                answer:
-                  "Je réponds généralement sous 24h ouvrées. Pour les urgences, n'hésitez pas à m'appeler directement.",
-              },
-              {
-                question: "Proposez-vous un devis gratuit ?",
-                answer:
-                  "Oui, je propose un devis détaillé gratuit après analyse de vos besoins lors d'un premier échange.",
-              },
-              {
-                question: "Travaillez-vous en remote ?",
-                answer:
-                  "Absolument ! Je travaille avec des clients partout en France et à l'international en mode remote.",
-              },
-              {
-                question: "Quels sont vos tarifs ?",
-                answer:
-                  "Mes tarifs varient selon la complexité et la durée du projet. Je propose des forfaits à partir de 2000€.",
-              },
-            ].map((faq, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg p-6 shadow-sm border border-gray-100"
-              >
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  {faq.question}
-                </h3>
-                <p className="text-gray-600">{faq.answer}</p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
+                <Globe className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
+                Remote Friendly
               </div>
-            ))}
-          </motion.div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
+                <Video className="w-4 h-4 mr-2 text-emerald-600 dark:text-emerald-400" />
+                Visio disponible
+              </div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
+                <CalendarDays className="w-4 h-4 mr-2 text-purple-600 dark:text-purple-400" />
+                Flexible
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

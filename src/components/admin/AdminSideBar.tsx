@@ -3,109 +3,96 @@ import {
   BarChart3,
   FileText,
   Folder,
-  TrendingUp,
   MessageSquare,
   Settings,
-  Image,
-  Database,
-  Bell,
-  LucideProps,
+  LayoutDashboard,
 } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+import { cn } from "../../lib/utils";
 
-type TabPrpos = {
-  id: string;
-  label: string;
-  icon: React.ForwardRefExoticComponent<
-    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
-  >;
-  color: string;
-};
 export default function AdminSideBar() {
   const location = useLocation();
-  const navigate = useNavigate();
 
-  // Extract current tab from the query string (?tab=XYZ)
-  const searchParams = new URLSearchParams(location.search);
-  const activeTab = searchParams.get("tab") || "overview";
-
-  const tabs: TabPrpos[] = [
+  const links = [
     {
-      id: "overview",
+      to: "/admin/dashboard",
       label: "Vue d'ensemble",
-      icon: BarChart3,
-      color: "text-blue-600",
+      icon: LayoutDashboard,
     },
-    { id: "posts", label: "Articles", icon: FileText, color: "text-green-600" },
     {
-      id: "projects",
+      to: "/admin/posts",
+      label: "Articles",
+      icon: FileText,
+    },
+    {
+      to: "/admin/projects",
       label: "Projets",
       icon: Folder,
-      color: "text-purple-600",
-    },
-    { id: "media", label: "Médias", icon: Image, color: "text-pink-600" },
-    {
-      id: "analytics",
-      label: "Analytics",
-      icon: TrendingUp,
-      color: "text-orange-600",
     },
     {
-      id: "messages",
+      to: "/admin/messages",
       label: "Messages",
       icon: MessageSquare,
-      color: "text-indigo-600",
     },
     {
-      id: "notifications",
-      label: "Notifications",
-      icon: Bell,
-      color: "text-purple-600",
-    },
-    {
-      id: "settings",
+      to: "/admin/settings",
       label: "Paramètres",
       icon: Settings,
-      color: "text-gray-600",
-    },
-    {
-      id: "backup",
-      label: "Sauvegarde",
-      icon: Database,
-      color: "text-indigo-600",
     },
   ];
+
   return (
-    <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/50 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Navigation</h3>
-      <nav className="space-y-2">
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab.id;
+    <div className="flex flex-col h-full bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700">
+      <div className="p-6">
+        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+          Admin Panel
+        </h2>
+      </div>
+
+      <nav className="flex-1 px-4 space-y-1">
+        {links.map((link) => {
+          const isActive = location.pathname.startsWith(link.to);
 
           return (
-            <motion.button
-              key={tab.id}
-              whileHover={{ x: 4 }}
-              onClick={() => navigate(`/admin?tab=${tab.id}`)}
-              className={`w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-300 ${
+            <Link
+              key={link.to}
+              to={link.to}
+              className={cn(
+                "flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 font-medium shadow-md border border-blue-200"
-                  : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
-              }`}
-            >
-              <tab.icon
-                className={`w-5 h-5 mr-3 ${
-                  isActive ? tab.color : "text-gray-400"
-                }`}
-              />
-              {tab.label}
-              {tab.id === "messages" && (
-                <span className="ml-auto w-2 h-2 bg-red-500 rounded-full" />
+                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400"
+                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-200"
               )}
-            </motion.button>
+            >
+              <link.icon
+                className={cn(
+                  "w-5 h-5 mr-3",
+                  isActive ? "text-blue-600 dark:text-blue-400" : "text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                )}
+              />
+              {link.label}
+              {isActive && (
+                <motion.div
+                  layoutId="activeIndicator"
+                  className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400"
+                />
+              )}
+            </Link>
           );
         })}
       </nav>
+
+      <div className="p-4 border-t border-gray-100 dark:border-gray-700">
+        <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+          <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
+            AD
+          </div>
+          <div className="ml-3">
+            <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Admin</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Super Admin</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

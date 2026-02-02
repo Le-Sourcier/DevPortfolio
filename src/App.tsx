@@ -1,62 +1,54 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import { AppProvider } from "./context/AppContext";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+// New App.tsx with clear separation and nested routing
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { PublicLayout, AdminRootLayout } from "./layouts";
+
+// Public Pages
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
-import ScrollToTop from "./components/common/ScrollToTop";
-import AdminLayout from "./components/layout/AdminLayout";
+
+// Admin Pages
+import AdminLogin from "./pages/admin/Login";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProjects from "./pages/admin/ProjectsManagement";
+import AdminBlogPosts from "./pages/admin/BlogPost";
+import AdminMessages from "./pages/admin/Messages";
+import AdminSettings from "./pages/admin/Settings";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+
 import "./App.css";
-
-function AnimatedRoutes() {
-  const location = useLocation();
-
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname + location.search}>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/admin" element={<AdminLayout />} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
-
-function LayoutWrapper() {
-  const location = useLocation();
-  const isAdminPage = location.pathname.startsWith("/admin");
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <ScrollToTop />
-      <Header />
-      <main className={isAdminPage ? "" : "pt-16"}>
-        <AnimatedRoutes />
-      </main>
-      <Footer />
-    </div>
-  );
-}
 
 function App() {
   return (
-    <AppProvider>
-      <Router>
-        <LayoutWrapper />
-      </Router>
-    </AppProvider>
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/contact" element={<Contact />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        <Route path="/admin" element={<ProtectedRoute><AdminRootLayout /></ProtectedRoute>}>
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="projects" element={<AdminProjects />} />
+          <Route path="posts" element={<AdminBlogPosts />} />
+          <Route path="messages" element={<AdminMessages />} />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 }
 

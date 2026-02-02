@@ -17,7 +17,7 @@ function Modal({ ...props }: ModalProps) {
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="bg-white rounded-2xl p-8 max-w-md mx-4 shadow-2xl"
+        className="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-md mx-4 shadow-2xl dark:border dark:border-gray-800"
         onClick={(e) => e.stopPropagation()}
       >
         {props.children}

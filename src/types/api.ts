@@ -1,3 +1,10 @@
+export interface ApiResponse<T = any> {
+  error: boolean;
+  status: number;
+  message: string;
+  data?: T;
+}
+
 export type Locale = "fr" | "en";
 export type Localized<T = string> = Record<Locale, T>;
 
@@ -21,6 +28,7 @@ export interface Project {
   imageUrl?: string;
   projectUrl?: string;
   repoUrl?: string;
+  featured?: boolean;
 }
 
 export interface Skill {

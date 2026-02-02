@@ -1,78 +1,79 @@
+// components/layout/Footer.tsx
 import { Link, useLocation } from 'react-router-dom';
 import { Code2, Github, Linkedin, Twitter, Mail, Heart } from 'lucide-react';
+import { useTranslation } from "react-i18next";
+import { useSiteSettings } from '../../api/settings';
 
 const Footer = () => {
   const location = useLocation();
+  const { t } = useTranslation();
+  const { data: settings } = useSiteSettings();
 
   // Ne pas afficher le footer sur les pages admin
   if (location.pathname.startsWith('/admin')) {
     return null;
   }
 
+  const socialLinks = [
+    { type: 'github', url: settings?.githubUrl, icon: Github },
+    { type: 'linkedin', url: settings?.linkedinUrl, icon: Linkedin },
+    { type: 'twitter', url: settings?.twitterUrl, icon: Twitter },
+  ].filter(link => link.url);
+
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="p-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg">
+              <div className="p-2 bg-blue-600 rounded-lg">
                 <Code2 className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-bold">DevPortfolio</span>
+              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-300">
+                {settings?.siteName || "DevPortfolio"}
+              </span>
             </div>
-            <p className="text-gray-300 leading-relaxed">
-              Développeur Full-Stack passionné par la création d'expériences web exceptionnelles
-              et l'innovation technologique.
+            <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">
+              {t("footer.description")}
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors duration-200 hover:scale-105 transform"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors duration-200 hover:scale-105 transform"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors duration-200 hover:scale-105 transform"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="mailto:contact@example.com"
-                className="p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors duration-200 hover:scale-105 transform"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
+            <div className="flex space-x-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.type}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 hover:scale-105"
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
+              {settings?.emailContact && (
+                <a
+                  href={`mailto:${settings.emailContact}`}
+                  className="p-2 bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 hover:scale-105"
+                >
+                  <Mail className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
 
           {/* Navigation Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Navigation</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">{t("footer.navigation")}</h3>
+            <ul className="space-y-3">
               {[
-                { to: '/', label: 'Accueil' },
-                { to: '/services', label: 'Services' },
-                { to: '/blog', label: 'Blog' },
-                { to: '/contact', label: 'Contact' }
+                { to: '/', label: t('common.home') },
+                { to: '/services', label: t('common.services') },
+                { to: '/blog', label: t('common.blog') },
+                { to: '/contact', label: t('common.contact') }
               ].map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+                    className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 text-sm font-medium"
                   >
                     {link.label}
                   </Link>
@@ -83,39 +84,41 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>Développement Web</li>
-              <li>Applications Mobiles</li>
-              <li>Consultation Tech</li>
-              <li>Formation</li>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">{t("footer.services")}</h3>
+            <ul className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
+              <li>{t("footer.webDevelopment")}</li>
+              <li>{t("footer.mobileApps")}</li>
+              <li>{t("footer.techConsulting")}</li>
+              <li>{t("footer.training")}</li>
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Newsletter / Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <div className="space-y-2 text-gray-300">
-              <p>contact@example.com</p>
-              <p>+33 1 23 45 67 89</p>
-              <p>Paris, France</p>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">{t("footer.contact")}</h3>
+            <div className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
+              <p>{settings?.emailContact || "contact@example.com"}</p>
+              <p>{t("hero.available")}</p>
+              <Link to="/contact" className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline mt-2">
+                {t("cta.discussProject")} &rarr;
+              </Link>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-slate-800 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-1 text-gray-400">
-              <span>© 2024 DevPortfolio. Fait avec</span>
-              <Heart className="w-4 h-4 text-red-500" />
-              <span>par John Doe</span>
+        <div className="border-t border-gray-100 dark:border-gray-800 pt-8 mt-12">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
+              <span>© {new Date().getFullYear()} {settings?.siteName}. {t("footer.madeWith")}</span>
+              <Heart className="w-4 h-4 text-red-500 fill-current animate-pulse" />
+              <span>{t("footer.by")} {settings?.siteName}</span>
             </div>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
-                Politique de confidentialité
+            <div className="flex space-x-6 text-sm">
+              <Link to="/privacy" className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                {t("footer.privacyPolicy")}
               </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
-                Conditions d'utilisation
+              <Link to="/terms" className="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                {t("footer.termsOfUse")}
               </Link>
             </div>
           </div>
