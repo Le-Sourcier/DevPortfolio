@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useBlogPost, useBlogPosts } from "../api/blogposts";
+import { useSiteSettings } from "../api/settings";
 import { BlogPost as BlogPostType, BLOG_CATEGORIES, BlogCategory } from "../types/models";
 import { MarkdownRenderer } from "../components/ui/MarkdownRenderer";
 import {
@@ -15,6 +16,9 @@ import {
   Linkedin,
   Link2,
   BookOpen,
+  Github,
+  Mail,
+  ExternalLink,
 } from "lucide-react";
 
 const getCategoryLabel = (category: BlogCategory, lang: "fr" | "en" = "fr"): string => {
@@ -44,6 +48,7 @@ const BlogPost = () => {
   const navigate = useNavigate();
   const { data: apiPost, isLoading, error } = useBlogPost(slug || "");
   const { data: apiPosts } = useBlogPosts();
+  const { data: settings } = useSiteSettings();
 
   // Get post data from API
   const post = apiPost?.data as BlogPostType | undefined;
@@ -274,28 +279,96 @@ const BlogPost = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl p-8 mb-12"
+          className="relative overflow-hidden rounded-2xl mb-12"
         >
-          <div className="flex items-start space-x-4">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center flex-shrink-0">
-              <User className="w-8 h-8 text-white" />
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 dark:from-gray-800 dark:via-gray-900 dark:to-gray-950" />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
+
+          <div className="relative p-8 md:p-10">
+            <div className="flex flex-col md:flex-row md:items-center gap-6">
+              {/* Avatar */}
+              <div className="flex-shrink-0">
+                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-xl">
+                  <span className="text-3xl md:text-4xl font-bold text-white">
+                    {post.author.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Info */}
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-blue-200 dark:text-blue-400 text-sm font-medium">Écrit par</span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  {post.author}
+                </h3>
+                <p className="text-blue-100 dark:text-gray-300 leading-relaxed mb-4 max-w-2xl">
+                  {settings?.heroSubtitle?.fr || "Développeur passionné partageant ses connaissances et expériences à travers des articles techniques et des tutoriels."}
+                </p>
+
+                {/* Social links & CTA */}
+                <div className="flex flex-wrap items-center gap-3">
+                  {settings?.githubUrl && (
+                    <a
+                      href={settings.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg text-white text-sm font-medium transition-all border border-white/10 hover:border-white/20"
+                    >
+                      <Github className="w-4 h-4" />
+                      GitHub
+                    </a>
+                  )}
+                  {settings?.linkedinUrl && (
+                    <a
+                      href={settings.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg text-white text-sm font-medium transition-all border border-white/10 hover:border-white/20"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                      LinkedIn
+                    </a>
+                  )}
+                  {settings?.twitterUrl && (
+                    <a
+                      href={settings.twitterUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-lg text-white text-sm font-medium transition-all border border-white/10 hover:border-white/20"
+                    >
+                      <Twitter className="w-4 h-4" />
+                      Twitter
+                    </a>
+                  )}
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-white hover:bg-blue-50 rounded-lg text-blue-700 text-sm font-medium transition-all shadow-lg hover:shadow-xl"
+                  >
+                    <Mail className="w-4 h-4" />
+                    Me contacter
+                    <ExternalLink className="w-3 h-3" />
+                  </Link>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                {post.author}
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                Développeur passionné partageant ses connaissances et expériences à travers des
-                articles techniques et des tutoriels.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
-              >
-                Me contacter
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </div>
+
+            {/* Disponibilité */}
+            {settings?.availableForWork && (
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
+                  </span>
+                  <span className="text-green-300 text-sm font-medium">
+                    Disponible pour de nouveaux projets
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
       </article>
