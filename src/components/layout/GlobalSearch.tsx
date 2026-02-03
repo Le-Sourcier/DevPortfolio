@@ -21,6 +21,9 @@ import {
   Sparkles,
   Clock,
   ExternalLink,
+  User,
+  GraduationCap,
+  Award,
 } from "lucide-react";
 import { useProjects } from "../../api/projects";
 import { useBlogPosts } from "../../api/blogposts";
@@ -86,6 +89,14 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
         icon: Home,
       },
       {
+        id: "about",
+        type: "page",
+        title: t("common.about"),
+        description: "Mon parcours, compétences et formations",
+        url: "/about",
+        icon: User,
+      },
+      {
         id: "services",
         type: "page",
         title: t("common.services"),
@@ -108,6 +119,14 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
         description: "Contactez-moi pour vos projets",
         url: "/contact",
         icon: Mail,
+      },
+      {
+        id: "careers",
+        type: "page",
+        title: t("common.careers"),
+        description: "Opportunités de carrière et offres d'emploi",
+        url: "/careers",
+        icon: Briefcase,
       },
     ],
     [t]

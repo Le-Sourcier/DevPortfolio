@@ -309,11 +309,48 @@
     }
   },
   "careers": {
+    "seoTitle": "Carrières - Offres d'emploi",
+    "seoDescription": "Rejoignez notre équipe et construisons ensemble le futur",
     "hiringTag": "On recrute !",
     "hero": {
       "title": "Construisons le futur",
       "highlight": "ensemble",
       "subtitle": "Rejoignez une équipe passionnée où innovation, créativité et bienveillance se rencontrent pour créer des produits d'exception."
+    },
+    "stats": {
+      "openPositions": "Postes ouverts",
+      "locations": "Localisations",
+      "teamSize": "Membres de l'équipe",
+      "remoteOk": "Remote OK"
+    },
+    "filters": {
+      "all": "Tous",
+      "category": "Catégorie",
+      "type": "Type de contrat",
+      "location": "Localisation",
+      "remote": "Mode de travail",
+      "clearFilters": "Effacer les filtres",
+      "noResults": "Aucune offre ne correspond à vos critères",
+      "adjustFilters": "Essayez d'ajuster vos filtres"
+    },
+    "categories": {
+      "development": "Développement",
+      "design": "Design",
+      "marketing": "Marketing",
+      "management": "Management",
+      "other": "Autre"
+    },
+    "contractTypes": {
+      "fulltime": "CDI",
+      "parttime": "Temps partiel",
+      "contract": "CDD",
+      "freelance": "Freelance",
+      "internship": "Stage"
+    },
+    "remoteTypes": {
+      "remote": "100% Remote",
+      "hybrid": "Hybride",
+      "onsite": "Sur site"
     },
     "cta": {
       "viewOpenings": "Voir les offres",
@@ -346,7 +383,12 @@
       "subtitle": "Trouvez le rôle qui correspond à vos ambitions et rejoignez l'aventure."
     },
     "job": {
-      "apply": "Postuler maintenant"
+      "apply": "Postuler maintenant",
+      "details": "Détails du poste",
+      "requirements": "Compétences requises",
+      "benefits": "Avantages",
+      "posted": "Publié le",
+      "salary": "Salaire"
     },
     "spontaneous": {
       "title": "Vous ne trouvez pas le poste idéal ?",
@@ -399,8 +441,19 @@
     "thankYouMessage": "Merci pour votre message. Je vous réponds sous 24h.",
     "inTheMeantime": "En attendant, prenez un café !",
     "selectedOffer": "Offre sélectionnée",
+    "spontaneousApplication": "Candidature spontanée",
+    "applicationFor": "Candidature pour",
     "step1Title": "Vos coordonnées",
     "step1Subtitle": "Comment puis-je vous contacter ?",
+    "cvUpload": "CV (PDF, DOC, DOCX)",
+    "uploadCv": "Télécharger votre CV",
+    "cvUploaded": "CV téléchargé",
+    "changeCv": "Changer le CV",
+    "linkedinProfile": "Profil LinkedIn (optionnel)",
+    "portfolioUrl": "Portfolio URL (optionnel)",
+    "desiredPosition": "Poste recherché",
+    "desiredPositionPlaceholder": "Ex: Développeur Full-Stack, Designer UI/UX...",
+    "cvRequired": "Le CV est requis pour les candidatures",
     "fullName": "Nom complet *",
     "email": "Email *",
     "companyOptional": "Entreprise (optionnel)",
@@ -787,6 +840,41 @@
       "availableBadgeDesc": "Affiche un badge sur votre site",
       "saved": "Enregistré",
       "save": "Enregistrer"
+    },
+    "jobs": {
+      "title": "Gestion des Offres d'emploi",
+      "subtitle": "Créer et gérer les offres d'emploi",
+      "createJob": "Créer une offre",
+      "editJob": "Modifier l'offre",
+      "deleteJob": "Supprimer l'offre",
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette offre ?",
+      "jobTitle": "Titre du poste",
+      "jobTitleFr": "Titre (FR)",
+      "jobTitleEn": "Titre (EN)",
+      "description": "Description",
+      "descriptionFr": "Description (FR)",
+      "descriptionEn": "Description (EN)",
+      "category": "Catégorie",
+      "location": "Localisation",
+      "contractType": "Type de contrat",
+      "remoteType": "Mode de travail",
+      "salary": "Salaire",
+      "salaryPlaceholder": "Ex: 40k-50k €/an",
+      "requirements": "Compétences requises",
+      "requirementsPlaceholder": "Liste des compétences (une par ligne)",
+      "benefits": "Avantages",
+      "benefitsPlaceholder": "Liste des avantages (une par ligne)",
+      "status": "Statut",
+      "published": "Publié",
+      "draft": "Brouillon",
+      "publish": "Publier",
+      "unpublish": "Dépublier",
+      "noJobs": "Aucune offre d'emploi",
+      "createFirst": "Créez votre première offre d'emploi",
+      "jobCreated": "Offre créée avec succès",
+      "jobUpdated": "Offre mise à jour avec succès",
+      "jobDeleted": "Offre supprimée avec succès",
+      "applicationsCount": "{{count}} candidature(s)"
     }
   },
   "comments": {
@@ -810,5 +898,89 @@
     "yesterday": "Hier",
     "daysAgo": "Il y a {{count}} jours",
     "replies": "{{count}} réponse(s)"
+  },
+  "privacy": {
+    "seoTitle": "Politique de confidentialité",
+    "seoDescription": "Politique de confidentialité et gestion des données personnelles",
+    "title": "Politique de confidentialité",
+    "lastUpdated": "Dernière mise à jour",
+    "intro": "Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos données personnelles.",
+    "dataCollection": {
+      "title": "Collecte des données",
+      "description": "Nous collectons les données suivantes lorsque vous utilisez notre site :",
+      "list": [
+        "Données de contact (nom, email) via les formulaires",
+        "Données de navigation (cookies, adresse IP)",
+        "Commentaires et interactions sur le blog"
+      ]
+    },
+    "dataUsage": {
+      "title": "Utilisation des données",
+      "description": "Vos données sont utilisées pour :",
+      "list": [
+        "Répondre à vos demandes de contact",
+        "Améliorer l'expérience utilisateur",
+        "Envoyer la newsletter (avec votre consentement)",
+        "Analyser le trafic du site"
+      ]
+    },
+    "cookies": {
+      "title": "Cookies",
+      "description": "Nous utilisons des cookies pour améliorer votre expérience. Vous pouvez les désactiver dans les paramètres de votre navigateur."
+    },
+    "rights": {
+      "title": "Vos droits",
+      "description": "Conformément au RGPD, vous disposez des droits suivants :",
+      "list": [
+        "Droit d'accès à vos données",
+        "Droit de rectification",
+        "Droit à l'effacement",
+        "Droit à la portabilité",
+        "Droit d'opposition"
+      ]
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Pour toute question concernant vos données personnelles, contactez-nous à :"
+    }
+  },
+  "terms": {
+    "seoTitle": "Conditions d'utilisation",
+    "seoDescription": "Conditions d'utilisation du site et mentions légales",
+    "title": "Conditions d'utilisation",
+    "lastUpdated": "Dernière mise à jour",
+    "intro": "En utilisant ce site, vous acceptez les conditions d'utilisation suivantes.",
+    "usage": {
+      "title": "Utilisation du site",
+      "description": "Ce site est fourni à des fins d'information et de portfolio professionnel. Vous vous engagez à utiliser le site de manière responsable et légale."
+    },
+    "intellectualProperty": {
+      "title": "Propriété intellectuelle",
+      "description": "Tous les contenus de ce site (textes, images, code) sont protégés par le droit d'auteur. Toute reproduction sans autorisation est interdite."
+    },
+    "liability": {
+      "title": "Limitation de responsabilité",
+      "description": "Nous nous efforçons de maintenir des informations exactes, mais ne pouvons garantir l'absence d'erreurs. L'utilisation du site se fait à vos risques."
+    },
+    "modifications": {
+      "title": "Modifications",
+      "description": "Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications entrent en vigueur dès leur publication."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Pour toute question concernant ces conditions, contactez-nous à :"
+    }
+  },
+  "notFound": {
+    "seoTitle": "Page non trouvée - 404",
+    "seoDescription": "La page que vous recherchez n'existe pas",
+    "title": "Page non trouvée",
+    "code": "404",
+    "message": "Oups ! La page que vous recherchez n'existe pas.",
+    "description": "Il semble que le lien soit cassé ou que la page ait été déplacée.",
+    "backHome": "Retour à l'accueil",
+    "viewProjects": "Voir mes projets",
+    "readBlog": "Lire le blog",
+    "contactMe": "Me contacter"
   }
 }

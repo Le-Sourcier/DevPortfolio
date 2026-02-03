@@ -9,6 +9,7 @@ import {
   Code2,
   Briefcase,
   GraduationCap,
+  Users,
   LucideIcon,
 } from "lucide-react";
 
@@ -43,6 +44,12 @@ const navigation: NavSection[] = [
       { to: "/admin/skills", label: "Compétences", icon: Code2 },
       { to: "/admin/experiences", label: "Expériences", icon: Briefcase },
       { to: "/admin/education", label: "Formation", icon: GraduationCap },
+    ],
+  },
+  {
+    title: "Recrutement",
+    items: [
+      { to: "/admin/jobs", label: "Offres d'emploi", icon: Users },
     ],
   },
   {

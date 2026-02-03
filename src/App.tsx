@@ -10,6 +10,9 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
+import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 // Admin Pages
 import AdminLogin from "./pages/admin/Login";
@@ -24,6 +27,7 @@ import AdminExperiences from "./pages/admin/ExperiencesManagement";
 import AdminEducation from "./pages/admin/EducationManagement";
 import AdminComments from "./pages/admin/CommentsManagement";
 import AdminNewsletters from "./pages/admin/Newsletters";
+import AdminJobs from "./pages/admin/JobsManagement";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 import "./App.css";
@@ -41,6 +45,8 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Route>
 
         {/* Admin Routes */}
@@ -58,11 +64,12 @@ function App() {
           <Route path="comments" element={<AdminComments />} />
           <Route path="messages" element={<AdminMessages />} />
           <Route path="newsletter" element={<AdminNewsletters />} />
+          <Route path="jobs" element={<AdminJobs />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
 
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* 404 Page */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

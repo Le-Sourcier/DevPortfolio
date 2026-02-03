@@ -307,11 +307,48 @@
     }
   },
   "careers": {
+    "seoTitle": "Careers - Job Opportunities",
+    "seoDescription": "Join our team and let's build the future together",
     "hiringTag": "We're hiring!",
     "hero": {
       "title": "Let's build the future",
       "highlight": "together",
       "subtitle": "Join a passionate team where innovation, creativity, and kindness come together to create exceptional products."
+    },
+    "stats": {
+      "openPositions": "Open positions",
+      "locations": "Locations",
+      "teamSize": "Team members",
+      "remoteOk": "Remote OK"
+    },
+    "filters": {
+      "all": "All",
+      "category": "Category",
+      "type": "Contract type",
+      "location": "Location",
+      "remote": "Work mode",
+      "clearFilters": "Clear filters",
+      "noResults": "No offers match your criteria",
+      "adjustFilters": "Try adjusting your filters"
+    },
+    "categories": {
+      "development": "Development",
+      "design": "Design",
+      "marketing": "Marketing",
+      "management": "Management",
+      "other": "Other"
+    },
+    "contractTypes": {
+      "fulltime": "Full-time",
+      "parttime": "Part-time",
+      "contract": "Contract",
+      "freelance": "Freelance",
+      "internship": "Internship"
+    },
+    "remoteTypes": {
+      "remote": "100% Remote",
+      "hybrid": "Hybrid",
+      "onsite": "On-site"
     },
     "cta": {
       "viewOpenings": "View openings",
@@ -344,7 +381,12 @@
       "subtitle": "Find the role that matches your ambitions and join the adventure."
     },
     "job": {
-      "apply": "Apply now"
+      "apply": "Apply now",
+      "details": "Job details",
+      "requirements": "Required skills",
+      "benefits": "Benefits",
+      "posted": "Posted on",
+      "salary": "Salary"
     },
     "spontaneous": {
       "title": "Can't find the ideal position?",
@@ -397,8 +439,19 @@
     "thankYouMessage": "Thank you for your message. I'll respond within 24 hours.",
     "inTheMeantime": "In the meantime, grab a coffee!",
     "selectedOffer": "Selected offer",
+    "spontaneousApplication": "Spontaneous application",
+    "applicationFor": "Application for",
     "step1Title": "Your contact info",
     "step1Subtitle": "How can I reach you?",
+    "cvUpload": "CV (PDF, DOC, DOCX)",
+    "uploadCv": "Upload your CV",
+    "cvUploaded": "CV uploaded",
+    "changeCv": "Change CV",
+    "linkedinProfile": "LinkedIn Profile (optional)",
+    "portfolioUrl": "Portfolio URL (optional)",
+    "desiredPosition": "Desired position",
+    "desiredPositionPlaceholder": "Ex: Full-Stack Developer, UI/UX Designer...",
+    "cvRequired": "CV is required for applications",
     "fullName": "Full name *",
     "email": "Email *",
     "companyOptional": "Company (optional)",
@@ -785,6 +838,41 @@
       "availableBadgeDesc": "Displays a badge on your site",
       "saved": "Saved",
       "save": "Save"
+    },
+    "jobs": {
+      "title": "Job Offers Management",
+      "subtitle": "Create and manage job offers",
+      "createJob": "Create offer",
+      "editJob": "Edit offer",
+      "deleteJob": "Delete offer",
+      "confirmDelete": "Are you sure you want to delete this offer?",
+      "jobTitle": "Job title",
+      "jobTitleFr": "Title (FR)",
+      "jobTitleEn": "Title (EN)",
+      "description": "Description",
+      "descriptionFr": "Description (FR)",
+      "descriptionEn": "Description (EN)",
+      "category": "Category",
+      "location": "Location",
+      "contractType": "Contract type",
+      "remoteType": "Work mode",
+      "salary": "Salary",
+      "salaryPlaceholder": "Ex: $40k-$50k/year",
+      "requirements": "Required skills",
+      "requirementsPlaceholder": "List of skills (one per line)",
+      "benefits": "Benefits",
+      "benefitsPlaceholder": "List of benefits (one per line)",
+      "status": "Status",
+      "published": "Published",
+      "draft": "Draft",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "noJobs": "No job offers",
+      "createFirst": "Create your first job offer",
+      "jobCreated": "Offer created successfully",
+      "jobUpdated": "Offer updated successfully",
+      "jobDeleted": "Offer deleted successfully",
+      "applicationsCount": "{{count}} application(s)"
     }
   },
   "comments": {
@@ -808,5 +896,89 @@
     "yesterday": "Yesterday",
     "daysAgo": "{{count}} days ago",
     "replies": "{{count}} reply(ies)"
+  },
+  "privacy": {
+    "seoTitle": "Privacy Policy",
+    "seoDescription": "Privacy policy and personal data management",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated",
+    "intro": "This privacy policy explains how we collect, use, and protect your personal data.",
+    "dataCollection": {
+      "title": "Data Collection",
+      "description": "We collect the following data when you use our site:",
+      "list": [
+        "Contact data (name, email) through forms",
+        "Navigation data (cookies, IP address)",
+        "Comments and interactions on the blog"
+      ]
+    },
+    "dataUsage": {
+      "title": "Data Usage",
+      "description": "Your data is used to:",
+      "list": [
+        "Respond to your contact requests",
+        "Improve user experience",
+        "Send newsletter (with your consent)",
+        "Analyze site traffic"
+      ]
+    },
+    "cookies": {
+      "title": "Cookies",
+      "description": "We use cookies to improve your experience. You can disable them in your browser settings."
+    },
+    "rights": {
+      "title": "Your Rights",
+      "description": "In accordance with GDPR, you have the following rights:",
+      "list": [
+        "Right of access to your data",
+        "Right to rectification",
+        "Right to erasure",
+        "Right to portability",
+        "Right to object"
+      ]
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "For any questions regarding your personal data, contact us at:"
+    }
+  },
+  "terms": {
+    "seoTitle": "Terms of Use",
+    "seoDescription": "Terms of use and legal notices",
+    "title": "Terms of Use",
+    "lastUpdated": "Last updated",
+    "intro": "By using this site, you agree to the following terms of use.",
+    "usage": {
+      "title": "Site Usage",
+      "description": "This site is provided for informational and professional portfolio purposes. You agree to use the site responsibly and legally."
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "description": "All content on this site (text, images, code) is protected by copyright. Any reproduction without permission is prohibited."
+    },
+    "liability": {
+      "title": "Limitation of Liability",
+      "description": "We strive to maintain accurate information but cannot guarantee the absence of errors. Use of the site is at your own risk."
+    },
+    "modifications": {
+      "title": "Modifications",
+      "description": "We reserve the right to modify these terms at any time. Changes take effect upon publication."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "For any questions regarding these terms, contact us at:"
+    }
+  },
+  "notFound": {
+    "seoTitle": "Page not found - 404",
+    "seoDescription": "The page you are looking for does not exist",
+    "title": "Page not found",
+    "code": "404",
+    "message": "Oops! The page you are looking for does not exist.",
+    "description": "It seems the link is broken or the page has been moved.",
+    "backHome": "Back to home",
+    "viewProjects": "View my projects",
+    "readBlog": "Read the blog",
+    "contactMe": "Contact me"
   }
 }
