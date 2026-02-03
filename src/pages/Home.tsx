@@ -37,18 +37,53 @@ import { Card, CardContent } from "../components/ui/Card";
 import { useProjects } from "../api/projects";
 import { useBlogPosts } from "../api/blogposts";
 import { useSiteSettings } from "../api/settings";
+import { useSkills } from "../api/skills";
+import { useExperiences } from "../api/experiences";
 
 const Home = () => {
   const { i18n, t } = useTranslation();
   const { data: settings } = useSiteSettings();
   const { data: apiProjects, isLoading: loadingProjects } = useProjects();
   const { data: apiPosts, isLoading: loadingPosts } = useBlogPosts();
+  const { data: skillsData, isLoading: loadingSkills } = useSkills();
+  const { data: experiencesData, isLoading: loadingExperiences } = useExperiences();
   const [activeExpertise, setActiveExpertise] = useState<number | null>(null);
 
   const featuredProjects = (apiProjects?.data || []).filter((p: any) => p.featured).slice(0, 3);
   const recentPosts = (apiPosts?.data || []).slice(0, 3);
+  const skills = skillsData?.data || [];
+  const experiences = experiencesData?.data || [];
 
   const lang = i18n.resolvedLanguage === 'fr' ? 'fr' : 'en';
+
+  // Group skills by category for display
+  const skillsByCategory = skills.reduce((acc: Record<string, string[]>, skill: any) => {
+    if (!acc[skill.category]) {
+      acc[skill.category] = [];
+    }
+    acc[skill.category].push(skill.name);
+    return acc;
+  }, {});
+
+  const categoryColors: Record<string, string> = {
+    Frontend: "from-blue-500 to-cyan-500",
+    Backend: "from-purple-500 to-pink-500",
+    Database: "from-orange-500 to-red-500",
+    DevOps: "from-emerald-500 to-teal-500",
+    Mobile: "from-indigo-500 to-purple-500",
+    Design: "from-pink-500 to-rose-500",
+    Tools: "from-gray-500 to-slate-500",
+  };
+
+  const categoryIcons: Record<string, any> = {
+    Frontend: Globe,
+    Backend: Database,
+    Database: Database,
+    DevOps: Cloud,
+    Mobile: Smartphone,
+    Design: Code2,
+    Tools: Terminal,
+  };
 
   const heroTitle = settings?.heroTitle?.[lang] || t("hero.title");
   const heroSubtitle = settings?.heroSubtitle?.[lang] || t("hero.subtitle");
@@ -268,7 +303,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Expertise Section */}
+      {/* Skills Section - Dynamic */}
       <section className="py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           {/* Header */}
@@ -280,7 +315,7 @@ const Home = () => {
             >
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-6">
                 <Sparkles className="w-4 h-4 mr-2" />
-                Expertise
+                {lang === 'fr' ? "Compétences" : "Skills"}
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
                 {t("skills.technicalExpertise")}
@@ -291,69 +326,117 @@ const Home = () => {
             </motion.div>
           </div>
 
-          {/* Expertise Cards */}
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {expertiseAreas.map((area, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                onMouseEnter={() => setActiveExpertise(idx)}
-                onMouseLeave={() => setActiveExpertise(null)}
-                className="group relative"
-              >
-                <div className={`relative h-full rounded-3xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 p-8 transition-all duration-500 overflow-hidden ${
-                  activeExpertise === idx
-                    ? 'shadow-2xl shadow-blue-500/10 dark:shadow-blue-500/5 -translate-y-2'
-                    : 'shadow-sm hover:shadow-lg'
-                }`}>
-                  {/* Gradient background on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${area.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-
-                  {/* Badge */}
-                  <div className="absolute top-6 right-6">
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${area.gradient} text-white shadow-lg`}>
-                      {area.highlight}
-                    </span>
-                  </div>
-
-                  {/* Icon */}
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${area.gradient} flex items-center justify-center mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                    <area.icon size={32} className="text-white" />
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                    {area.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6">
-                    {area.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
-                    {area.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1.5 text-sm font-medium rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 group-hover:border-blue-200 dark:group-hover:border-blue-800 transition-colors duration-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Arrow indicator */}
-                  <div className={`absolute bottom-6 right-6 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center transform transition-all duration-500 ${
-                    activeExpertise === idx ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
-                  }`}>
-                    <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Skills Cards - Dynamic from API */}
+          {loadingSkills ? (
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            </div>
+          ) : skills.length === 0 ? (
+            /* Fallback to static expertiseAreas if no skills in DB */
+            <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+              {expertiseAreas.map((area, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  onMouseEnter={() => setActiveExpertise(idx)}
+                  onMouseLeave={() => setActiveExpertise(null)}
+                  className="group relative"
+                >
+                  <Link to="/services" className="block h-full">
+                    <div className={`relative h-full rounded-3xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 p-8 transition-all duration-500 overflow-hidden ${
+                      activeExpertise === idx
+                        ? 'shadow-2xl shadow-blue-500/10 dark:shadow-blue-500/5 -translate-y-2'
+                        : 'shadow-sm hover:shadow-lg'
+                    }`}>
+                      <div className={`absolute inset-0 bg-gradient-to-br ${area.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                      <div className="absolute top-6 right-6">
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${area.gradient} text-white shadow-lg`}>
+                          {area.highlight}
+                        </span>
+                      </div>
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${area.gradient} flex items-center justify-center mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                        <area.icon size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{area.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-6">{area.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {area.technologies.map((tech, i) => (
+                          <span key={i} className="px-3 py-1.5 text-sm font-medium rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      {/* Chevron indicates clickability */}
+                      <div className={`absolute bottom-6 right-6 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center transform transition-all duration-500 ${
+                        activeExpertise === idx ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                      }`}>
+                        <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            /* Dynamic skills from API */
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {Object.entries(skillsByCategory).slice(0, 6).map(([category, categorySkills], idx) => {
+                const gradient = categoryColors[category] || "from-gray-500 to-slate-500";
+                const IconComponent = categoryIcons[category] || Code2;
+                return (
+                  <motion.div
+                    key={category}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    onMouseEnter={() => setActiveExpertise(idx)}
+                    onMouseLeave={() => setActiveExpertise(null)}
+                    className="group relative"
+                  >
+                    <Link to="/services" className="block h-full">
+                      <div className={`relative h-full rounded-3xl bg-white dark:bg-gray-950 border border-gray-100 dark:border-gray-800 p-8 transition-all duration-500 overflow-hidden ${
+                      activeExpertise === idx
+                        ? 'shadow-2xl shadow-blue-500/10 dark:shadow-blue-500/5 -translate-y-2'
+                        : 'shadow-sm hover:shadow-lg'
+                    }`}>
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                      <div className="absolute top-6 right-6">
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${gradient} text-white shadow-lg`}>
+                          {(categorySkills as string[]).length} {lang === 'fr' ? "techs" : "techs"}
+                        </span>
+                      </div>
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                        <IconComponent size={32} className="text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{category}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {(categorySkills as string[]).slice(0, 6).map((skill, i) => (
+                          <span key={i} className="px-3 py-1.5 text-sm font-medium rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 group-hover:border-blue-200 dark:group-hover:border-blue-800 transition-colors duration-300">
+                            {skill}
+                          </span>
+                        ))}
+                        {(categorySkills as string[]).length > 6 && (
+                          <span className="px-3 py-1.5 text-sm font-medium rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                            +{(categorySkills as string[]).length - 6}
+                          </span>
+                        )}
+                      </div>
+                      <div className={`absolute bottom-6 right-6 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center transform transition-all duration-500 ${
+                        activeExpertise === idx ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+                      }`}>
+                        <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+                );
+              })}
+            </div>
+          )}
 
           {/* CTA */}
           <motion.div
@@ -362,9 +445,9 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <Link to="/services">
+            <Link to="/about">
               <Button size="lg" className="rounded-full px-8 h-12 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all">
-                Explorer tous les services <ArrowRight className="ml-2 w-4 h-4" />
+                {lang === 'fr' ? "Voir mon parcours complet" : "View my full profile"} <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
           </motion.div>

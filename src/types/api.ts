@@ -55,11 +55,11 @@ export interface Experience {
 
 export interface Education {
   id: string;
-  school: string;
-  degree: string;
-  field?: string;
+  degree: Localized<string>;
+  institution: string;
   startDate: string;
   endDate?: string | null;
+  description?: Localized<string> | null;
 }
 
 export interface AuthResponse {

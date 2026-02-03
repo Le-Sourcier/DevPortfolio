@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Settings as SettingsIcon, Globe, FileText, Search, Link as LinkIcon, Users, Palette, Check, Save } from "lucide-react";
+import { Settings as SettingsIcon, Globe, FileText, Search, Link as LinkIcon, Users, Palette, Check, Save, User, Trophy, Languages, Briefcase, Heart, Plus, X } from "lucide-react";
 import { useSiteSettings, useUpdateSiteSettings } from "../../api/settings";
-import { SiteSettings } from "../../types/models";
+import { SiteSettings, AboutHighlight, LanguageSkill, ProfessionalValue } from "../../types/models";
 import { PageHeader, FormField, FormInput, FormTextarea, ActionButton, LoadingScreen } from "../../components/admin/ui";
 
 function SettingsPage() {
@@ -205,6 +205,255 @@ function SettingsPage() {
                 placeholder="https://twitter.com/..."
               />
             </FormField>
+          </div>
+        </Section>
+
+        {/* About / Profile */}
+        <Section icon={User} title="À propos / Profil">
+          <div className="space-y-6">
+            {/* Bio */}
+            <div className="grid md:grid-cols-2 gap-5">
+              <FormField label="Bio (FR)" hint="Votre présentation professionnelle">
+                <FormTextarea
+                  value={formData.aboutBio?.fr || ""}
+                  onChange={(v) => handleNestedChange("aboutBio", "fr", v)}
+                  placeholder="Développeur fullstack passionné..."
+                  rows={4}
+                />
+              </FormField>
+              <FormField label="Bio (EN)">
+                <FormTextarea
+                  value={formData.aboutBio?.en || ""}
+                  onChange={(v) => handleNestedChange("aboutBio", "en", v)}
+                  placeholder="Passionate fullstack developer..."
+                  rows={4}
+                />
+              </FormField>
+            </div>
+          </div>
+        </Section>
+
+        {/* Highlights / Achievements */}
+        <Section icon={Trophy} title="Réalisations clés">
+          <div className="space-y-4">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Ajoutez vos chiffres clés (ex: "10K+" utilisateurs, "40%" réduction, etc.)
+            </p>
+            {(formData.aboutHighlights || []).map((highlight, idx) => (
+              <div key={idx} className="flex gap-3 items-start p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                <div className="flex-1 grid grid-cols-3 gap-3">
+                  <FormInput
+                    value={highlight.value}
+                    onChange={(v) => {
+                      const updated = [...(formData.aboutHighlights || [])];
+                      updated[idx] = { ...updated[idx], value: v };
+                      handleChange("aboutHighlights", updated);
+                    }}
+                    placeholder="10K+"
+                  />
+                  <FormInput
+                    value={highlight.labelFr}
+                    onChange={(v) => {
+                      const updated = [...(formData.aboutHighlights || [])];
+                      updated[idx] = { ...updated[idx], labelFr: v };
+                      handleChange("aboutHighlights", updated);
+                    }}
+                    placeholder="Label FR"
+                  />
+                  <FormInput
+                    value={highlight.labelEn}
+                    onChange={(v) => {
+                      const updated = [...(formData.aboutHighlights || [])];
+                      updated[idx] = { ...updated[idx], labelEn: v };
+                      handleChange("aboutHighlights", updated);
+                    }}
+                    placeholder="Label EN"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const updated = (formData.aboutHighlights || []).filter((_, i) => i !== idx);
+                    handleChange("aboutHighlights", updated);
+                  }}
+                  className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                const updated = [...(formData.aboutHighlights || []), { value: "", labelFr: "", labelEn: "" }];
+                handleChange("aboutHighlights", updated);
+              }}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Ajouter une réalisation
+            </button>
+          </div>
+        </Section>
+
+        {/* Languages */}
+        <Section icon={Languages} title="Langues">
+          <div className="space-y-4">
+            {(formData.languages || []).map((lang, idx) => (
+              <div key={idx} className="flex gap-3 items-center p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                <div className="flex-1 grid grid-cols-2 gap-3">
+                  <FormInput
+                    value={lang.name}
+                    onChange={(v) => {
+                      const updated = [...(formData.languages || [])];
+                      updated[idx] = { ...updated[idx], name: v };
+                      handleChange("languages", updated);
+                    }}
+                    placeholder="Français"
+                  />
+                  <FormInput
+                    value={lang.level}
+                    onChange={(v) => {
+                      const updated = [...(formData.languages || [])];
+                      updated[idx] = { ...updated[idx], level: v };
+                      handleChange("languages", updated);
+                    }}
+                    placeholder="Natif / Courant / Intermédiaire"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const updated = (formData.languages || []).filter((_, i) => i !== idx);
+                    handleChange("languages", updated);
+                  }}
+                  className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                const updated = [...(formData.languages || []), { name: "", level: "" }];
+                handleChange("languages", updated);
+              }}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Ajouter une langue
+            </button>
+          </div>
+        </Section>
+
+        {/* Work Preferences */}
+        <Section icon={Briefcase} title="Disponibilités">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {[
+              { key: "remote", label: "Remote" },
+              { key: "hybrid", label: "Hybride" },
+              { key: "onsite", label: "Sur site" },
+              { key: "freelance", label: "Freelance" },
+              { key: "cdi", label: "CDI" },
+            ].map((pref) => (
+              <label
+                key={pref.key}
+                className={`flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                  (formData.workPreferences as any)?.[pref.key]
+                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300"
+                    : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={(formData.workPreferences as any)?.[pref.key] || false}
+                  onChange={(e) => {
+                    handleChange("workPreferences", {
+                      ...formData.workPreferences,
+                      [pref.key]: e.target.checked,
+                    });
+                  }}
+                  className="sr-only"
+                />
+                <span className="text-sm font-medium">{pref.label}</span>
+                {(formData.workPreferences as any)?.[pref.key] && (
+                  <Check className="w-4 h-4" />
+                )}
+              </label>
+            ))}
+          </div>
+        </Section>
+
+        {/* Professional Values */}
+        <Section icon={Heart} title="Valeurs professionnelles">
+          <div className="space-y-4">
+            {(formData.professionalValues || []).map((value, idx) => (
+              <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl space-y-3">
+                <div className="flex justify-between items-start">
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400">Valeur {idx + 1}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const updated = (formData.professionalValues || []).filter((_, i) => i !== idx);
+                      handleChange("professionalValues", updated);
+                    }}
+                    className="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="grid md:grid-cols-2 gap-3">
+                  <FormInput
+                    value={value.titleFr}
+                    onChange={(v) => {
+                      const updated = [...(formData.professionalValues || [])];
+                      updated[idx] = { ...updated[idx], titleFr: v };
+                      handleChange("professionalValues", updated);
+                    }}
+                    placeholder="Titre FR"
+                  />
+                  <FormInput
+                    value={value.titleEn}
+                    onChange={(v) => {
+                      const updated = [...(formData.professionalValues || [])];
+                      updated[idx] = { ...updated[idx], titleEn: v };
+                      handleChange("professionalValues", updated);
+                    }}
+                    placeholder="Title EN"
+                  />
+                  <FormInput
+                    value={value.descriptionFr}
+                    onChange={(v) => {
+                      const updated = [...(formData.professionalValues || [])];
+                      updated[idx] = { ...updated[idx], descriptionFr: v };
+                      handleChange("professionalValues", updated);
+                    }}
+                    placeholder="Description FR"
+                  />
+                  <FormInput
+                    value={value.descriptionEn}
+                    onChange={(v) => {
+                      const updated = [...(formData.professionalValues || [])];
+                      updated[idx] = { ...updated[idx], descriptionEn: v };
+                      handleChange("professionalValues", updated);
+                    }}
+                    placeholder="Description EN"
+                  />
+                </div>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                const updated = [...(formData.professionalValues || []), { titleFr: "", titleEn: "", descriptionFr: "", descriptionEn: "" }];
+                handleChange("professionalValues", updated);
+              }}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Ajouter une valeur
+            </button>
           </div>
         </Section>
 

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import {
   Mail,
   Phone,
@@ -32,9 +33,22 @@ import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Card, CardContent } from "../components/ui/Card";
 import { useCreateMessage } from "../api/messages";
+import { useSiteSettings } from "../api/settings";
+
+const planLabels: Record<string, { name: string; description: string }> = {
+  startup: { name: "Startup", description: "MVP et projets simples" },
+  business: { name: "Business", description: "Projets ambitieux" },
+  enterprise: { name: "Enterprise", description: "Solutions complexes et sur mesure" },
+};
 
 const Contact = () => {
   const { t } = useTranslation();
+  const { data: settings } = useSiteSettings();
+  const [searchParams] = useSearchParams();
+  const selectedPlan = searchParams.get("plan");
+  const subject = searchParams.get("subject");
+  const projectTypeParam = searchParams.get("projectType");
+
   const createMessage = useCreateMessage();
   const [formData, setFormData] = useState({
     name: "",
@@ -49,6 +63,27 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState(1);
+
+  // Pre-fill message with selected plan or subject
+  useEffect(() => {
+    if (selectedPlan && planLabels[selectedPlan]) {
+      const plan = planLabels[selectedPlan];
+      setFormData((prev) => ({
+        ...prev,
+        message: prev.message || `Bonjour,\n\nJe suis intéressé(e) par l'offre ${plan.name} (${plan.description}).\n\n`,
+      }));
+    } else if (subject) {
+      setFormData((prev) => ({
+        ...prev,
+        message: prev.message || `Bonjour,\n\n${subject}\n\n`,
+        projectType: projectTypeParam || prev.projectType
+      }));
+      // Si on vient d'une offre d'emploi, on peut sauter l'étape 1 si l'utilisateur le souhaite, ou au moins focus sur le message
+      if (projectTypeParam === 'other') {
+         // Optionnel : adapter la logique des étapes ici si nécessaire
+      }
+    }
+  }, [selectedPlan, subject, projectTypeParam]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -99,9 +134,9 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "yaodavidlogan02@gmail.com",
+      value: settings?.emailContact || "yaodavidlogan02@gmail.com",
       description: "Réponse sous 24h",
-      action: "mailto:yaodavidlogan02@gmail.com",
+      action: `mailto:${settings?.emailContact || "yaodavidlogan02@gmail.com"}`,
       color: "blue",
     },
     {
@@ -123,9 +158,9 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/Le-Sourcier", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com/in/yao-logan", label: "LinkedIn" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Github, href: settings?.githubUrl || "https://github.com/Le-Sourcier", label: "GitHub" },
+    { icon: Linkedin, href: settings?.linkedinUrl || "https://linkedin.com/in/yao-logan", label: "LinkedIn" },
+    { icon: Twitter, href: settings?.twitterUrl || "#", label: "Twitter" },
   ];
 
   const projectTypes = [
@@ -194,10 +229,12 @@ const Contact = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 backdrop-blur text-white text-sm font-semibold mb-6">
-                <Sparkles className="w-4 h-4 mr-2" />
-                Disponible pour de nouveaux projets
-              </span>
+              {(settings?.availableForWork ?? true) && (
+                <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 backdrop-blur text-white text-sm font-semibold mb-6">
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Disponible pour de nouveaux projets
+                </span>
+              )}
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                 Transformons votre{" "}
@@ -214,7 +251,7 @@ const Contact = () => {
               {/* Quick contact methods */}
               <div className="flex flex-wrap justify-center gap-4">
                 <a
-                  href="mailto:yaodavidlogan02@gmail.com"
+                  href={`mailto:${settings?.emailContact || "yaodavidlogan02@gmail.com"}`}
                   className="inline-flex items-center px-6 py-3 rounded-full bg-white text-gray-900 font-semibold hover:bg-gray-100 transition-colors shadow-lg"
                 >
                   <Mail className="w-5 h-5 mr-2" />
@@ -311,19 +348,35 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <Card className="border-0 bg-gradient-to-br from-blue-600 to-purple-600 text-white overflow-hidden relative">
+                <Card className={`border-0 overflow-hidden relative ${
+                  (settings?.availableForWork ?? true)
+                    ? "bg-gradient-to-br from-blue-600 to-purple-600 text-white"
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-500"
+                }`}>
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
                   <CardContent className="p-6 relative">
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="relative flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
-                      </span>
-                      <span className="font-semibold">Disponible maintenant</span>
+                      {(settings?.availableForWork ?? true) ? (
+                        <>
+                          <span className="relative flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+                          </span>
+                          <span className="font-semibold">Disponible maintenant</span>
+                        </>
+                      ) : (
+                        <span className="font-semibold">Non disponible pour le moment</span>
+                      )}
                     </div>
-                    <p className="text-white/80 mb-4">
-                      Je suis actuellement disponible pour de nouveaux projets freelance et des collaborations long terme.
-                    </p>
+                    {(settings?.availableForWork ?? true) ? (
+                      <p className="text-white/80 mb-4">
+                        Je suis actuellement disponible pour de nouveaux projets freelance et des collaborations long terme.
+                      </p>
+                    ) : (
+                      <p className="opacity-80 mb-4">
+                        Je ne prends pas de nouveaux projets pour le moment, mais n'hésitez pas à me contacter pour planifier.
+                      </p>
+                    )}
                     <div className="flex items-center gap-4 text-sm text-white/70">
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
@@ -393,6 +446,26 @@ const Contact = () => {
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                         >
+                          {/* Selected Plan Banner */}
+                          {selectedPlan && planLabels[selectedPlan] && (
+                            <div className="mb-8 p-4 rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border border-blue-200 dark:border-blue-800">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+                                  <CheckCircle className="w-5 h-5 text-white" />
+                                </div>
+                                <div>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400">Offre sélectionnée</p>
+                                  <p className="font-bold text-gray-900 dark:text-white">
+                                    {planLabels[selectedPlan].name}{" "}
+                                    <span className="font-normal text-gray-500 dark:text-gray-400">
+                                      — {planLabels[selectedPlan].description}
+                                    </span>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
                           {/* Progress Steps */}
                           <div className="flex items-center justify-between mb-8">
                             {[1, 2, 3].map((step) => (

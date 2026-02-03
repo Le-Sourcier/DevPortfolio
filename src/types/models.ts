@@ -4,6 +4,36 @@ export type LocalizedString = {
   en: string;
 };
 
+// About Highlight (stats/achievements)
+export interface AboutHighlight {
+  value: string;
+  labelFr: string;
+  labelEn: string;
+}
+
+// Language proficiency
+export interface LanguageSkill {
+  name: string;
+  level: string;
+}
+
+// Work preferences
+export interface WorkPreferences {
+  remote: boolean;
+  hybrid: boolean;
+  onsite: boolean;
+  freelance: boolean;
+  cdi: boolean;
+}
+
+// Professional value
+export interface ProfessionalValue {
+  titleFr: string;
+  titleEn: string;
+  descriptionFr: string;
+  descriptionEn: string;
+}
+
 // Site Settings
 export interface SiteSettings {
   id: string;
@@ -20,6 +50,12 @@ export interface SiteSettings {
   cvUrlEn?: string;
   availableForWork: boolean;
   primaryColor: string;
+  // About / Profile
+  aboutBio?: LocalizedString;
+  aboutHighlights?: AboutHighlight[];
+  languages?: LanguageSkill[];
+  workPreferences?: WorkPreferences;
+  professionalValues?: ProfessionalValue[];
   createdAt?: string;
   updatedAt?: string;
 }

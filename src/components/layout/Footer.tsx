@@ -1,13 +1,34 @@
 // components/layout/Footer.tsx
 import { Link, useLocation } from 'react-router-dom';
-import { Code2, Github, Linkedin, Twitter, Mail, Heart } from 'lucide-react';
+import { Code2, Github, Linkedin, Twitter, Mail, Heart, Send, CheckCircle, Loader2 } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import { useSiteSettings } from '../../api/settings';
+import { useSubscribeNewsletter } from '../../api/newsletter';
+import { useState } from 'react';
 
 const Footer = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const { data: settings } = useSiteSettings();
+  const subscribeNewsletter = useSubscribeNewsletter();
+
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    try {
+      await subscribeNewsletter.mutateAsync({ email });
+      setStatus('success');
+      setEmail('');
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error) {
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
+  };
 
   // Ne pas afficher le footer sur les pages admin
   if (location.pathname.startsWith('/admin')) {
@@ -68,7 +89,8 @@ const Footer = () => {
                 { to: '/', label: t('common.home') },
                 { to: '/services', label: t('common.services') },
                 { to: '/blog', label: t('common.blog') },
-                { to: '/contact', label: t('common.contact') }
+                { to: '/contact', label: t('common.contact') },
+                { to: '/careers', label: "Careers" }
               ].map((link) => (
                 <li key={link.to}>
                   <Link
@@ -95,11 +117,52 @@ const Footer = () => {
 
           {/* Newsletter / Contact */}
           <div>
-            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">{t("footer.contact")}</h3>
-            <div className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
-              <p>{settings?.emailContact || "contact@example.com"}</p>
-              <p>{t("hero.available")}</p>
-              <Link to="/contact" className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline mt-2">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Newsletter</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+              Restez informé de mes derniers projets et articles.
+            </p>
+
+            <form onSubmit={handleSubscribe} className="space-y-3">
+              <div className="relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Votre email"
+                  required
+                  className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-blue-500 outline-none text-sm text-gray-900 dark:text-white"
+                />
+                <button
+                  type="submit"
+                  disabled={subscribeNewsletter.isPending || status === 'success'}
+                  className="absolute right-1.5 top-1.5 p-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-70 transition-colors"
+                >
+                  {subscribeNewsletter.isPending ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : status === 'success' ? (
+                    <CheckCircle className="w-4 h-4" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+              {status === 'success' && (
+                <p className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
+                  <CheckCircle className="w-3 h-3" /> Inscrit avec succès !
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="text-xs text-red-600 dark:text-red-400">
+                  Une erreur est survenue.
+                </p>
+              )}
+            </form>
+
+            <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 space-y-2">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {settings?.emailContact || "contact@example.com"}
+              </p>
+              <Link to="/contact" className="inline-flex items-center text-sm text-blue-600 dark:text-blue-400 font-medium hover:underline">
                 {t("cta.discussProject")} &rarr;
               </Link>
             </div>

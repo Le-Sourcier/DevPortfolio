@@ -84,7 +84,7 @@ const Header = () => {
   const location = useLocation();
 
   // Pages with dark hero backgrounds that need transparent header
-  const pagesWithHero = ['/', '/services', '/blog', '/contact'];
+  const pagesWithHero = ['/', '/about', '/services', '/blog', '/contact', '/careers'];
   const currentPath = location.pathname.replace(/\/$/, '') || '/'; // Remove trailing slash
   const hasHero = pagesWithHero.includes(currentPath);
 
@@ -129,7 +129,9 @@ const Header = () => {
 
   const navItems = [
     { path: "/", label: t('common.home') },
+    { path: "/about", label: t('common.about') },
     { path: "/services", label: t('common.services') },
+    { path: "/careers", label: "Carrières" },
     { path: "/blog", label: t('common.blog') },
     { path: "/contact", label: t('common.contact') },
   ];

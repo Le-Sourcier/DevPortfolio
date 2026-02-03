@@ -9,7 +9,7 @@ export const PublicLayout = () => {
   const location = useLocation();
 
   // Pages with immersive hero that should NOT have top padding
-  const pagesWithImmersiveHero = ['/', '/services', '/blog', '/contact'];
+  const pagesWithImmersiveHero = ['/', '/about', '/services', '/blog', '/contact', '/careers'];
   const currentPath = location.pathname.replace(/\/$/, '') || '/';
   const hasImmersiveHero = pagesWithImmersiveHero.includes(currentPath);
 

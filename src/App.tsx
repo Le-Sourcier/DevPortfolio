@@ -4,10 +4,12 @@ import { PublicLayout, AdminRootLayout } from "./layouts";
 
 // Public Pages
 import Home from "./pages/Home";
+import About from "./pages/About";
 import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
+import Careers from "./pages/Careers";
 
 // Admin Pages
 import AdminLogin from "./pages/admin/Login";
@@ -21,6 +23,7 @@ import AdminSkills from "./pages/admin/SkillsManagement";
 import AdminExperiences from "./pages/admin/ExperiencesManagement";
 import AdminEducation from "./pages/admin/EducationManagement";
 import AdminComments from "./pages/admin/CommentsManagement";
+import AdminNewsletters from "./pages/admin/Newsletters";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 import "./App.css";
@@ -32,10 +35,12 @@ function App() {
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/careers" element={<Careers />} />
         </Route>
 
         {/* Admin Routes */}
@@ -52,6 +57,7 @@ function App() {
           <Route path="education" element={<AdminEducation />} />
           <Route path="comments" element={<AdminComments />} />
           <Route path="messages" element={<AdminMessages />} />
+          <Route path="newsletter" element={<AdminNewsletters />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
 

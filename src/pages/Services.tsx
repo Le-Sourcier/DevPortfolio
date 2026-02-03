@@ -592,7 +592,7 @@ const Services = () => {
                   ))}
                 </ul>
 
-                <Link to="/contact">
+                <Link to={`/contact?plan=${plan.id}`}>
                   <Button
                     className={`w-full h-12 rounded-xl font-semibold ${plan.highlight
                       ? 'bg-white text-blue-600 hover:bg-gray-100'
