@@ -110,6 +110,22 @@ export interface BlogPost {
   updatedAt?: string;
 }
 
+// Comment Interface
+export type CommentStatus = 'pending' | 'approved' | 'rejected';
+
+export interface Comment {
+  id: string;
+  blogPostId: string;
+  parentId: string | null;
+  authorName: string;
+  authorEmail: string;
+  content: string;
+  status: CommentStatus;
+  createdAt?: string;
+  updatedAt?: string;
+  replies?: Comment[];
+}
+
 // Auth Response Interface
 export interface AuthResponse {
   user: {

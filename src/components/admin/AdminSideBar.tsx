@@ -3,6 +3,7 @@ import {
   FileText,
   Folder,
   MessageSquare,
+  MessageCircle,
   Settings,
   LayoutDashboard,
   Code2,
@@ -33,6 +34,7 @@ const navigation: NavSection[] = [
     items: [
       { to: "/admin/posts", label: "Articles", icon: FileText },
       { to: "/admin/projects", label: "Projets", icon: Folder },
+      { to: "/admin/comments", label: "Commentaires", icon: MessageCircle },
     ],
   },
   {

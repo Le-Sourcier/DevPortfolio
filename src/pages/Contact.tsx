@@ -31,9 +31,11 @@ import SEO from "../components/common/SEO";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
 import { Card, CardContent } from "../components/ui/Card";
+import { useCreateMessage } from "../api/messages";
 
 const Contact = () => {
   const { t } = useTranslation();
+  const createMessage = useCreateMessage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,6 +47,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState(1);
 
   const handleInputChange = (
@@ -57,26 +60,39 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        projectType: "",
-        budget: "",
-        timeline: "",
-        message: "",
+    try {
+      await createMessage.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || undefined,
+        projectType: formData.projectType || undefined,
+        budget: formData.budget || undefined,
+        timeline: formData.timeline || undefined,
+        message: formData.message,
       });
-      setActiveStep(1);
-    }, 5000);
+
+      setIsSubmitted(true);
+
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          projectType: "",
+          budget: "",
+          timeline: "",
+          message: "",
+        });
+        setActiveStep(1);
+      }, 5000);
+    } catch (error) {
+      setSubmitError("Une erreur est survenue. Veuillez réessayer.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactMethods = [

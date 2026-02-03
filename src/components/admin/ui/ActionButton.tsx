@@ -1,4 +1,4 @@
-import { Loader2 } from "lucide-react";
+import { Loader2, LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 
 interface ActionButtonProps {
@@ -10,6 +10,7 @@ interface ActionButtonProps {
   loading?: boolean;
   disabled?: boolean;
   className?: string;
+  icon?: LucideIcon;
 }
 
 const variantClasses = {
@@ -33,6 +34,7 @@ export function ActionButton({
   loading,
   disabled,
   className = "",
+  icon: Icon,
 }: ActionButtonProps) {
   return (
     <button
@@ -47,7 +49,11 @@ export function ActionButton({
         ${className}
       `}
     >
-      {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+      {loading ? (
+        <Loader2 className="w-4 h-4 animate-spin" />
+      ) : (
+        Icon && <Icon className="w-4 h-4" />
+      )}
       {children}
     </button>
   );

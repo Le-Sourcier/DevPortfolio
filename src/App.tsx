@@ -20,6 +20,7 @@ import AdminSettings from "./pages/admin/Settings";
 import AdminSkills from "./pages/admin/SkillsManagement";
 import AdminExperiences from "./pages/admin/ExperiencesManagement";
 import AdminEducation from "./pages/admin/EducationManagement";
+import AdminComments from "./pages/admin/CommentsManagement";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 import "./App.css";
@@ -49,6 +50,7 @@ function App() {
           <Route path="skills" element={<AdminSkills />} />
           <Route path="experiences" element={<AdminExperiences />} />
           <Route path="education" element={<AdminEducation />} />
+          <Route path="comments" element={<AdminComments />} />
           <Route path="messages" element={<AdminMessages />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>

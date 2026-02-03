@@ -4,6 +4,7 @@ import { useBlogPost, useBlogPosts } from "../api/blogposts";
 import { useSiteSettings } from "../api/settings";
 import { BlogPost as BlogPostType, BLOG_CATEGORIES, BlogCategory } from "../types/models";
 import { MarkdownRenderer } from "../components/ui/MarkdownRenderer";
+import { CommentSection } from "../components/blog/CommentSection";
 import {
   Calendar,
   Clock,
@@ -447,6 +448,9 @@ const BlogPost = () => {
           </div>
         </section>
       )}
+
+      {/* Comments Section */}
+      <CommentSection blogPostId={post.id} />
     </div>
   );
 };
