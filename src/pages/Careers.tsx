@@ -57,31 +57,31 @@ const Careers = () => {
   const benefits = [
     {
       icon: Globe,
-      title: "100% Remote Friendly",
-      description: "Travailler d'où vous voulez. Nous privilégions le résultat à la présence."
+      titleKey: "careers.benefits.remote.title",
+      descKey: "careers.benefits.remote.description"
     },
     {
       icon: Clock,
-      title: "Horaires Flexibles",
-      description: "Gérez votre temps comme vous le souhaitez pour un meilleur équilibre vie pro/perso."
+      titleKey: "careers.benefits.flexible.title",
+      descKey: "careers.benefits.flexible.description"
     },
     {
       icon: Rocket,
-      title: "Projets Innovants",
-      description: "Travaillez sur des technologies modernes et des projets stimulants."
+      titleKey: "careers.benefits.innovative.title",
+      descKey: "careers.benefits.innovative.description"
     },
     {
       icon: Users,
-      title: "Culture Collaborative",
-      description: "Une équipe bienveillante, l'entraide et le partage de connaissances."
+      titleKey: "careers.benefits.collaborative.title",
+      descKey: "careers.benefits.collaborative.description"
     }
   ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title="Carrières - Rejoignez-nous"
-        description="Opportunités de carrière et offres d'emploi. Rejoignez une équipe passionnée."
+        title={t("careers.hero.title") + " " + t("careers.hero.highlight")}
+        description={t("careers.hero.subtitle")}
         url="/careers"
       />
 
@@ -104,16 +104,16 @@ const Careers = () => {
             >
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white text-sm font-semibold mb-6">
                 <Sparkles className="w-4 h-4 mr-2" />
-                We are hiring!
+                {t("careers.hiringTag")}
               </span>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Construisons le futur <br/>
+                {t("careers.hero.title")} <br/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
-                  ensemble
+                  {t("careers.hero.highlight")}
                 </span>
               </h1>
               <p className="text-xl md:text-2xl text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Rejoignez une équipe pasionnée où innovation, créativité et bienveillance se rencontrent pour créer des produits d'exception.
+                {t("careers.hero.subtitle")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -121,11 +121,11 @@ const Careers = () => {
                   className="rounded-full px-8 h-14 text-lg bg-white text-gray-900 hover:bg-gray-100 shadow-xl shadow-white/20"
                   onClick={() => document.getElementById('openings')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Voir les offres <ArrowRight className="ml-2 w-5 h-5" />
+                  {t("careers.cta.viewOpenings")} <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 <Link to="/about">
                   <Button variant="outline" size="lg" className="rounded-full px-8 h-14 text-lg border-white/30 text-white hover:bg-white/10 backdrop-blur">
-                    Notre culture
+                    {t("careers.cta.culture")}
                   </Button>
                 </Link>
               </div>
@@ -149,13 +149,13 @@ const Careers = () => {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2 block">
-              Pourquoi nous rejoindre ?
+              {t("careers.benefits.tag")}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Plus qu'un simple job
+              {t("careers.benefits.title")}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-lg">
-              Nous offrons un environnement de travail stimulant où vous pouvez grandir, apprendre et avoir un impact réel.
+              {t("careers.benefits.description")}
             </p>
           </div>
 
@@ -173,10 +173,10 @@ const Careers = () => {
                   <benefit.icon className="w-7 h-7" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  {benefit.title}
+                  {t(benefit.titleKey)}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                  {benefit.description}
+                  {t(benefit.descKey)}
                 </p>
               </motion.div>
             ))}
@@ -190,13 +190,13 @@ const Careers = () => {
           <div className="max-w-3xl mx-auto mb-16 text-center">
              <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-sm font-bold mb-6">
                 <Briefcase className="w-4 h-4 mr-2" />
-                Recrutement ouvert
+                {t("careers.openings.tag")}
               </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Nos opportunités actuelles
+              {t("careers.openings.title")}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 text-lg">
-              Trouvez le rôle qui correspond à vos ambitions et rejoignez l'aventure.
+              {t("careers.openings.subtitle")}
             </p>
           </div>
 
@@ -244,7 +244,7 @@ const Careers = () => {
                     <div className="flex-shrink-0 pt-4 md:pt-0 w-full md:w-auto">
                       <Link to={`/contact?subject=Candidature: ${job.title}&projectType=other`}>
                         <Button className="w-full md:w-auto rounded-xl px-6 h-12 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20">
-                          Postuler maintenant <ArrowRight className="ml-2 w-4 h-4" />
+                          {t("careers.job.apply")} <ArrowRight className="ml-2 w-4 h-4" />
                         </Button>
                       </Link>
                     </div>
@@ -266,14 +266,14 @@ const Careers = () => {
                   <Coffee className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                  Vous ne trouvez pas le poste idéal ?
+                  {t("careers.spontaneous.title")}
                 </h3>
                 <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
-                  Nous sommes toujours à la recherche de talents exceptionnels. Envoyez-nous votre candidature spontanée et dites-nous comment vous pouvez faire la différence.
+                  {t("careers.spontaneous.description")}
                 </p>
                 <Link to="/contact?subject=Candidature Spontanée&projectType=other">
                   <Button size="lg" className="rounded-full px-8 bg-white text-gray-900 hover:bg-gray-100 border-0">
-                    Candidature spontanée
+                    {t("careers.spontaneous.cta")}
                   </Button>
                 </Link>
               </div>

@@ -5,6 +5,7 @@
     "services": "Services",
     "blog": "Blog",
     "contact": "Contact",
+    "careers": "Careers",
     "downloadCV": "Download CV",
     "viewAll": "View all",
     "readMore": "Read more"
@@ -304,5 +305,488 @@
       "title": "3. Intellectual Property",
       "content": "The content of the website, including the text, graphics, and logos, is the property of DevPortfolio and is protected by copyright and other intellectual property laws."
     }
+  },
+  "careers": {
+    "hiringTag": "We're hiring!",
+    "hero": {
+      "title": "Let's build the future",
+      "highlight": "together",
+      "subtitle": "Join a passionate team where innovation, creativity, and kindness come together to create exceptional products."
+    },
+    "cta": {
+      "viewOpenings": "View openings",
+      "culture": "Our culture"
+    },
+    "benefits": {
+      "tag": "Why join us?",
+      "title": "More than just a job",
+      "description": "We offer a stimulating work environment where you can grow, learn, and make a real impact.",
+      "remote": {
+        "title": "100% Remote Friendly",
+        "description": "Work from anywhere. We value results over presence."
+      },
+      "flexible": {
+        "title": "Flexible Hours",
+        "description": "Manage your time as you wish for a better work-life balance."
+      },
+      "innovative": {
+        "title": "Innovative Projects",
+        "description": "Work on modern technologies and stimulating projects."
+      },
+      "collaborative": {
+        "title": "Collaborative Culture",
+        "description": "A caring team, mutual support, and knowledge sharing."
+      }
+    },
+    "openings": {
+      "tag": "Open recruitment",
+      "title": "Current opportunities",
+      "subtitle": "Find the role that matches your ambitions and join the adventure."
+    },
+    "job": {
+      "apply": "Apply now"
+    },
+    "spontaneous": {
+      "title": "Can't find the ideal position?",
+      "description": "We're always looking for exceptional talent. Send us your spontaneous application and tell us how you can make a difference.",
+      "cta": "Spontaneous application"
+    }
+  },
+  "homeExtra": {
+    "currentlyUnavailable": "Currently unavailable",
+    "startProject": "Start a project",
+    "viewServices": "View my services",
+    "technologies": "Technologies",
+    "viewFullProfile": "View my full profile",
+    "portfolio": "Portfolio",
+    "viewProject": "View project",
+    "testimonials": "Testimonials",
+    "whatClientsSay": "What my clients say",
+    "viewAllArticles": "View all articles",
+    "tech": "Tech",
+    "readArticle": "Read article",
+    "readyToStart": "Ready to start your project?",
+    "letsTalk": "Let's discuss your needs and create something extraordinary together.",
+    "startNow": "Start now",
+    "responseTime": "Response time",
+    "frontendMobile": "Frontend & Mobile",
+    "frontendMobileDesc": "Modern, performant, and accessible web and mobile applications.",
+    "backendApi": "Backend & API",
+    "backendApiDesc": "Robust APIs, microservices architecture, and optimized databases.",
+    "cloudDevops": "Cloud & DevOps",
+    "cloudDevopsDesc": "Cloud infrastructure, CI/CD, and automated continuous deployment.",
+    "testimonial1": "Remarkable technical expertise and smooth communication throughout the project.",
+    "testimonial2": "On-time delivery with exceptional code quality. Highly recommended."
+  },
+  "contactPage": {
+    "seoTitle": "Contact",
+    "seoDescription": "Contact me to discuss your web or mobile project.",
+    "availableForProjects": "Available for new projects",
+    "transformVision": "Let's transform your vision into reality",
+    "ideaProject": "An idea? A project? Let's discuss and create something extraordinary together.",
+    "sendEmail": "Send an email",
+    "stayInTouch": "Stay in touch",
+    "findMeOn": "Find me on",
+    "availableNow": "Available now",
+    "notAvailable": "Not available at the moment",
+    "availableText": "I'm currently available for new freelance projects and long-term collaborations.",
+    "notAvailableText": "I'm not taking on new projects at the moment. You can contact me to be informed of my next availability.",
+    "response24h": "24h response",
+    "remote": "Remote",
+    "messageSent": "Message sent!",
+    "thankYouMessage": "Thank you for your message. I'll respond within 24 hours.",
+    "inTheMeantime": "In the meantime, grab a coffee!",
+    "selectedOffer": "Selected offer",
+    "step1Title": "Your contact info",
+    "step1Subtitle": "How can I reach you?",
+    "fullName": "Full name *",
+    "email": "Email *",
+    "companyOptional": "Company (optional)",
+    "companyPlaceholder": "Your company name",
+    "continue": "Continue",
+    "step2Title": "Your project",
+    "step2Subtitle": "Tell me about what you want to achieve.",
+    "projectType": "Project type *",
+    "estimatedBudget": "Estimated budget",
+    "select": "Select",
+    "desiredTimeline": "Desired timeline",
+    "back": "Back",
+    "step3Title": "Project details",
+    "step3Subtitle": "Describe your project in a few lines.",
+    "yourMessage": "Your message *",
+    "messagePlaceholder": "Describe your project, your goals, your constraints...",
+    "summary": "Summary",
+    "contactLabel": "Contact:",
+    "projectLabel": "Project:",
+    "sending": "Sending...",
+    "send": "Send",
+    "workTogether": "Let's work together, wherever you are",
+    "basedIn": "Based in Lomé, Togo - I collaborate with clients worldwide remotely.",
+    "remoteFriendly": "Remote Friendly",
+    "videoAvailable": "Video call available",
+    "flexible": "Flexible",
+    "errorOccurred": "An error occurred. Please try again.",
+    "planLabels": {
+      "startup": "Startup",
+      "startupDesc": "MVP and simple projects",
+      "business": "Business",
+      "businessDesc": "Ambitious projects",
+      "enterprise": "Enterprise",
+      "enterpriseDesc": "Complex and custom solutions"
+    },
+    "projectTypes": {
+      "webApp": "Web Application",
+      "mobileApp": "Mobile Application",
+      "backendApi": "Backend / API",
+      "fullStack": "Full-Stack Solution",
+      "consulting": "Consulting / Audit",
+      "other": "Other"
+    },
+    "budgetRanges": {
+      "small": "< $2,000",
+      "medium": "$2,000 - $5,000",
+      "large": "$5,000 - $10,000",
+      "enterprise": "> $10,000"
+    },
+    "timelines": {
+      "urgent": "Urgent (< 2 weeks)",
+      "short": "Short term (1-2 months)",
+      "medium": "Medium term (2-4 months)",
+      "long": "Long term (> 4 months)",
+      "flexible": "Flexible"
+    },
+    "features": {
+      "fastResponse": "Fast response",
+      "fastResponseDesc": "Within 24 business hours",
+      "confidentiality": "Confidentiality",
+      "confidentialityDesc": "Your data is protected",
+      "noCommitment": "No commitment",
+      "noCommitmentDesc": "Free quote"
+    },
+    "contactMethods": {
+      "email": "Email",
+      "emailDesc": "Response within 24h",
+      "phone": "Phone",
+      "phoneDesc": "Mon-Fri 9am-6pm",
+      "location": "Location",
+      "locationDesc": "Remote & International"
+    }
+  },
+  "blogPage": {
+    "seoDescription": "Articles about web development, React, and the Tech ecosystem.",
+    "technicalBlog": "Technical Blog",
+    "exploreWorld": "Explore the world of development",
+    "tutorialsExperience": "Tutorials, experience feedback, and discoveries on modern web technologies.",
+    "searchPlaceholder": "Search for an article...",
+    "articles": "Articles",
+    "categories": "Categories",
+    "minRead": "Min read",
+    "featuredArticle": "Featured article",
+    "readArticle": "Read article",
+    "filters": "Filters",
+    "reset": "Reset",
+    "allArticles": "All articles",
+    "display": "Display",
+    "grid": "Grid",
+    "list": "List",
+    "recent": "Recent",
+    "oldest": "Oldest",
+    "newsletter": "Newsletter",
+    "newsletterSuccess": "Thank you! You'll receive my upcoming articles.",
+    "newsletterDesc": "Receive new articles directly in your inbox.",
+    "subscribe": "Subscribe",
+    "article": "article",
+    "articlePlural": "articles",
+    "noArticlesYet": "No articles yet",
+    "comingSoon": "New content is coming soon. Check back later!",
+    "noResults": "No results found",
+    "tryOtherTerms": "Try other search terms",
+    "resetFilters": "Reset filters",
+    "projectInMind": "Have a project in mind?",
+    "letsBuildTogether": "Let's discuss your ideas and build something extraordinary together."
+  },
+  "blogPost": {
+    "loading": "Loading article...",
+    "notFound": "Article not found",
+    "notFoundDesc": "The article you're looking for doesn't exist or has been removed.",
+    "backToBlog": "Back to blog",
+    "back": "Back",
+    "minRead": "min read",
+    "share": "Share:",
+    "shareOnFacebook": "Share on Facebook",
+    "shareOnTwitter": "Share on Twitter",
+    "shareOnLinkedIn": "Share on LinkedIn",
+    "copyLink": "Copy link",
+    "tags": "Tags:",
+    "writtenBy": "Written by",
+    "contactMe": "Contact me",
+    "availableForProjects": "Available for new projects",
+    "similarArticles": "Similar articles",
+    "discoverMore": "Discover other articles that might interest you"
+  },
+  "servicesPage": {
+    "seoTitle": "Services",
+    "seoDescription": "Web development, mobile, and software architecture services.",
+    "professionalServices": "Professional Services",
+    "transformIdeas": "Transform your ideas into digital solutions",
+    "fromConceptionToProduction": "From conception to production, I support you in creating high-performance web and mobile solutions.",
+    "startProject": "Start a project",
+    "exploreServices": "Explore services",
+    "expertise": "Expertise",
+    "areasOfIntervention": "Areas of intervention",
+    "fullSpectrum": "A full spectrum of skills to cover all your technical needs.",
+    "deliverablesIncluded": "Deliverables included",
+    "methodology": "Methodology",
+    "howIWork": "How I work",
+    "structuredApproach": "A structured and transparent approach to ensure your project's success.",
+    "pricing": "Pricing",
+    "offersAdapted": "Offers adapted to your needs",
+    "uniqueProject": "Every project is unique. Contact me for a personalized quote.",
+    "popular": "Popular",
+    "requestQuote": "Request a quote",
+    "testimonials": "Testimonials",
+    "whatClientsSay": "What my clients say",
+    "faq": "FAQ",
+    "frequentQuestions": "Frequently asked questions",
+    "readyToStart": "Ready to bring your project to life?",
+    "letsTalkNeeds": "Let's discuss your needs and create a solution that exceeds your expectations together.",
+    "startNow": "Start now",
+    "services": {
+      "frontend": {
+        "title": "Frontend Web Development",
+        "description": "Modern, performant, and accessible web applications."
+      },
+      "mobile": {
+        "title": "Mobile Applications",
+        "description": "Cross-platform iOS and Android applications."
+      },
+      "backend": {
+        "title": "Backend & Architecture",
+        "description": "Robust APIs and microservices architecture."
+      },
+      "database": {
+        "title": "Database",
+        "description": "Data modeling and optimization."
+      },
+      "devops": {
+        "title": "DevOps & Cloud",
+        "description": "Infrastructure, deployment, and automation."
+      },
+      "automation": {
+        "title": "Automation & AI",
+        "description": "Automation solutions and AI integration."
+      }
+    },
+    "process": {
+      "discovery": {
+        "title": "Discovery",
+        "description": "In-depth analysis of your needs, objectives, and technical constraints."
+      },
+      "proposal": {
+        "title": "Proposal",
+        "description": "Presentation of a detailed technical solution with timeline and budget."
+      },
+      "development": {
+        "title": "Development",
+        "description": "Agile sprints with regular demos and continuous feedback."
+      },
+      "delivery": {
+        "title": "Delivery",
+        "description": "Deployment, training, and support to ensure your success."
+      }
+    },
+    "stats": {
+      "projectsDelivered": "Projects delivered",
+      "yearsExperience": "Years of experience",
+      "clientsSatisfied": "Satisfied clients",
+      "responseTime": "Response time"
+    },
+    "plans": {
+      "startup": {
+        "name": "Startup",
+        "description": "Ideal for MVPs and simple projects"
+      },
+      "business": {
+        "name": "Business",
+        "description": "For ambitious projects"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Complex and custom solutions"
+      }
+    },
+    "testimonialsList": {
+      "testimonial1": {
+        "content": "Remarkable technical expertise. The project was delivered on time with exceptional quality.",
+        "name": "Marie Dupont",
+        "role": "CEO, TechStartup"
+      },
+      "testimonial2": {
+        "content": "Smooth communication and creative solutions. Highly recommend for any development project.",
+        "name": "Jean Martin",
+        "role": "CTO, InnovateCorp"
+      },
+      "testimonial3": {
+        "content": "Professionalism and responsiveness. Our mobile app exceeded all our expectations.",
+        "name": "Sophie Bernard",
+        "role": "Product Manager"
+      }
+    },
+    "faqs": {
+      "faq1": {
+        "question": "What are your delivery times?",
+        "answer": "Timelines vary depending on project complexity. An MVP can be delivered in 2-4 weeks, while a complete application typically requires 2-3 months."
+      },
+      "faq2": {
+        "question": "Do you offer post-delivery support?",
+        "answer": "Yes, all my projects include a warranty period and I offer maintenance contracts for ongoing support."
+      },
+      "faq3": {
+        "question": "Do you work remotely?",
+        "answer": "Absolutely! I work with clients worldwide. Modern communication tools enable efficient remote collaboration."
+      },
+      "faq4": {
+        "question": "How does payment work?",
+        "answer": "Generally in 3 stages: 30% at signing, 40% midway, and 30% upon delivery. Flexible arrangements are possible."
+      }
+    }
+  },
+  "about": {
+    "seoTitle": "About",
+    "seoDescription": "My journey, skills, and education",
+    "aboutMe": "About me",
+    "myJourney": "My Journey",
+    "skills": "Skills",
+    "technicalExpertise": "Technical Expertise",
+    "technicalExpertiseDesc": "Technologies and tools I master to create high-performance solutions.",
+    "noSkills": "No skills listed.",
+    "experience": "Experience",
+    "professionalJourney": "Professional Journey",
+    "professionalJourneyDesc": "My experience in web development and completed projects.",
+    "noExperience": "No experience listed.",
+    "education": "Education",
+    "academicBackground": "Academic Background",
+    "academicBackgroundDesc": "My academic background and certifications.",
+    "noEducation": "No education listed.",
+    "languages": "Languages",
+    "present": "Present"
+  },
+  "header": {
+    "startProject": "Start a project",
+    "discoverServices": "Discover my services",
+    "search": "Search",
+    "downloadCV": "Download CV",
+    "theme": {
+      "light": "Light mode",
+      "dark": "Dark mode",
+      "system": "System theme"
+    }
+  },
+  "footerExtra": {
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Stay informed about my latest projects and articles.",
+    "emailPlaceholder": "Your email",
+    "subscribeSuccess": "Successfully subscribed!",
+    "subscribeError": "An error occurred."
+  },
+  "globalSearch": {
+    "homepageDesc": "Portfolio homepage",
+    "servicesDesc": "Discover my development services",
+    "blogDesc": "Technical articles and tutorials",
+    "contactDesc": "Contact me for your projects",
+    "sendEmail": "Send an email",
+    "call": "Call",
+    "viewProfile": "View profile",
+    "pages": "Pages",
+    "projects": "Projects",
+    "articles": "Articles",
+    "services": "Services",
+    "contact": "Contact",
+    "searchPlaceholder": "Search pages, projects, articles, services..."
+  },
+  "admin": {
+    "login": {
+      "title": "Administration",
+      "subtitle": "Log in to access the dashboard",
+      "emailOrUsername": "Email or Username",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "loggingIn": "Logging in...",
+      "login": "Log in",
+      "secureConnection": "Secure SSL connection",
+      "backToSite": "Back to site",
+      "errors": {
+        "invalidCredentials": "Invalid credentials. Please check your information.",
+        "tooManyAttempts": "Too many attempts. Please try again later.",
+        "connectionError": "Connection error. Please check your internet connection.",
+        "genericError": "An error occurred. Please try again."
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Portfolio configuration",
+      "generalInfo": "General information",
+      "siteName": "Site name",
+      "siteNamePlaceholder": "My Portfolio",
+      "contactEmail": "Contact email",
+      "heroSection": "Hero Section",
+      "titleFr": "Title (FR)",
+      "titleEn": "Title (EN)",
+      "subtitleFr": "Subtitle (FR)",
+      "subtitleEn": "Subtitle (EN)",
+      "seo": "SEO",
+      "metaTitle": "Meta Title",
+      "metaDescription": "Meta Description",
+      "keywords": "Keywords",
+      "cvSection": "CV Section",
+      "cvUrl": "CV URL",
+      "cvLabel": "Button label",
+      "socialNetworks": "Social networks",
+      "aboutSection": "About Section",
+      "bioFr": "Biography (FR)",
+      "bioEn": "Biography (EN)",
+      "highlights": "Key achievements",
+      "addHighlight": "Add achievement",
+      "languagesSection": "Languages",
+      "addLanguage": "Add language",
+      "availability": "Availability",
+      "workMode": "Work mode",
+      "workModeRemote": "Remote",
+      "workModeHybrid": "Hybrid",
+      "workModeOnsite": "On-site",
+      "contractType": "Contract type",
+      "contractFreelance": "Freelance",
+      "contractPermanent": "Permanent",
+      "professionalValues": "Professional values",
+      "addValue": "Add value",
+      "appearance": "Appearance",
+      "primaryColor": "Primary color",
+      "availableForMission": "Available for mission",
+      "availableBadgeDesc": "Displays a badge on your site",
+      "saved": "Saved",
+      "save": "Save"
+    }
+  },
+  "comments": {
+    "sent": "Comment sent!",
+    "moderationNotice": "Your comment will be visible after moderation.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "comment": "Comment",
+    "replyPlaceholder": "Your reply...",
+    "commentPlaceholder": "Share your thoughts...",
+    "moderationWarning": "Comments are moderated before publication",
+    "cancel": "Cancel",
+    "sending": "Sending...",
+    "reply": "Reply",
+    "publish": "Publish",
+    "justNow": "Just now",
+    "minutesAgo": "{{count}} min ago",
+    "hoursAgo": "{{count}}h ago",
+    "yesterday": "Yesterday",
+    "daysAgo": "{{count}} days ago",
+    "replies": "{{count}} reply(ies)"
   }
 }

@@ -9,7 +9,7 @@ import { useSiteSettings } from "../../api/settings";
 import GlobalSearch from "./GlobalSearch";
 
 // Theme Toggle Button Component with professional animation
-const ThemeToggleButton = ({ transparent = false, className = "" }: { transparent?: boolean; className?: string }) => {
+const ThemeToggleButton = ({ transparent = false, className = "", t }: { transparent?: boolean; className?: string; t: (key: string) => string }) => {
   const { theme, toggleTheme, isTransitioning } = useTheme();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,14 +33,14 @@ const ThemeToggleButton = ({ transparent = false, className = "" }: { transparen
     }
   };
 
-  const getTooltip = () => {
+  const getTooltip = (t: (key: string) => string) => {
     switch (theme) {
       case 'light':
-        return 'Mode clair';
+        return t('header.theme.light');
       case 'dark':
-        return 'Mode sombre';
+        return t('header.theme.dark');
       case 'system':
-        return 'Thème système';
+        return t('header.theme.system');
     }
   };
 
@@ -56,8 +56,8 @@ const ThemeToggleButton = ({ transparent = false, className = "" }: { transparen
           : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-950"
         }
         ${className}`}
-      aria-label={getTooltip()}
-      title={getTooltip()}
+      aria-label={getTooltip(t)}
+      title={getTooltip(t)}
     >
       <AnimatePresence mode="wait">
         <motion.div
@@ -131,7 +131,7 @@ const Header = () => {
     { path: "/", label: t('common.home') },
     { path: "/about", label: t('common.about') },
     { path: "/services", label: t('common.services') },
-    { path: "/careers", label: "Carrières" },
+    { path: "/careers", label: t('common.careers') },
     { path: "/blog", label: t('common.blog') },
     { path: "/contact", label: t('common.contact') },
   ];
@@ -206,7 +206,7 @@ const Header = () => {
                 }`}
               >
                 <Search className="w-4 h-4 mr-2" />
-                <span className="hidden lg:inline mr-3">Rechercher</span>
+                <span className="hidden lg:inline mr-3">{t('header.search')}</span>
                 <kbd className={`hidden lg:inline-flex h-5 items-center gap-1 rounded px-1.5 font-mono text-[10px] font-medium ${
                   isTransparent
                     ? "bg-white/20 text-white/70"
@@ -219,7 +219,7 @@ const Header = () => {
               <div className={`h-6 w-px mx-1 ${isTransparent ? "bg-white/20" : "bg-gray-200 dark:bg-gray-800"}`} />
 
               {/* Theme Toggle */}
-              <ThemeToggleButton transparent={isTransparent} />
+              <ThemeToggleButton transparent={isTransparent} t={t} />
 
               {/* Language Toggle */}
               <button
@@ -251,7 +251,7 @@ const Header = () => {
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-2">
-              <ThemeToggleButton transparent={isTransparent} />
+              <ThemeToggleButton transparent={isTransparent} t={t} />
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={`p-2.5 rounded-xl transition-all duration-300 ${
@@ -307,7 +307,7 @@ const Header = () => {
                       onClick={downloadCV}
                       className="flex items-center justify-center w-full px-4 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-colors"
                     >
-                      <Download className="w-4 h-4 mr-2" /> Télécharger CV
+                      <Download className="w-4 h-4 mr-2" /> {t('header.downloadCV')}
                     </button>
                   )}
                 </div>

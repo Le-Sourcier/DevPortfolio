@@ -90,7 +90,7 @@ const Footer = () => {
                 { to: '/services', label: t('common.services') },
                 { to: '/blog', label: t('common.blog') },
                 { to: '/contact', label: t('common.contact') },
-                { to: '/careers', label: "Careers" }
+                { to: '/careers', label: t('common.careers') }
               ].map((link) => (
                 <li key={link.to}>
                   <Link
@@ -117,9 +117,9 @@ const Footer = () => {
 
           {/* Newsletter / Contact */}
           <div>
-            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Newsletter</h3>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-4">{t("footerExtra.newsletter")}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Restez informé de mes derniers projets et articles.
+              {t("footerExtra.newsletterDesc")}
             </p>
 
             <form onSubmit={handleSubscribe} className="space-y-3">
@@ -128,7 +128,7 @@ const Footer = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Votre email"
+                  placeholder={t("footerExtra.emailPlaceholder")}
                   required
                   className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:ring-2 focus:ring-blue-500 outline-none text-sm text-gray-900 dark:text-white"
                 />
@@ -148,12 +148,12 @@ const Footer = () => {
               </div>
               {status === 'success' && (
                 <p className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
-                  <CheckCircle className="w-3 h-3" /> Inscrit avec succès !
+                  <CheckCircle className="w-3 h-3" /> {t("footerExtra.subscribeSuccess")}
                 </p>
               )}
               {status === 'error' && (
                 <p className="text-xs text-red-600 dark:text-red-400">
-                  Une erreur est survenue.
+                  {t("footerExtra.subscribeError")}
                 </p>
               )}
             </form>

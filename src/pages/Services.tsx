@@ -40,8 +40,8 @@ const Services = () => {
   const services = [
     {
       icon: Globe,
-      title: "Développement Web Frontend",
-      description: "Applications web modernes, performantes et accessibles.",
+      titleKey: "servicesPage.services.frontend.title",
+      descriptionKey: "servicesPage.services.frontend.description",
       gradient: "from-blue-500 to-cyan-500",
       features: [
         "React 18 / Next.js 14 / Vue.js 3",
@@ -54,8 +54,8 @@ const Services = () => {
     },
     {
       icon: Smartphone,
-      title: "Applications Mobiles",
-      description: "Applications cross-platform iOS et Android.",
+      titleKey: "servicesPage.services.mobile.title",
+      descriptionKey: "servicesPage.services.mobile.description",
       gradient: "from-purple-500 to-pink-500",
       features: [
         "Flutter & React Native",
@@ -68,8 +68,8 @@ const Services = () => {
     },
     {
       icon: Server,
-      title: "Backend & Architecture",
-      description: "APIs robustes et architecture microservices.",
+      titleKey: "servicesPage.services.backend.title",
+      descriptionKey: "servicesPage.services.backend.description",
       gradient: "from-emerald-500 to-teal-500",
       features: [
         "Node.js / NestJS / Express",
@@ -82,8 +82,8 @@ const Services = () => {
     },
     {
       icon: Database,
-      title: "Base de Données",
-      description: "Modélisation et optimisation de vos données.",
+      titleKey: "servicesPage.services.database.title",
+      descriptionKey: "servicesPage.services.database.description",
       gradient: "from-orange-500 to-red-500",
       features: [
         "PostgreSQL / MySQL / MongoDB",
@@ -96,8 +96,8 @@ const Services = () => {
     },
     {
       icon: Cloud,
-      title: "DevOps & Cloud",
-      description: "Infrastructure, déploiement et automatisation.",
+      titleKey: "servicesPage.services.devops.title",
+      descriptionKey: "servicesPage.services.devops.description",
       gradient: "from-indigo-500 to-purple-500",
       features: [
         "AWS / GCP / Azure",
@@ -110,8 +110,8 @@ const Services = () => {
     },
     {
       icon: Bot,
-      title: "Automatisation & IA",
-      description: "Solutions d'automatisation et intégration IA.",
+      titleKey: "servicesPage.services.automation.title",
+      descriptionKey: "servicesPage.services.automation.description",
       gradient: "from-pink-500 to-rose-500",
       features: [
         "N8N / Make / Zapier",
@@ -127,46 +127,46 @@ const Services = () => {
   const processSteps = [
     {
       number: "01",
-      title: "Découverte",
-      description: "Analyse approfondie de vos besoins, objectifs et contraintes techniques.",
+      titleKey: "servicesPage.process.discovery.title",
+      descriptionKey: "servicesPage.process.discovery.description",
       icon: Target,
       color: "blue",
     },
     {
       number: "02",
-      title: "Proposition",
-      description: "Présentation d'une solution technique détaillée avec planning et budget.",
+      titleKey: "servicesPage.process.proposal.title",
+      descriptionKey: "servicesPage.process.proposal.description",
       icon: Layers,
       color: "purple",
     },
     {
       number: "03",
-      title: "Développement",
-      description: "Sprints agiles avec démonstrations régulières et feedback continu.",
+      titleKey: "servicesPage.process.development.title",
+      descriptionKey: "servicesPage.process.development.description",
       icon: Code2,
       color: "emerald",
     },
     {
       number: "04",
-      title: "Livraison",
-      description: "Déploiement, formation et support pour garantir votre succès.",
+      titleKey: "servicesPage.process.delivery.title",
+      descriptionKey: "servicesPage.process.delivery.description",
       icon: Rocket,
       color: "orange",
     },
   ];
 
   const stats = [
-    { value: "50+", label: "Projets livrés", icon: Package },
-    { value: "5+", label: "Années d'expérience", icon: Clock },
-    { value: "100%", label: "Clients satisfaits", icon: Star },
-    { value: "24h", label: "Temps de réponse", icon: Zap },
+    { value: "50+", labelKey: "servicesPage.stats.projectsDelivered", icon: Package },
+    { value: "5+", labelKey: "servicesPage.stats.yearsExperience", icon: Clock },
+    { value: "100%", labelKey: "servicesPage.stats.clientsSatisfied", icon: Star },
+    { value: "24h", labelKey: "servicesPage.stats.responseTime", icon: Zap },
   ];
 
   const pricingPlans = [
     {
       id: "startup",
-      name: "Startup",
-      description: "Idéal pour les MVP et projets simples",
+      nameKey: "servicesPage.plans.startup.name",
+      descriptionKey: "servicesPage.plans.startup.description",
       features: [
         "Site web / Landing page",
         "Design responsive",
@@ -178,8 +178,8 @@ const Services = () => {
     },
     {
       id: "business",
-      name: "Business",
-      description: "Pour les projets ambitieux",
+      nameKey: "servicesPage.plans.business.name",
+      descriptionKey: "servicesPage.plans.business.description",
       features: [
         "Application web complète",
         "Backend & API sur mesure",
@@ -192,8 +192,8 @@ const Services = () => {
     },
     {
       id: "enterprise",
-      name: "Enterprise",
-      description: "Solutions complexes et sur mesure",
+      nameKey: "servicesPage.plans.enterprise.name",
+      descriptionKey: "servicesPage.plans.enterprise.description",
       features: [
         "Architecture microservices",
         "Applications mobiles",
@@ -209,41 +209,41 @@ const Services = () => {
 
   const testimonials = [
     {
-      name: "Marie Dupont",
-      role: "CEO, TechStartup",
-      content: "Une expertise technique remarquable. Le projet a été livré dans les délais avec une qualité exceptionnelle.",
+      nameKey: "servicesPage.testimonialsList.testimonial1.name",
+      roleKey: "servicesPage.testimonialsList.testimonial1.role",
+      contentKey: "servicesPage.testimonialsList.testimonial1.content",
       avatar: "MD",
     },
     {
-      name: "Jean Martin",
-      role: "CTO, InnovateCorp",
-      content: "Communication fluide et solutions créatives. Je recommande vivement pour tout projet de développement.",
+      nameKey: "servicesPage.testimonialsList.testimonial2.name",
+      roleKey: "servicesPage.testimonialsList.testimonial2.role",
+      contentKey: "servicesPage.testimonialsList.testimonial2.content",
       avatar: "JM",
     },
     {
-      name: "Sophie Bernard",
-      role: "Product Manager",
-      content: "Professionnalisme et réactivité. Notre application mobile a dépassé toutes nos attentes.",
+      nameKey: "servicesPage.testimonialsList.testimonial3.name",
+      roleKey: "servicesPage.testimonialsList.testimonial3.role",
+      contentKey: "servicesPage.testimonialsList.testimonial3.content",
       avatar: "SB",
     },
   ];
 
   const faqs = [
     {
-      question: "Quels sont vos délais de livraison ?",
-      answer: "Les délais varient selon la complexité du projet. Un MVP peut être livré en 2-4 semaines, tandis qu'une application complète nécessite généralement 2-3 mois.",
+      questionKey: "servicesPage.faqs.faq1.question",
+      answerKey: "servicesPage.faqs.faq1.answer",
     },
     {
-      question: "Proposez-vous un support après livraison ?",
-      answer: "Oui, tous mes projets incluent une période de garantie et je propose des contrats de maintenance pour un support continu.",
+      questionKey: "servicesPage.faqs.faq2.question",
+      answerKey: "servicesPage.faqs.faq2.answer",
     },
     {
-      question: "Travaillez-vous en remote ?",
-      answer: "Absolument ! Je travaille avec des clients du monde entier. Les outils de communication modernes permettent une collaboration efficace à distance.",
+      questionKey: "servicesPage.faqs.faq3.question",
+      answerKey: "servicesPage.faqs.faq3.answer",
     },
     {
-      question: "Comment se déroule le paiement ?",
-      answer: "Généralement en 3 étapes : 30% à la signature, 40% à mi-parcours, et 30% à la livraison. Des arrangements flexibles sont possibles.",
+      questionKey: "servicesPage.faqs.faq4.question",
+      answerKey: "servicesPage.faqs.faq4.answer",
     },
   ];
 
@@ -252,8 +252,8 @@ const Services = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Services"
-        description="Services de développement web, mobile et architecture logicielle."
+        title={t("servicesPage.seoTitle")}
+        description={t("servicesPage.seoDescription")}
         url="/services"
       />
 
@@ -277,29 +277,26 @@ const Services = () => {
             >
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white text-sm font-semibold mb-6">
                 <Sparkles className="w-4 h-4 mr-2" />
-                Services Professionnels
+                {t("servicesPage.professionalServices")}
               </span>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Transformez vos idées en{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-                  solutions digitales
-                </span>
+                {t("servicesPage.transformIdeas")}
               </h1>
 
               <p className="text-xl md:text-2xl text-white/70 mb-10 max-w-3xl mx-auto leading-relaxed">
-                De la conception à la mise en production, je vous accompagne dans la réalisation de vos projets numériques les plus ambitieux.
+                {t("servicesPage.fromConceptionToProduction")}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <Link to="/contact">
                   <Button size="lg" className="rounded-full px-8 h-14 text-lg bg-white text-gray-900 hover:bg-gray-100 shadow-xl shadow-white/20">
-                    Démarrer un projet <ArrowRight className="ml-2 w-5 h-5" />
+                    {t("servicesPage.startProject")} <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
                 <a href="#services">
                   <Button variant="outline" size="lg" className="rounded-full px-8 h-14 text-lg border-white/30 text-white hover:bg-white/10 backdrop-blur">
-                    Explorer les services
+                    {t("servicesPage.exploreServices")}
                   </Button>
                 </a>
               </div>
@@ -316,7 +313,7 @@ const Services = () => {
                   >
                     <stat.icon className="w-6 h-6 mx-auto mb-2 text-blue-400" />
                     <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
-                    <div className="text-sm text-white/60">{stat.label}</div>
+                    <div className="text-sm text-white/60">{t(stat.labelKey)}</div>
                   </motion.div>
                 ))}
               </div>
@@ -345,13 +342,13 @@ const Services = () => {
               viewport={{ once: true }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-sm font-semibold mb-4">
-                Expertise
+                {t("servicesPage.expertiseTag")}
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Domaines d'intervention
+                {t("servicesPage.interventionDomains")}
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Un spectre complet de compétences pour couvrir tous vos besoins techniques.
+                {t("servicesPage.completeSkillset")}
               </p>
             </motion.div>
           </div>
@@ -394,10 +391,10 @@ const Services = () => {
                   <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
                     activeService === idx ? 'text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-white'
                   }`}>
-                    {service.title}
+                    {t(service.titleKey)}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-6 relative z-10">
-                    {service.description}
+                    {t(service.descriptionKey)}
                   </p>
 
                   {/* Features */}
@@ -433,7 +430,7 @@ const Services = () => {
                   >
                     <div className="border-t border-gray-100 dark:border-gray-800 pt-4">
                       <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
-                        Livrables inclus
+                        {t("servicesPage.deliverablesIncluded")}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {service.deliverables.map((item, i) => (
@@ -482,13 +479,13 @@ const Services = () => {
               viewport={{ once: true }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-semibold mb-4">
-                Méthodologie
+                {t("servicesPage.methodologyTag")}
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Comment je travaille
+                {t("servicesPage.howIWork")}
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Une approche structurée et transparente pour garantir la réussite de votre projet.
+                {t("servicesPage.structuredApproach")}
               </p>
             </motion.div>
           </div>
@@ -519,10 +516,10 @@ const Services = () => {
                     </div>
 
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                      {step.title}
+                      {t(step.titleKey)}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      {step.description}
+                      {t(step.descriptionKey)}
                     </p>
                   </div>
                 </motion.div>
@@ -542,13 +539,13 @@ const Services = () => {
               viewport={{ once: true }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-sm font-semibold mb-4">
-                Tarification
+                {t("servicesPage.pricingTag")}
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Des offres adaptées à vos besoins
+                {t("servicesPage.tailoredOffers")}
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Chaque projet est unique. Contactez-moi pour un devis personnalisé.
+                {t("servicesPage.uniqueProject")}
               </p>
             </motion.div>
           </div>
@@ -569,16 +566,16 @@ const Services = () => {
                 {plan.highlight && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                     <span className="px-4 py-1.5 rounded-full bg-yellow-400 text-yellow-900 text-sm font-bold shadow-lg">
-                      Populaire
+                      {t("servicesPage.popularTag")}
                     </span>
                   </div>
                 )}
 
                 <h3 className={`text-2xl font-bold mb-2 ${plan.highlight ? 'text-white' : 'text-gray-900 dark:text-white'}`}>
-                  {plan.name}
+                  {t(plan.nameKey)}
                 </h3>
                 <p className={`mb-6 ${plan.highlight ? 'text-blue-100' : 'text-gray-600 dark:text-gray-400'}`}>
-                  {plan.description}
+                  {t(plan.descriptionKey)}
                 </p>
 
                 <ul className="space-y-3 mb-8">
@@ -599,7 +596,7 @@ const Services = () => {
                       : 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100'
                       }`}
                   >
-                    Demander un devis
+                    {t("servicesPage.requestQuote")}
                   </Button>
                 </Link>
               </motion.div>
@@ -618,10 +615,10 @@ const Services = () => {
               viewport={{ once: true }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 text-sm font-semibold mb-4">
-                Témoignages
+                {t("servicesPage.testimonialsTag")}
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Ce que disent mes clients
+                {t("servicesPage.clientsSay")}
               </h2>
             </motion.div>
           </div>
@@ -642,15 +639,15 @@ const Services = () => {
                   ))}
                 </div>
                 <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                  "{testimonial.content}"
+                  "{t(testimonial.contentKey)}"
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
                     {testimonial.avatar}
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white">{t(testimonial.nameKey)}</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">{t(testimonial.roleKey)}</div>
                   </div>
                 </div>
               </motion.div>
@@ -669,10 +666,10 @@ const Services = () => {
               viewport={{ once: true }}
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 text-sm font-semibold mb-4">
-                FAQ
+                {t("servicesPage.faqTag")}
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Questions fréquentes
+                {t("servicesPage.frequentQuestions")}
               </h2>
             </motion.div>
           </div>
@@ -692,7 +689,7 @@ const Services = () => {
                 >
                   <div className="flex justify-between items-center">
                     <h3 className="font-semibold text-gray-900 dark:text-white pr-4">
-                      {faq.question}
+                      {t(faq.questionKey)}
                     </h3>
                     <div className={`w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center transition-transform ${openFaq === idx ? 'rotate-45' : ''}`}>
                       <span className="text-xl text-gray-600 dark:text-gray-400">+</span>
@@ -706,7 +703,7 @@ const Services = () => {
                         exit={{ opacity: 0, height: 0 }}
                         className="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed"
                       >
-                        {faq.answer}
+                        {t(faq.answerKey)}
                       </motion.p>
                     )}
                   </AnimatePresence>
@@ -727,15 +724,15 @@ const Services = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Prêt à concrétiser votre projet ?
+              {t("servicesPage.readyToStart")}
             </h2>
             <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-              Discutons de vos besoins et créons ensemble une solution qui dépasse vos attentes.
+              {t("servicesPage.letsTalkNeeds")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button size="lg" className="rounded-full px-10 h-14 text-lg bg-white text-blue-600 hover:bg-gray-100 shadow-xl">
-                  Démarrer maintenant <ArrowRight className="ml-2" />
+                  {t("servicesPage.startNow")} <ArrowRight className="ml-2" />
                 </Button>
               </Link>
               <a href="mailto:yaodavidlogan02@gmail.com">

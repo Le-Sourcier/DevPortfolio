@@ -35,11 +35,11 @@ import { Card, CardContent } from "../components/ui/Card";
 import { useCreateMessage } from "../api/messages";
 import { useSiteSettings } from "../api/settings";
 
-const planLabels: Record<string, { name: string; description: string }> = {
-  startup: { name: "Startup", description: "MVP et projets simples" },
-  business: { name: "Business", description: "Projets ambitieux" },
-  enterprise: { name: "Enterprise", description: "Solutions complexes et sur mesure" },
-};
+const getPlanLabels = (t: (key: string) => string): Record<string, { name: string; description: string }> => ({
+  startup: { name: t("contactPage.planLabels.startup"), description: t("contactPage.planLabels.startupDesc") },
+  business: { name: t("contactPage.planLabels.business"), description: t("contactPage.planLabels.businessDesc") },
+  enterprise: { name: t("contactPage.planLabels.enterprise"), description: t("contactPage.planLabels.enterpriseDesc") },
+});
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -48,6 +48,7 @@ const Contact = () => {
   const selectedPlan = searchParams.get("plan");
   const subject = searchParams.get("subject");
   const projectTypeParam = searchParams.get("projectType");
+  const planLabels = getPlanLabels(t);
 
   const createMessage = useCreateMessage();
   const [formData, setFormData] = useState({
@@ -124,7 +125,7 @@ const Contact = () => {
         setActiveStep(1);
       }, 5000);
     } catch (error) {
-      setSubmitError("Une erreur est survenue. Veuillez réessayer.");
+      setSubmitError(t("contactPage.errorOccurred"));
     } finally {
       setIsSubmitting(false);
     }
@@ -133,25 +134,25 @@ const Contact = () => {
   const contactMethods = [
     {
       icon: Mail,
-      title: "Email",
+      title: t("contactPage.contactMethods.email"),
       value: settings?.emailContact || "yaodavidlogan02@gmail.com",
-      description: "Réponse sous 24h",
+      description: t("contactPage.contactMethods.emailDesc"),
       action: `mailto:${settings?.emailContact || "yaodavidlogan02@gmail.com"}`,
       color: "blue",
     },
     {
       icon: Phone,
-      title: "Téléphone",
+      title: t("contactPage.contactMethods.phone"),
       value: "+228 91 68 09 67",
-      description: "Lun-Ven 9h-18h",
+      description: t("contactPage.contactMethods.phoneDesc"),
       action: "tel:+22891680967",
       color: "emerald",
     },
     {
       icon: MapPin,
-      title: "Localisation",
+      title: t("contactPage.contactMethods.location"),
       value: "Lomé, Togo",
-      description: "Remote & International",
+      description: t("contactPage.contactMethods.locationDesc"),
       action: "#",
       color: "purple",
     },
@@ -164,33 +165,33 @@ const Contact = () => {
   ];
 
   const projectTypes = [
-    { value: "web", label: "Application Web" },
-    { value: "mobile", label: "Application Mobile" },
-    { value: "backend", label: "Backend / API" },
-    { value: "fullstack", label: "Solution Full-Stack" },
-    { value: "consulting", label: "Consulting / Audit" },
-    { value: "other", label: "Autre" },
+    { value: "web", label: t("contactPage.projectTypes.webApp") },
+    { value: "mobile", label: t("contactPage.projectTypes.mobileApp") },
+    { value: "backend", label: t("contactPage.projectTypes.backendApi") },
+    { value: "fullstack", label: t("contactPage.projectTypes.fullStack") },
+    { value: "consulting", label: t("contactPage.projectTypes.consulting") },
+    { value: "other", label: t("contactPage.projectTypes.other") },
   ];
 
   const budgetRanges = [
-    { value: "small", label: "< 2 000 €" },
-    { value: "medium", label: "2 000 € - 5 000 €" },
-    { value: "large", label: "5 000 € - 15 000 €" },
-    { value: "enterprise", label: "> 15 000 €" },
-    { value: "discuss", label: "À discuter" },
+    { value: "small", label: t("contactPage.budgetRanges.small") },
+    { value: "medium", label: t("contactPage.budgetRanges.medium") },
+    { value: "large", label: t("contactPage.budgetRanges.large") },
+    { value: "enterprise", label: t("contactPage.budgetRanges.enterprise") },
+    { value: "discuss", label: t("contact.discuss") },
   ];
 
   const timelines = [
-    { value: "urgent", label: "Urgent (< 2 semaines)" },
-    { value: "short", label: "Court terme (1-2 mois)" },
-    { value: "medium", label: "Moyen terme (2-4 mois)" },
-    { value: "flexible", label: "Flexible" },
+    { value: "urgent", label: t("contactPage.timelines.urgent") },
+    { value: "short", label: t("contactPage.timelines.short") },
+    { value: "medium", label: t("contactPage.timelines.medium") },
+    { value: "flexible", label: t("contactPage.timelines.flexible") },
   ];
 
   const features = [
-    { icon: Zap, title: "Réponse rapide", description: "Sous 24h ouvrées" },
-    { icon: Shield, title: "Confidentialité", description: "Vos données sont protégées" },
-    { icon: HeartHandshake, title: "Sans engagement", description: "Devis gratuit" },
+    { icon: Zap, title: t("contactPage.features.fastResponse"), description: t("contactPage.features.fastResponseDesc") },
+    { icon: Shield, title: t("contactPage.features.confidentiality"), description: t("contactPage.features.confidentialityDesc") },
+    { icon: HeartHandshake, title: t("contactPage.features.noCommitment"), description: t("contactPage.features.noCommitmentDesc") },
   ];
 
   const nextStep = () => {
@@ -207,8 +208,8 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Contact"
-        description="Contactez-moi pour discuter de votre projet web ou mobile."
+        title={t("contactPage.seoTitle")}
+        description={t("contactPage.seoDescription")}
         url="/contact"
       />
 
@@ -232,20 +233,16 @@ const Contact = () => {
               {(settings?.availableForWork ?? true) && (
                 <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 backdrop-blur text-white text-sm font-semibold mb-6">
                   <Sparkles className="w-4 h-4 mr-2" />
-                  Disponible pour de nouveaux projets
+                  {t("contactPage.availableForProjects")}
                 </span>
               )}
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Transformons votre{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300">
-                  vision
-                </span>{" "}
-                en réalité
+                {t("contactPage.transformVision")}
               </h1>
 
               <p className="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Une idée ? Un projet ? Discutons ensemble et créons quelque chose d'extraordinaire.
+                {t("contactPage.ideaProject")}
               </p>
 
               {/* Quick contact methods */}
@@ -255,7 +252,7 @@ const Contact = () => {
                   className="inline-flex items-center px-6 py-3 rounded-full bg-white text-gray-900 font-semibold hover:bg-gray-100 transition-colors shadow-lg"
                 >
                   <Mail className="w-5 h-5 mr-2" />
-                  Envoyer un email
+                  {t("contactPage.sendEmail")}
                 </a>
                 <a
                   href="tel:+22891680967"
@@ -290,7 +287,7 @@ const Contact = () => {
               {/* Contact Methods */}
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                  Restons en contact
+                  {t("contactPage.stayInTouch")}
                 </h2>
                 <div className="space-y-4">
                   {contactMethods.map((method, idx) => (
@@ -324,7 +321,7 @@ const Contact = () => {
               {/* Social Links */}
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                  Retrouvez-moi sur
+                  {t("contactPage.findMeOn")}
                 </h3>
                 <div className="flex gap-3">
                   {socialLinks.map((social, idx) => (
@@ -362,29 +359,29 @@ const Contact = () => {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
                           </span>
-                          <span className="font-semibold">Disponible maintenant</span>
+                          <span className="font-semibold">{t("contactPage.availableNow")}</span>
                         </>
                       ) : (
-                        <span className="font-semibold">Non disponible pour le moment</span>
+                        <span className="font-semibold">{t("contactPage.notAvailable")}</span>
                       )}
                     </div>
                     {(settings?.availableForWork ?? true) ? (
                       <p className="text-white/80 mb-4">
-                        Je suis actuellement disponible pour de nouveaux projets freelance et des collaborations long terme.
+                        {t("contactPage.availableText")}
                       </p>
                     ) : (
                       <p className="opacity-80 mb-4">
-                        Je ne prends pas de nouveaux projets pour le moment, mais n'hésitez pas à me contacter pour planifier.
+                        {t("contactPage.notAvailableText")}
                       </p>
                     )}
                     <div className="flex items-center gap-4 text-sm text-white/70">
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        Réponse 24h
+                        {t("contactPage.response24h")}
                       </span>
                       <span className="flex items-center gap-1">
                         <Globe className="w-4 h-4" />
-                        Remote
+                        {t("contactPage.remote")}
                       </span>
                     </div>
                   </CardContent>
@@ -429,14 +426,14 @@ const Contact = () => {
                             <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
                           </div>
                           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                            Message envoyé !
+                            {t("contactPage.messageSent")}
                           </h2>
                           <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
-                            Merci pour votre message. Je vous réponds sous 24h.
+                            {t("contactPage.thankYouMessage")}
                           </p>
                           <div className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                             <Coffee className="w-4 h-4" />
-                            En attendant, prenez un café !
+                            {t("contactPage.inTheMeantime")}
                           </div>
                         </motion.div>
                       ) : (
@@ -454,7 +451,7 @@ const Contact = () => {
                                   <CheckCircle className="w-5 h-5 text-white" />
                                 </div>
                                 <div>
-                                  <p className="text-sm text-gray-600 dark:text-gray-400">Offre sélectionnée</p>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400">{t("contactPage.selectedOffer")}</p>
                                   <p className="font-bold text-gray-900 dark:text-white">
                                     {planLabels[selectedPlan].name}{" "}
                                     <span className="font-normal text-gray-500 dark:text-gray-400">
@@ -505,17 +502,17 @@ const Contact = () => {
                                 >
                                   <div>
                                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                      Vos coordonnées
+                                      {t("contactPage.step1Title")}
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                      Comment puis-je vous contacter ?
+                                      {t("contactPage.step1Subtitle")}
                                     </p>
                                   </div>
 
                                   <div className="grid sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                       <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                                        <User className="w-4 h-4" /> Nom complet *
+                                        <User className="w-4 h-4" /> {t("contactPage.fullName")}
                                       </label>
                                       <Input
                                         name="name"
@@ -528,7 +525,7 @@ const Contact = () => {
                                     </div>
                                     <div className="space-y-2">
                                       <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                                        <Mail className="w-4 h-4" /> Email *
+                                        <Mail className="w-4 h-4" /> {t("contactPage.email")}
                                       </label>
                                       <Input
                                         name="email"
@@ -544,11 +541,11 @@ const Contact = () => {
 
                                   <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                                      <Building2 className="w-4 h-4" /> Entreprise (optionnel)
+                                      <Building2 className="w-4 h-4" /> {t("contactPage.companyOptional")}
                                     </label>
                                     <Input
                                       name="company"
-                                      placeholder="Nom de votre entreprise"
+                                      placeholder={t("contactPage.companyPlaceholder")}
                                       value={formData.company}
                                       onChange={handleInputChange}
                                       className="h-12 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
@@ -562,7 +559,7 @@ const Contact = () => {
                                       disabled={!canProceedStep1}
                                       className="h-12 px-8 rounded-xl"
                                     >
-                                      Continuer <ArrowRight className="ml-2 w-4 h-4" />
+                                      {t("contactPage.continue")} <ArrowRight className="ml-2 w-4 h-4" />
                                     </Button>
                                   </div>
                                 </motion.div>
@@ -579,16 +576,16 @@ const Contact = () => {
                                 >
                                   <div>
                                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                      Votre projet
+                                      {t("contactPage.step2Title")}
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                      Parlez-moi de ce que vous souhaitez réaliser.
+                                      {t("contactPage.step2Subtitle")}
                                     </p>
                                   </div>
 
                                   <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                      Type de projet *
+                                      {t("contactPage.projectType")}
                                     </label>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                       {projectTypes.map((type) => (
@@ -611,7 +608,7 @@ const Contact = () => {
                                   <div className="grid sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                       <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Budget estimé
+                                        {t("contactPage.estimatedBudget")}
                                       </label>
                                       <select
                                         name="budget"
@@ -619,7 +616,7 @@ const Contact = () => {
                                         onChange={handleInputChange}
                                         className="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
                                       >
-                                        <option value="">Sélectionner</option>
+                                        <option value="">{t("contactPage.select")}</option>
                                         {budgetRanges.map((range) => (
                                           <option key={range.value} value={range.value}>
                                             {range.label}
@@ -629,7 +626,7 @@ const Contact = () => {
                                     </div>
                                     <div className="space-y-2">
                                       <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Délai souhaité
+                                        {t("contactPage.desiredTimeline")}
                                       </label>
                                       <select
                                         name="timeline"
@@ -637,7 +634,7 @@ const Contact = () => {
                                         onChange={handleInputChange}
                                         className="w-full h-12 px-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
                                       >
-                                        <option value="">Sélectionner</option>
+                                        <option value="">{t("contactPage.select")}</option>
                                         {timelines.map((tl) => (
                                           <option key={tl.value} value={tl.value}>
                                             {tl.label}
@@ -654,7 +651,7 @@ const Contact = () => {
                                       onClick={prevStep}
                                       className="h-12 px-6 rounded-xl"
                                     >
-                                      Retour
+                                      {t("contactPage.back")}
                                     </Button>
                                     <Button
                                       type="button"
@@ -662,7 +659,7 @@ const Contact = () => {
                                       disabled={!canProceedStep2}
                                       className="h-12 px-8 rounded-xl"
                                     >
-                                      Continuer <ArrowRight className="ml-2 w-4 h-4" />
+                                      {t("contactPage.continue")} <ArrowRight className="ml-2 w-4 h-4" />
                                     </Button>
                                   </div>
                                 </motion.div>
@@ -679,21 +676,21 @@ const Contact = () => {
                                 >
                                   <div>
                                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                                      Détails du projet
+                                      {t("contactPage.step3Title")}
                                     </h3>
                                     <p className="text-gray-600 dark:text-gray-400">
-                                      Décrivez votre projet en quelques lignes.
+                                      {t("contactPage.step3Subtitle")}
                                     </p>
                                   </div>
 
                                   <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                                      <FileText className="w-4 h-4" /> Votre message *
+                                      <FileText className="w-4 h-4" /> {t("contactPage.yourMessage")}
                                     </label>
                                     <textarea
                                       name="message"
                                       rows={6}
-                                      placeholder="Décrivez votre projet, vos objectifs, vos contraintes..."
+                                      placeholder={t("contactPage.messagePlaceholder")}
                                       value={formData.message}
                                       onChange={handleInputChange}
                                       required
@@ -704,15 +701,15 @@ const Contact = () => {
                                   {/* Summary */}
                                   <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 space-y-2">
                                     <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
-                                      Récapitulatif
+                                      {t("contactPage.summary")}
                                     </h4>
                                     <div className="grid grid-cols-2 gap-2 text-sm">
                                       <div>
-                                        <span className="text-gray-500 dark:text-gray-400">Contact:</span>
+                                        <span className="text-gray-500 dark:text-gray-400">{t("contactPage.contactLabel")}</span>
                                         <span className="ml-2 text-gray-900 dark:text-white">{formData.name}</span>
                                       </div>
                                       <div>
-                                        <span className="text-gray-500 dark:text-gray-400">Projet:</span>
+                                        <span className="text-gray-500 dark:text-gray-400">{t("contactPage.projectLabel")}</span>
                                         <span className="ml-2 text-gray-900 dark:text-white">
                                           {projectTypes.find((t) => t.value === formData.projectType)?.label}
                                         </span>
@@ -727,7 +724,7 @@ const Contact = () => {
                                       onClick={prevStep}
                                       className="h-12 px-6 rounded-xl"
                                     >
-                                      Retour
+                                      {t("contactPage.back")}
                                     </Button>
                                     <Button
                                       type="submit"
@@ -740,11 +737,11 @@ const Contact = () => {
                                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                           </svg>
-                                          Envoi...
+                                          {t("contactPage.sending")}
                                         </span>
                                       ) : (
                                         <>
-                                          Envoyer <Send className="ml-2 w-4 h-4" />
+                                          {t("contactPage.send")} <Send className="ml-2 w-4 h-4" />
                                         </>
                                       )}
                                     </Button>
@@ -769,23 +766,23 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Travaillons ensemble, où que vous soyez
+              {t("contactPage.workTogether")}
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-8">
-              Basé à Lomé, Togo - Je collabore avec des clients du monde entier en remote.
+              {t("contactPage.basedIn")}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
                 <Globe className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
-                Remote Friendly
+                {t("contactPage.remoteFriendly")}
               </div>
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
                 <Video className="w-4 h-4 mr-2 text-emerald-600 dark:text-emerald-400" />
-                Visio disponible
+                {t("contactPage.videoAvailable")}
               </div>
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">
                 <CalendarDays className="w-4 h-4 mr-2 text-purple-600 dark:text-purple-400" />
-                Flexible
+                {t("contactPage.flexible")}
               </div>
             </div>
           </div>

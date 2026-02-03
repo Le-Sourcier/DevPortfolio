@@ -135,8 +135,8 @@ const Blog = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Blog"
-        description="Articles sur le développement web, React, et l'écosystème Tech."
+        title={t("blog.title")}
+        description={t("blogPage.seoDescription")}
         url="/blog"
       />
 
@@ -158,25 +158,22 @@ const Blog = () => {
             >
               <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur border border-white/20 text-white text-sm font-semibold mb-6">
                 <BookOpen className="w-4 h-4 mr-2" />
-                Blog Technique
+                {t("blogPage.technicalBlog")}
               </span>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Explorez le monde du{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-400 to-purple-400">
-                  développement
-                </span>
+                {t("blogPage.exploreWorld")}
               </h1>
 
               <p className="text-xl md:text-2xl text-white/70 mb-10 max-w-2xl mx-auto">
-                Tutoriels, retours d'expérience et découvertes sur les technologies web modernes.
+                {t("blogPage.tutorialsExperience")}
               </p>
 
               {/* Search Bar */}
               <div className="max-w-xl mx-auto relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 w-5 h-5" />
                 <Input
-                  placeholder="Rechercher un article..."
+                  placeholder={t("blogPage.searchPlaceholder")}
                   className="pl-12 pr-4 h-14 rounded-2xl shadow-xl text-lg bg-white/10 backdrop-blur border-white/20 text-white placeholder:text-white/50 focus:bg-white/20"
                   value={searchTerm}
                   onChange={(e) => handleSearchChange(e.target.value)}
@@ -195,7 +192,7 @@ const Blog = () => {
               <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto">
                 <div className="text-center p-4 rounded-2xl bg-white/5 backdrop-blur border border-white/10">
                   <div className="text-2xl font-bold text-white">{blogPosts.length}</div>
-                  <div className="text-sm text-white/60">Articles</div>
+                  <div className="text-sm text-white/60">{t("blogPage.articles")}</div>
                 </div>
                 <div className="text-center p-4 rounded-2xl bg-white/5 backdrop-blur border border-white/10">
                   <div className="text-2xl font-bold text-white">{tagsWithCount.length}</div>
@@ -205,7 +202,7 @@ const Blog = () => {
                   <div className="text-2xl font-bold text-white">
                     {blogPosts.reduce((acc, p) => acc + p.readTime, 0)}
                   </div>
-                  <div className="text-sm text-white/60">Min lecture</div>
+                  <div className="text-sm text-white/60">{t("blogPage.minRead")}</div>
                 </div>
               </div>
             </motion.div>
@@ -230,7 +227,7 @@ const Blog = () => {
             <div className="flex items-center gap-2 mb-6">
               <Sparkles className="w-5 h-5 text-yellow-500" />
               <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Article à la une
+                {t("blogPage.featuredArticle")}
               </h2>
             </div>
 
@@ -276,7 +273,7 @@ const Blog = () => {
                   </p>
 
                   <div className="flex items-center text-blue-600 dark:text-blue-400 font-semibold group-hover:gap-3 transition-all">
-                    Lire l'article <ArrowRight className="w-5 h-5 ml-2" />
+                    {t("blogPage.readArticle")} <ArrowRight className="w-5 h-5 ml-2" />
                   </div>
                 </div>
               </div>
@@ -295,14 +292,14 @@ const Blog = () => {
               {/* Filters Header */}
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                  <Filter className="w-4 h-4" /> Filtres
+                  <Filter className="w-4 h-4" /> {t("blogPage.filters")}
                 </h3>
                 {(searchTerm || selectedTag) && (
                   <button
                     onClick={clearFilters}
                     className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
                   >
-                    Réinitialiser
+                    {t("blogPage.reset")}
                   </button>
                 )}
               </div>
@@ -311,7 +308,7 @@ const Blog = () => {
               {tagsWithCount.length > 0 && (
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800">
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Tag className="w-4 h-4" /> Catégories
+                    <Tag className="w-4 h-4" /> {t("blogPage.categories")}
                   </h4>
                   <div className="space-y-2">
                     <button
@@ -322,7 +319,7 @@ const Blog = () => {
                           : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
                       }`}
                     >
-                      <span>Tous les articles</span>
+                      <span>{t("blogPage.allArticles")}</span>
                       <span className="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded-full">
                         {blogPosts.length}
                       </span>
@@ -350,7 +347,7 @@ const Blog = () => {
               {/* View Mode & Sort */}
               <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-5 border border-gray-100 dark:border-gray-800">
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-4">
-                  Affichage
+                  {t("blogPage.display")}
                 </h4>
 
                 {/* View Mode */}
@@ -363,7 +360,7 @@ const Blog = () => {
                         : "text-gray-500 dark:text-gray-400"
                     }`}
                   >
-                    <LayoutGrid className="w-4 h-4 mr-2" /> Grille
+                    <LayoutGrid className="w-4 h-4 mr-2" /> {t("blogPage.grid")}
                   </button>
                   <button
                     onClick={() => setViewMode("list")}
@@ -373,7 +370,7 @@ const Blog = () => {
                         : "text-gray-500 dark:text-gray-400"
                     }`}
                   >
-                    <List className="w-4 h-4 mr-2" /> Liste
+                    <List className="w-4 h-4 mr-2" /> {t("blogPage.list")}
                   </button>
                 </div>
 
@@ -387,7 +384,7 @@ const Blog = () => {
                         : "text-gray-500 dark:text-gray-400"
                     }`}
                   >
-                    <SortDesc className="w-4 h-4 mr-1" /> Récent
+                    <SortDesc className="w-4 h-4 mr-1" /> {t("blogPage.recent")}
                   </button>
                   <button
                     onClick={() => setSortOrder("oldest")}
@@ -397,7 +394,7 @@ const Blog = () => {
                         : "text-gray-500 dark:text-gray-400"
                     }`}
                   >
-                    <SortAsc className="w-4 h-4 mr-1" /> Ancien
+                    <SortAsc className="w-4 h-4 mr-1" /> {t("blogPage.oldest")}
                   </button>
                 </div>
               </div>
@@ -407,17 +404,17 @@ const Blog = () => {
                 <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-5 text-white">
                   <div className="flex items-center gap-2 mb-3">
                     <Bell className="w-5 h-5" />
-                    <h4 className="font-semibold">Newsletter</h4>
+                    <h4 className="font-semibold">{t("blogPage.newsletter")}</h4>
                   </div>
 
                   {newsletterSubmitted ? (
                     <p className="text-white/90 text-sm">
-                      Merci ! Vous recevrez mes prochains articles.
+                      {t("blogPage.newsletterSuccess")}
                     </p>
                   ) : (
                     <>
                       <p className="text-white/80 text-sm mb-4">
-                        Recevez les nouveaux articles directement dans votre boîte mail.
+                        {t("blogPage.newsletterDesc")}
                       </p>
                       <form onSubmit={handleNewsletterSubmit}>
                         <Input
@@ -429,7 +426,7 @@ const Blog = () => {
                           className="mb-3 bg-white/20 border-white/30 text-white placeholder:text-white/50"
                         />
                         <Button type="submit" className="w-full bg-white text-blue-600 hover:bg-gray-100">
-                          S'inscrire <Rss className="w-4 h-4 ml-2" />
+                          {t("blogPage.subscribe")} <Rss className="w-4 h-4 ml-2" />
                         </Button>
                       </form>
                     </>
@@ -476,23 +473,23 @@ const Blog = () => {
                 <div className="text-center py-20 bg-gray-50 dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800">
                   <BookOpen className="w-16 h-16 mx-auto text-gray-300 dark:text-gray-700 mb-6" />
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Aucun article pour le moment
+                    {t("blogPage.noArticlesYet")}
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto">
-                    De nouveaux contenus arrivent bientôt. Revenez nous voir !
+                    {t("blogPage.comingSoon")}
                   </p>
                 </div>
               ) : filteredPosts.length === 0 ? (
                 <div className="text-center py-20 bg-gray-50 dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800">
                   <Search className="w-16 h-16 mx-auto text-gray-300 dark:text-gray-700 mb-6" />
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Aucun résultat trouvé
+                    {t("blogPage.noResults")}
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 mb-4">
-                    Essayez avec d'autres termes de recherche
+                    {t("blogPage.tryOtherTerms")}
                   </p>
                   <Button variant="outline" onClick={clearFilters}>
-                    Réinitialiser les filtres
+                    {t("blogPage.resetFilters")}
                   </Button>
                 </div>
               ) : (
@@ -562,7 +559,7 @@ const Blog = () => {
                                 to={`/blog/${post.slug}`}
                                 className="text-blue-600 dark:text-blue-400 font-medium text-sm flex items-center group-hover:gap-2 transition-all"
                               >
-                                Lire l'article <ArrowRight className="w-4 h-4 ml-1" />
+                                {t("blogPage.readArticle")} <ArrowRight className="w-4 h-4 ml-1" />
                               </Link>
 
                               <div className="flex items-center gap-3 text-gray-400">
@@ -633,20 +630,20 @@ const Blog = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Vous avez un projet en tête ?
+              {t("blogPage.projectInMind")}
             </h2>
             <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-              Discutons ensemble de vos idées et construisons quelque chose d'extraordinaire.
+              {t("blogPage.letsBuildTogether")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button size="lg" className="rounded-full px-10 h-14 text-lg bg-white text-blue-600 hover:bg-gray-100 shadow-xl">
-                  Démarrer un projet <ArrowRight className="ml-2" />
+                  {t("homeExtra.startProject")} <ArrowRight className="ml-2" />
                 </Button>
               </Link>
               <Link to="/services">
                 <Button variant="outline" size="lg" className="rounded-full px-10 h-14 text-lg border-white/30 text-white hover:bg-white/10">
-                  Voir mes services
+                  {t("homeExtra.viewServices")}
                 </Button>
               </Link>
             </div>
