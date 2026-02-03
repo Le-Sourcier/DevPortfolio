@@ -649,7 +649,27 @@
         "question": "How does payment work?",
         "answer": "Generally in 3 stages: 30% at signing, 40% midway, and 30% upon delivery. Flexible arrangements are possible."
       }
-    }
+    },
+    "professionalServices": "Professional Services",
+    "transformIdeas": "Transform your ideas into digital solutions",
+    "fromConceptionToProduction": "From conception to production, I support you in achieving your most ambitious digital projects.",
+    "startProject": "Start a project",
+    "exploreServices": "Explore services",
+    "expertiseTag": "Expertise",
+    "interventionDomains": "Areas of intervention",
+    "completeSkillset": "A complete range of skills to cover all your technical needs.",
+    "deliverablesIncluded": "Deliverables included",
+    "methodologyTag": "Methodology",
+    "howIWork": "How I work",
+    "structuredApproach": "A structured and transparent approach to ensure your project's success.",
+    "pricingTag": "Pricing",
+    "tailoredOffers": "Offers tailored to your needs",
+    "uniqueProject": "Each project is unique. Contact me for a personalized quote.",
+    "popularTag": "Popular",
+    "requestQuote": "Request a quote",
+    "testimonialsTag": "Testimonials",
+    "clientsSay": "What my clients say",
+    "faqTag": "FAQ"
   },
   "about": {
     "seoTitle": "About",
