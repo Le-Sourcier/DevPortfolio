@@ -8,7 +8,23 @@
     "careers": "Carrières",
     "downloadCV": "Télécharger CV",
     "viewAll": "Voir tout",
-    "readMore": "Lire la suite"
+    "readMore": "Lire la suite",
+    "recentSearches": "Recherches récentes",
+    "quickAccess": "Accès rapide"
+  },
+  "notFound": {
+    "seoTitle": "Page non trouvée",
+    "seoDescription": "La page que vous recherchez n'existe pas",
+    "code": "404",
+    "errorBadge": "Erreur 404",
+    "title": "Oups ! Page introuvable",
+    "message": "Désolé, la page que vous recherchez n'existe pas ou a été déplacée.",
+    "description": "Il se peut que l'URL soit incorrecte ou que la page ait été supprimée. Utilisez les liens ci-dessous pour continuer votre navigation.",
+    "backHome": "Retour à l'accueil",
+    "viewProjects": "Voir les projets",
+    "readBlog": "Lire le blog",
+    "contactMe": "Me contacter",
+    "searchHelp": "Vous pouvez aussi utiliser la recherche pour trouver ce que vous cherchez"
   },
   "header": {
     "startProject": "Démarrer un projet",
@@ -318,10 +334,16 @@
       "subtitle": "Rejoignez une équipe passionnée où innovation, créativité et bienveillance se rencontrent pour créer des produits d'exception."
     },
     "stats": {
+      "title": "Statistiques",
       "openPositions": "Postes ouverts",
       "locations": "Localisations",
       "teamSize": "Membres de l'équipe",
       "remoteOk": "Remote OK"
+    },
+    "sidebar": {
+      "spontaneousTitle": "Pas de poste idéal ?",
+      "spontaneousDesc": "Envoyez-nous votre candidature spontanée",
+      "spontaneous": "Postuler"
     },
     "filters": {
       "all": "Tous",
@@ -777,7 +799,7 @@
     "articles": "Articles",
     "services": "Services",
     "contact": "Contact",
-    "searchPlaceholder": "Rechercher pages, projets, articles, services..."
+    "searchPlaceholder": "Rechercher pages, projets, articles, compétences..."
   },
   "admin": {
     "login": {

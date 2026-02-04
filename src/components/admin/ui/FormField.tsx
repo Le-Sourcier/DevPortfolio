@@ -84,7 +84,7 @@ export function FormTextarea({
 interface FormSelectProps {
   value: string;
   onChange: (value: string) => void;
-  options: { value: string; label: string }[];
+  options?: { value: string; label: string }[];
   required?: boolean;
   disabled?: boolean;
 }
@@ -104,11 +104,15 @@ export function FormSelect({
       disabled={disabled}
       className="w-full h-11 px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-900/10 dark:focus:ring-white/10 focus:border-gray-300 dark:focus:border-gray-600 focus:bg-white dark:focus:bg-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed appearance-none cursor-pointer"
     >
-      {options.map((opt) => (
-        <option key={opt.value} value={opt.value}>
-          {opt.label}
-        </option>
-      ))}
+      {options && options.length > 0 ? (
+        options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))
+      ) : (
+        <option disabled>No options available</option>
+      )}
     </select>
   );
 }

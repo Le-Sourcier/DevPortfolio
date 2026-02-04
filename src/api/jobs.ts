@@ -32,10 +32,69 @@ export interface JobFilters {
   remoteType?: string;
 }
 
+export interface JobCategory {
+  id: string;
+  name: {
+    fr: string;
+    en: string;
+  };
+  slug: string;
+  description?: {
+    fr: string;
+    en: string;
+  };
+  icon?: string;
+  color: string;
+  order: number;
+  isActive: boolean;
+}
+
+export interface JobContractType {
+  id: string;
+  name: {
+    fr: string;
+    en: string;
+  };
+  slug: string;
+  description?: {
+    fr: string;
+    en: string;
+  };
+  color: string;
+  order: number;
+  isActive: boolean;
+}
+
+export interface JobRemoteType {
+  id: string;
+  name: {
+    fr: string;
+    en: string;
+  };
+  slug: string;
+  description?: {
+    fr: string;
+    en: string;
+  };
+  color: string;
+  order: number;
+  isActive: boolean;
+}
+
+export interface JobMetadata {
+  categories: JobCategory[];
+  contractTypes: JobContractType[];
+  remoteTypes: JobRemoteType[];
+}
+
 const keys = {
   all: ["jobs"] as const,
   filtered: (filters: JobFilters) => ["jobs", filters] as const,
   detail: (id: string) => ["jobs", id] as const,
+  metadata: ["jobs", "metadata"] as const,
+  categories: ["jobs", "categories"] as const,
+  contractTypes: ["jobs", "contract-types"] as const,
+  remoteTypes: ["jobs", "remote-types"] as const,
 };
 
 export function useJobs(filters?: JobFilters) {
@@ -126,5 +185,51 @@ export function useUpdateJobStatus() {
         qc.invalidateQueries({ queryKey: keys.detail(data.data.id) });
       }
     },
+  });
+}
+
+// ==================== METADATA HOOKS ====================
+
+export function useJobMetadata() {
+  return useQuery({
+    queryKey: keys.metadata,
+    queryFn: async (): Promise<ApiResponse<JobMetadata>> => {
+      const { data } = await api.get<ApiResponse<JobMetadata>>("/jobs/metadata");
+      return data;
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutes - metadata changes rarely
+  });
+}
+
+export function useJobCategories() {
+  return useQuery({
+    queryKey: keys.categories,
+    queryFn: async (): Promise<ApiResponse<JobCategory[]>> => {
+      const { data } = await api.get<ApiResponse<JobCategory[]>>("/jobs/categories");
+      return data;
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
+export function useJobContractTypes() {
+  return useQuery({
+    queryKey: keys.contractTypes,
+    queryFn: async (): Promise<ApiResponse<JobContractType[]>> => {
+      const { data } = await api.get<ApiResponse<JobContractType[]>>("/jobs/contract-types");
+      return data;
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
+export function useJobRemoteTypes() {
+  return useQuery({
+    queryKey: keys.remoteTypes,
+    queryFn: async (): Promise<ApiResponse<JobRemoteType[]>> => {
+      const { data } = await api.get<ApiResponse<JobRemoteType[]>>("/jobs/remote-types");
+      return data;
+    },
+    staleTime: 1000 * 60 * 5,
   });
 }

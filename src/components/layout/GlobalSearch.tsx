@@ -24,14 +24,20 @@ import {
   User,
   GraduationCap,
   Award,
+  Code2,
+  Server,
+  Cloud,
+  Bot,
 } from "lucide-react";
 import { useProjects } from "../../api/projects";
 import { useBlogPosts } from "../../api/blogposts";
 import { useSiteSettings } from "../../api/settings";
+import { useSkills } from "../../api/skills";
+import { useEducation } from "../../api/education";
 
 interface SearchResult {
   id: string;
-  type: "page" | "project" | "blog" | "contact" | "service";
+  type: "page" | "project" | "blog" | "contact" | "service" | "skill" | "education";
   title: string;
   description?: string;
   url: string;
@@ -58,6 +64,8 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
   const { data: projectsData } = useProjects();
   const { data: postsData } = useBlogPosts();
   const { data: settings } = useSiteSettings();
+  const { data: skillsData } = useSkills();
+  const { data: educationData } = useEducation();
 
   // Load recent searches from localStorage
   useEffect(() => {
@@ -138,41 +146,59 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
       {
         id: "service-web",
         type: "service",
-        title: "Développement Web Frontend",
+        title: t("servicesPage.services.frontend.title"),
         description: "React, Next.js, Vue.js, TypeScript",
         url: "/services#services",
         icon: Globe,
-        tags: ["React", "Next.js", "Vue.js", "TypeScript"],
+        tags: ["React", "Next.js", "Vue.js", "TypeScript", "Frontend"],
       },
       {
         id: "service-mobile",
         type: "service",
-        title: "Applications Mobiles",
+        title: t("servicesPage.services.mobile.title"),
         description: "Flutter, React Native, iOS, Android",
         url: "/services#services",
         icon: Phone,
-        tags: ["Flutter", "React Native", "Mobile"],
+        tags: ["Flutter", "React Native", "Mobile", "iOS", "Android"],
       },
       {
         id: "service-backend",
         type: "service",
-        title: "Backend & API",
+        title: t("servicesPage.services.backend.title"),
         description: "Node.js, NestJS, Express, GraphQL",
         url: "/services#services",
-        icon: Briefcase,
-        tags: ["Node.js", "NestJS", "API", "GraphQL"],
+        icon: Server,
+        tags: ["Node.js", "NestJS", "API", "GraphQL", "Backend"],
+      },
+      {
+        id: "service-database",
+        type: "service",
+        title: t("servicesPage.services.database.title"),
+        description: "PostgreSQL, MySQL, MongoDB, Redis",
+        url: "/services#services",
+        icon: Code2,
+        tags: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Database"],
       },
       {
         id: "service-devops",
         type: "service",
-        title: "DevOps & Cloud",
+        title: t("servicesPage.services.devops.title"),
         description: "AWS, Docker, Kubernetes, CI/CD",
         url: "/services#services",
-        icon: Folder,
-        tags: ["AWS", "Docker", "Kubernetes", "DevOps"],
+        icon: Cloud,
+        tags: ["AWS", "Docker", "Kubernetes", "DevOps", "Cloud"],
+      },
+      {
+        id: "service-automation",
+        type: "service",
+        title: t("servicesPage.services.automation.title"),
+        description: "N8N, Make, GPT, Claude",
+        url: "/services#services",
+        icon: Bot,
+        tags: ["N8N", "Make", "Automation", "AI", "GPT", "Claude"],
       },
     ],
-    []
+    [t]
   );
 
   // Contact info
@@ -185,16 +211,16 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
         description: settings?.contactEmail || "yaodavidlogan02@gmail.com",
         url: `mailto:${settings?.contactEmail || "yaodavidlogan02@gmail.com"}`,
         icon: Mail,
-        meta: "Envoyer un email",
+        meta: t("globalSearch.sendEmail"),
       },
       {
         id: "contact-phone",
         type: "contact",
-        title: "Téléphone",
+        title: t("contactPage.contactMethods.phone"),
         description: "+228 91 68 09 67",
         url: "tel:+22891680967",
         icon: Phone,
-        meta: "Appeler",
+        meta: t("globalSearch.call"),
       },
       {
         id: "contact-github",
@@ -203,7 +229,7 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
         description: "Le-Sourcier",
         url: "https://github.com/Le-Sourcier",
         icon: ExternalLink,
-        meta: "Voir le profil",
+        meta: t("globalSearch.viewProfile"),
       },
       {
         id: "contact-linkedin",
@@ -212,10 +238,10 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
         description: "yao-logan",
         url: "https://linkedin.com/in/yao-logan",
         icon: ExternalLink,
-        meta: "Voir le profil",
+        meta: t("globalSearch.viewProfile"),
       },
     ],
-    [settings]
+    [settings, t]
   );
 
   // Projects from API
@@ -246,10 +272,40 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
       tags: post.tags || [],
       image: post.imageUrl,
       meta: post.publishedAt
-        ? new Date(post.publishedAt).toLocaleDateString("fr-FR")
+        ? new Date(post.publishedAt).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")
         : undefined,
     }));
   }, [postsData, lang]);
+
+  // Skills from API
+  const skillResults: SearchResult[] = useMemo(() => {
+    const skills = skillsData?.data || [];
+    return skills.map((skill: any) => ({
+      id: `skill-${skill.id}`,
+      type: "skill" as const,
+      title: skill.name,
+      description: `${skill.category} - ${skill.level}%`,
+      url: "/about#skills",
+      icon: Award,
+      tags: [skill.category, skill.name],
+      meta: `${skill.level}%`,
+    }));
+  }, [skillsData]);
+
+  // Education from API
+  const educationResults: SearchResult[] = useMemo(() => {
+    const education = educationData?.data || [];
+    return education.map((edu: any) => ({
+      id: `education-${edu.id}`,
+      type: "education" as const,
+      title: edu.degree?.[lang] || edu.degree?.fr || edu.institution,
+      description: edu.institution + (edu.field?.[lang] ? ` - ${edu.field[lang]}` : ""),
+      url: "/about#education",
+      icon: GraduationCap,
+      tags: [edu.institution, edu.field?.[lang] || edu.field?.fr].filter(Boolean),
+      meta: `${edu.startDate} - ${edu.endDate || t("about.present")}`,
+    }));
+  }, [educationData, lang, t]);
 
   // All searchable items
   const allItems = useMemo(
@@ -258,9 +314,11 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
       ...services,
       ...projectResults,
       ...blogResults,
+      ...skillResults,
+      ...educationResults,
       ...contactItems,
     ],
-    [staticPages, services, projectResults, blogResults, contactItems]
+    [staticPages, services, projectResults, blogResults, skillResults, educationResults, contactItems]
   );
 
   // Filter results based on query
@@ -363,11 +421,13 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
   // Get type label
   const getTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      page: "Pages",
-      project: "Projets",
-      blog: "Articles",
-      service: "Services",
-      contact: "Contact",
+      page: t("globalSearch.pages"),
+      project: t("globalSearch.projects"),
+      blog: t("globalSearch.articles"),
+      service: t("globalSearch.services"),
+      contact: t("globalSearch.contact"),
+      skill: t("about.skills"),
+      education: t("about.education"),
     };
     return labels[type] || type;
   };
@@ -380,6 +440,8 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
       blog: "bg-emerald-500",
       service: "bg-orange-500",
       contact: "bg-pink-500",
+      skill: "bg-cyan-500",
+      education: "bg-indigo-500",
     };
     return colors[type] || "bg-gray-500";
   };
@@ -412,7 +474,7 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Rechercher pages, projets, articles, services..."
+                placeholder={t("globalSearch.searchPlaceholder")}
                 className="flex-1 bg-transparent border-none outline-none text-gray-900 dark:text-gray-100 placeholder-gray-400 text-lg"
               />
               {query && (
@@ -439,7 +501,7 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
                   <div>
                     <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
                       <Clock className="w-3.5 h-3.5" />
-                      Recherches récentes
+                      {t("common.recentSearches") || "Recherches récentes"}
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {recentSearches.map((search, idx) => (
@@ -459,7 +521,7 @@ const GlobalSearch = ({ isOpen, onClose }: GlobalSearchProps) => {
                 <div>
                   <div className="flex items-center gap-2 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
                     <Sparkles className="w-3.5 h-3.5" />
-                    Accès rapide
+                    {t("common.quickAccess") || "Accès rapide"}
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {staticPages.map((page) => (

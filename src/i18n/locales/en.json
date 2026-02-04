@@ -8,7 +8,23 @@
     "careers": "Careers",
     "downloadCV": "Download CV",
     "viewAll": "View all",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "recentSearches": "Recent searches",
+    "quickAccess": "Quick access"
+  },
+  "notFound": {
+    "seoTitle": "Page not found",
+    "seoDescription": "The page you are looking for does not exist",
+    "code": "404",
+    "errorBadge": "Error 404",
+    "title": "Oops! Page not found",
+    "message": "Sorry, the page you are looking for does not exist or has been moved.",
+    "description": "The URL might be incorrect or the page may have been removed. Use the links below to continue browsing.",
+    "backHome": "Back to home",
+    "viewProjects": "View projects",
+    "readBlog": "Read blog",
+    "contactMe": "Contact me",
+    "searchHelp": "You can also use search to find what you're looking for"
   },
   "header": {
     "startProject": "Start a project",
@@ -316,10 +332,16 @@
       "subtitle": "Join a passionate team where innovation, creativity, and kindness come together to create exceptional products."
     },
     "stats": {
+      "title": "Statistics",
       "openPositions": "Open positions",
       "locations": "Locations",
       "teamSize": "Team members",
       "remoteOk": "Remote OK"
+    },
+    "sidebar": {
+      "spontaneousTitle": "Can't find the perfect role?",
+      "spontaneousDesc": "Send us your spontaneous application",
+      "spontaneous": "Apply"
     },
     "filters": {
       "all": "All",
@@ -775,7 +797,15 @@
     "articles": "Articles",
     "services": "Services",
     "contact": "Contact",
-    "searchPlaceholder": "Search pages, projects, articles, services..."
+    "searchPlaceholder": "Search pages, projects, articles, skills...",
+    "homepageDesc": "Portfolio homepage",
+    "servicesDesc": "Discover my development services",
+    "blogDesc": "Technical articles and tutorials",
+    "contactDesc": "Contact me for your projects",
+    "sendEmail": "Send email",
+    "call": "Call",
+    "viewProfile": "View profile",
+    "pages": "Pages"
   },
   "admin": {
     "login": {
