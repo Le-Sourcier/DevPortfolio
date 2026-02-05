@@ -9,6 +9,9 @@ dotenv.config();
 // Connect to database
 connectDB();
 
+// Load model associations
+require('./models/index');
+
 const app = express();
 
 // Body parser
@@ -37,6 +40,12 @@ const skillRoutes = require("./routes/skillRoutes");
 const educationRoutes = require("./routes/educationRoutes");
 const blogPostRoutes = require("./routes/blogPostRoutes");
 const settingsRoutes = require("./routes/settingsRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const messageRoutes = require("./routes/messageRoutes");
+const newsletterRoutes = require("./routes/newsletterRoutes");
+const jobRoutes = require("./routes/jobRoutes");
+const applicationRoutes = require("./routes/applicationRoutes");
+const jobAlertRoutes = require("./routes/jobAlertRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/experiences", experienceRoutes);
@@ -45,6 +54,15 @@ app.use("/api/skills", skillRoutes);
 app.use("/api/education", educationRoutes);
 app.use("/api/blogposts", blogPostRoutes);
 app.use("/api/settings", settingsRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/newsletter", newsletterRoutes);
+app.use("/api/jobs", jobRoutes);
+app.use("/api/applications", applicationRoutes);
+app.use("/api/job-alerts", jobAlertRoutes);
+
+// Serve uploaded files
+app.use('/uploads', express.static('uploads'));
 
 app.get("/", (req, res) => {
   res.send("API is running...");

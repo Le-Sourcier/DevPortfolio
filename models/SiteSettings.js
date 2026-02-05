@@ -73,6 +73,28 @@ const SiteSettings = sequelize.define(
     primaryColor: {
       type: DataTypes.STRING,
       defaultValue: "blue",
+    },
+
+    // About / Profile Section
+    aboutBio: {
+      type: DataTypes.JSON, // { fr: "...", en: "..." }
+      defaultValue: { fr: "", en: "" },
+    },
+    aboutHighlights: {
+      type: DataTypes.JSON, // Array of { value: "10K+", labelFr: "...", labelEn: "..." }
+      defaultValue: [],
+    },
+    languages: {
+      type: DataTypes.JSON, // Array of { name: "Français", level: "Natif" }
+      defaultValue: [],
+    },
+    workPreferences: {
+      type: DataTypes.JSON, // { remote: true, hybrid: true, onsite: true, freelance: true, cdi: true }
+      defaultValue: { remote: true, hybrid: true, onsite: false, freelance: true, cdi: true },
+    },
+    professionalValues: {
+      type: DataTypes.JSON, // Array of { titleFr: "...", titleEn: "...", descriptionFr: "...", descriptionEn: "..." }
+      defaultValue: [],
     }
   },
   {
