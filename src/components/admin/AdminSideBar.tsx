@@ -10,6 +10,8 @@ import {
   Briefcase,
   GraduationCap,
   Users,
+  UserCheck,
+  Bell,
   LucideIcon,
 } from "lucide-react";
 
@@ -49,13 +51,15 @@ const navigation: NavSection[] = [
   {
     title: "Recrutement",
     items: [
-      { to: "/admin/jobs", label: "Offres d'emploi", icon: Users },
+      { to: "/admin/jobs", label: "Offres d'emploi", icon: Briefcase },
+      { to: "/admin/applications", label: "Candidatures", icon: UserCheck },
     ],
   },
   {
     title: "Système",
     items: [
       { to: "/admin/messages", label: "Messages", icon: MessageSquare },
+      { to: "/admin/newsletter", label: "Newsletter", icon: Bell },
       { to: "/admin/settings", label: "Paramètres", icon: Settings },
     ],
   },

@@ -18,15 +18,18 @@ import {
   DollarSign,
   Filter,
   X,
-  TrendingUp,
   Award,
-  Target
+  Target,
+  Bell,
+  Mail,
+  Send
 } from "lucide-react";
 import SEO from "../components/common/SEO";
 import { Button } from "../components/ui/Button";
 import { Card, CardContent } from "../components/ui/Card";
 import { Link } from "react-router-dom";
 import { useJobs, useJobMetadata } from "../api/jobs";
+import JobAlertButton from "../components/careers/JobAlertButton";
 
 const Careers = () => {
   const { t, i18n } = useTranslation();
@@ -211,77 +214,55 @@ const Careers = () => {
 
           {/* Sidebar + Content Layout */}
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-[340px,1fr] gap-8">
-              {/* Sidebar */}
-              <aside className="space-y-6">
-                <div className="lg:sticky lg:top-24 space-y-6">
-                  {/* Stats Card */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="bg-white dark:bg-gray-950 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm"
-                  >
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                      <TrendingUp className="w-5 h-5 text-blue-500" />
-                      {t("careers.stats.title") || "Statistiques"}
-                    </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border border-blue-200 dark:border-blue-800">
-                        <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{jobs.length}</div>
-                        <div className="text-xs text-gray-700 dark:text-gray-300 mt-1 font-medium">{t("careers.stats.openPositions")}</div>
-                      </div>
-                      <div className="p-4 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 border border-purple-200 dark:border-purple-800">
-                        <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">3+</div>
-                        <div className="text-xs text-gray-700 dark:text-gray-300 mt-1 font-medium">{t("careers.stats.locations")}</div>
-                      </div>
-                      <div className="p-4 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 border border-emerald-200 dark:border-emerald-800">
-                        <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">10+</div>
-                        <div className="text-xs text-gray-700 dark:text-gray-300 mt-1 font-medium">{t("careers.stats.teamSize")}</div>
-                      </div>
-                      <div className="p-4 rounded-xl bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border border-orange-200 dark:border-orange-800">
-                        <Globe className="w-6 h-6 text-orange-600 dark:text-orange-400 mb-1" />
-                        <div className="text-xs text-gray-700 dark:text-gray-300 font-medium">{t("careers.stats.remoteOk")}</div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Filters Card */}
+            <div className="grid lg:grid-cols-[380px,1fr] gap-10">
+              {/* Sidebar - Ultra Professional */}
+              <aside className="space-y-5">
+                <div className="lg:sticky lg:top-24 space-y-5">
+                  {/* Filters Card - Enhanced Professional */}
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 }}
-                    className="bg-white dark:bg-gray-950 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm"
+                    className="bg-white dark:bg-gray-950 rounded-3xl p-7 border border-gray-200 dark:border-gray-800 shadow-xl shadow-gray-100 dark:shadow-gray-900/50 hover:shadow-2xl hover:shadow-gray-200 dark:hover:shadow-gray-900/70 transition-all duration-300"
                   >
-                    <div className="flex items-center justify-between mb-5">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                        <Filter className="w-5 h-5 text-blue-500" />
-                        {t("careers.filters.category") || "Filtres"}
-                      </h3>
+                    <div className="flex items-center justify-between mb-7">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg">
+                          <Filter className="w-5 h-5 text-white" />
+                        </div>
+                        <h3 className="text-xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                          {t("careers.filters.title") || "Filtres"}
+                        </h3>
+                      </div>
                       {hasActiveFilters && (
-                        <button
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={clearFilters}
-                          className="text-xs text-red-600 dark:text-red-400 hover:underline flex items-center gap-1 font-medium"
+                          className="text-xs text-white bg-red-500 hover:bg-red-600 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold shadow-md hover:shadow-lg transition-all"
                         >
                           <X className="w-3.5 h-3.5" />
-                          {t("careers.filters.clearFilters")}
-                        </button>
+                          Réinitialiser
+                        </motion.button>
                       )}
                     </div>
 
-                    {/* Category Filter */}
+                    {/* Category Filter - Enhanced */}
                     <div className="mb-5">
-                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                        📁 {t("careers.filters.category")}
+                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                          <Code2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        {t("careers.filters.category")}
                       </label>
                       <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                        className="w-full px-4 py-3.5 text-sm font-semibold rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 hover:border-gray-400 dark:hover:border-gray-600 transition-all cursor-pointer shadow-sm"
                         disabled={isLoadingMetadata}
                       >
-                        <option value="">{t("careers.filters.all")}</option>
+                        <option value="">{t("careers.filters.all") || "Toutes les catégories"}</option>
                         {categories.map((cat) => (
                           <option key={cat.id} value={cat.slug}>
                             {cat.name[lang] || cat.name.fr}
@@ -290,18 +271,21 @@ const Careers = () => {
                       </select>
                     </div>
 
-                    {/* Contract Type Filter */}
+                    {/* Contract Type Filter - Enhanced */}
                     <div className="mb-5">
-                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                        📝 {t("careers.filters.type")}
+                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                          <Briefcase className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
+                        </div>
+                        {t("careers.filters.type")}
                       </label>
                       <select
                         value={selectedContractType}
                         onChange={(e) => setSelectedContractType(e.target.value)}
-                        className="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                        className="w-full px-4 py-3.5 text-sm font-semibold rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-4 focus:ring-green-500/20 focus:border-green-500 hover:border-gray-400 dark:hover:border-gray-600 transition-all cursor-pointer shadow-sm"
                         disabled={isLoadingMetadata}
                       >
-                        <option value="">{t("careers.filters.all")}</option>
+                        <option value="">{t("careers.filters.all") || "Tous les types"}</option>
                         {contractTypes.map((type) => (
                           <option key={type.id} value={type.slug}>
                             {type.name[lang] || type.name.fr}
@@ -310,18 +294,21 @@ const Careers = () => {
                       </select>
                     </div>
 
-                    {/* Remote Type Filter */}
+                    {/* Remote Type Filter - Enhanced */}
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
-                        🌍 {t("careers.filters.remote")}
+                      <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                          <Globe className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                        </div>
+                        {t("careers.filters.remote")}
                       </label>
                       <select
                         value={selectedRemoteType}
                         onChange={(e) => setSelectedRemoteType(e.target.value)}
-                        className="w-full px-4 py-2.5 text-sm rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                        className="w-full px-4 py-3.5 text-sm font-semibold rounded-2xl border-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 hover:border-gray-400 dark:hover:border-gray-600 transition-all cursor-pointer shadow-sm"
                         disabled={isLoadingMetadata}
                       >
-                        <option value="">{t("careers.filters.all")}</option>
+                        <option value="">{t("careers.filters.all") || "Tous les modes"}</option>
                         {remoteTypes.map((type) => (
                           <option key={type.id} value={type.slug}>
                             {type.name[lang] || type.name.fr}
@@ -329,31 +316,22 @@ const Careers = () => {
                         ))}
                       </select>
                     </div>
-                  </motion.div>
 
-                  {/* CTA Card */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg"
-                  >
-                    <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/20 backdrop-blur mb-4">
-                      <Coffee className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-lg font-bold mb-2">
-                      {t("careers.sidebar.spontaneousTitle") || "Pas de poste idéal ?"}
-                    </h3>
-                    <p className="text-sm text-blue-100 mb-4 leading-relaxed">
-                      {t("careers.sidebar.spontaneousDesc") || "Envoyez-nous votre candidature spontanée"}
-                    </p>
-                    <Link to="/contact?subject=Candidature Spontanée&projectType=other" className="block">
-                      <Button className="w-full rounded-xl bg-white text-blue-600 hover:bg-gray-100 border-0 font-semibold shadow-lg">
-                        <Award className="w-4 h-4 mr-2" />
-                        {t("careers.sidebar.spontaneous") || "Postuler"}
-                      </Button>
-                    </Link>
+                    {/* Active Filters Count */}
+                    {hasActiveFilters && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        className="mt-5 pt-5 border-t border-gray-200 dark:border-gray-800"
+                      >
+                        <div className="flex items-center gap-2 text-sm">
+                          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                          <span className="text-gray-600 dark:text-gray-400 font-medium">
+                            {[selectedCategory, selectedContractType, selectedRemoteType].filter(Boolean).length} filtre(s) actif(s)
+                          </span>
+                        </div>
+                      </motion.div>
+                    )}
                   </motion.div>
                 </div>
               </aside>
@@ -429,9 +407,9 @@ const Careers = () => {
                           </div>
 
                           <div className="flex-shrink-0 pt-4 md:pt-0 w-full md:w-auto">
-                            <Link to={`/contact?subject=Candidature: ${job.title?.[lang] || job.title?.fr}&projectType=other`}>
+                            <Link to={`/careers/${job.slug || job.id}`}>
                               <Button className="w-full md:w-auto rounded-xl px-6 h-12 shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                                {t("careers.job.apply")} <ArrowRight className="ml-2 w-4 h-4" />
+                                {t("careers.job.viewDetails") || "Voir les détails"} <ArrowRight className="ml-2 w-4 h-4" />
                               </Button>
                             </Link>
                           </div>
@@ -440,11 +418,57 @@ const Careers = () => {
                     </motion.div>
                   ))
                 )}
+
+                {/* Spontaneous Application CTA - After Jobs */}
+                {!isLoading && jobs.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mt-12"
+                  >
+                    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 p-10 shadow-2xl">
+                      {/* Decorative elements */}
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                      <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-400/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+
+                      <div className="relative z-10">
+                        <div className="flex items-start gap-6">
+                          <div className="flex-shrink-0">
+                            <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
+                              <Sparkles className="w-8 h-8 text-white" />
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-3xl font-black text-white mb-3">
+                              {t("careers.spontaneous.title")}
+                            </h3>
+                            <p className="text-lg text-blue-100 mb-6 leading-relaxed max-w-2xl">
+                              {t("careers.spontaneous.description")}
+                            </p>
+                            <Link to="/careers/spontaneous">
+                              <Button
+                                size="lg"
+                                className="rounded-xl px-8 h-14 bg-white text-blue-600 hover:bg-gray-100 border-0 font-black text-lg shadow-2xl shadow-black/20 hover:shadow-black/30 hover:scale-105 transition-all"
+                              >
+                                <Award className="w-5 h-5 mr-2" />
+                                {t("careers.spontaneous.cta")}
+                              </Button>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Floating Job Alert Button */}
+      <JobAlertButton categories={categories} showBadge={jobs.length > 0} />
     </div>
   );
 };

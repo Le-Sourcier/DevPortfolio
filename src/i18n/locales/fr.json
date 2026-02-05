@@ -10,7 +10,9 @@
     "viewAll": "Voir tout",
     "readMore": "Lire la suite",
     "recentSearches": "Recherches récentes",
-    "quickAccess": "Accès rapide"
+    "quickAccess": "Accès rapide",
+    "loading": "Chargement...",
+    "optional": "optionnel"
   },
   "notFound": {
     "seoTitle": "Page non trouvée",
@@ -347,6 +349,7 @@
     },
     "filters": {
       "all": "Tous",
+      "title": "Filtres",
       "category": "Catégorie",
       "type": "Type de contrat",
       "location": "Localisation",
@@ -354,6 +357,22 @@
       "clearFilters": "Effacer les filtres",
       "noResults": "Aucune offre ne correspond à vos critères",
       "adjustFilters": "Essayez d'ajuster vos filtres"
+    },
+    "alert": {
+      "title": "Alertes Emploi",
+      "modalTitle": "Alertes Emploi",
+      "modalSubtitle": "Ne ratez aucune opportunité",
+      "description": "Recevez les nouvelles offres correspondant à votre profil directement par email.",
+      "email": "Votre email",
+      "categories": "Catégories d'intérêt",
+      "subscribe": "Activer les alertes",
+      "success": "Inscription réussie !",
+      "successDesc": "Vous recevrez les nouvelles offres par email",
+      "successInfo": "Vérifiez votre boîte mail",
+      "info": "Vous pouvez vous désinscrire à tout moment",
+      "benefit1": "Instantané",
+      "benefit2": "Personnalisé",
+      "benefit3": "Gratuit"
     },
     "categories": {
       "development": "Développement",
@@ -406,16 +425,65 @@
     },
     "job": {
       "apply": "Postuler maintenant",
+      "applyNow": "Postuler maintenant",
+      "viewDetails": "Voir les détails",
       "details": "Détails du poste",
+      "description": "Description du poste",
       "requirements": "Compétences requises",
+      "responsibilities": "Responsabilités",
       "benefits": "Avantages",
+      "skills": "Compétences recherchées",
       "posted": "Publié le",
-      "salary": "Salaire"
+      "salary": "Salaire",
+      "featured": "À la une",
+      "notFound": "Offre introuvable",
+      "notFoundDesc": "Cette offre n'existe pas ou a été retirée",
+      "backToList": "Retour aux offres",
+      "share": "Partager",
+      "interestedTitle": "Intéressé(e) ?",
+      "interestedDesc": "Rejoignez notre équipe et commencez une nouvelle aventure !"
+    },
+    "apply": {
+      "title": "Postuler",
+      "badge": "Postuler",
+      "subtitle": "Complétez le formulaire ci-dessous pour postuler",
+      "backToJob": "Retour à l'offre",
+      "personalInfo": "Informations personnelles",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "phone": "Téléphone",
+      "location": "Localisation actuelle",
+      "professionalLinks": "Liens professionnels",
+      "professionalDetails": "Détails professionnels",
+      "experience": "Années d'expérience",
+      "currentPosition": "Poste actuel",
+      "expectedSalary": "Salaire attendu",
+      "availability": "Disponibilité",
+      "documents": "Documents",
+      "cv": "CV",
+      "coverLetter": "Lettre de motivation",
+      "motivationMessage": "Message de motivation",
+      "submit": "Envoyer ma candidature",
+      "alertsOptIn": "Recevoir les alertes emploi",
+      "alertsOptInDesc": "Soyez notifié instantanément des nouvelles offres correspondant à votre profil",
+      "success": "Candidature envoyée",
+      "successTitle": "Candidature envoyée !",
+      "successMessage": "Nous avons bien reçu votre candidature. Notre équipe l'examinera et vous contactera sous peu."
     },
     "spontaneous": {
       "title": "Vous ne trouvez pas le poste idéal ?",
       "description": "Nous sommes toujours à la recherche de talents exceptionnels. Envoyez-nous votre candidature spontanée et dites-nous comment vous pouvez faire la différence.",
-      "cta": "Candidature spontanée"
+      "cta": "Candidature spontanée",
+      "badge": "Candidature Spontanée",
+      "preferences": "Préférences de poste",
+      "desiredPosition": "Poste souhaité",
+      "alertsDesc": "Recevez instantanément un email dès qu'une offre correspondant à vos préférences est publiée",
+      "submit": "Envoyer ma candidature",
+      "successTitle": "Candidature envoyée !",
+      "successMessage": "Nous avons bien reçu votre candidature spontanée. Nous vous contacterons dès qu'une opportunité correspondant à votre profil sera disponible.",
+      "alertsEnabled": "Alertes emploi activées",
+      "viewJobs": "Voir les offres"
     }
   },
   "homeExtra": {

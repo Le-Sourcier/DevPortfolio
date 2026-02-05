@@ -10,7 +10,9 @@
     "viewAll": "View all",
     "readMore": "Read more",
     "recentSearches": "Recent searches",
-    "quickAccess": "Quick access"
+    "quickAccess": "Quick access",
+    "loading": "Loading...",
+    "optional": "optional"
   },
   "notFound": {
     "seoTitle": "Page not found",
@@ -345,6 +347,7 @@
     },
     "filters": {
       "all": "All",
+      "title": "Filters",
       "category": "Category",
       "type": "Contract type",
       "location": "Location",
@@ -352,6 +355,22 @@
       "clearFilters": "Clear filters",
       "noResults": "No offers match your criteria",
       "adjustFilters": "Try adjusting your filters"
+    },
+    "alert": {
+      "title": "Job Alerts",
+      "modalTitle": "Job Alerts",
+      "modalSubtitle": "Don't miss any opportunity",
+      "description": "Receive new job offers matching your profile directly by email.",
+      "email": "Your email",
+      "categories": "Categories of interest",
+      "subscribe": "Enable alerts",
+      "success": "Successfully subscribed!",
+      "successDesc": "You will receive new job offers by email",
+      "successInfo": "Check your inbox",
+      "info": "You can unsubscribe at any time",
+      "benefit1": "Instant",
+      "benefit2": "Personalized",
+      "benefit3": "Free"
     },
     "categories": {
       "development": "Development",
@@ -404,16 +423,65 @@
     },
     "job": {
       "apply": "Apply now",
+      "applyNow": "Apply now",
+      "viewDetails": "View details",
       "details": "Job details",
+      "description": "Job description",
       "requirements": "Required skills",
+      "responsibilities": "Responsibilities",
       "benefits": "Benefits",
+      "skills": "Required skills",
       "posted": "Posted on",
-      "salary": "Salary"
+      "salary": "Salary",
+      "featured": "Featured",
+      "notFound": "Job not found",
+      "notFoundDesc": "This job offer doesn't exist or has been removed",
+      "backToList": "Back to job list",
+      "share": "Share",
+      "interestedTitle": "Interested?",
+      "interestedDesc": "Join our team and start a new adventure!"
+    },
+    "apply": {
+      "title": "Apply",
+      "badge": "Apply",
+      "subtitle": "Complete the form below to apply",
+      "backToJob": "Back to job",
+      "personalInfo": "Personal information",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Current location",
+      "professionalLinks": "Professional links",
+      "professionalDetails": "Professional details",
+      "experience": "Years of experience",
+      "currentPosition": "Current position",
+      "expectedSalary": "Expected salary",
+      "availability": "Availability",
+      "documents": "Documents",
+      "cv": "Resume",
+      "coverLetter": "Cover letter",
+      "motivationMessage": "Motivation message",
+      "submit": "Submit application",
+      "alertsOptIn": "Receive job alerts",
+      "alertsOptInDesc": "Be instantly notified of new job offers matching your profile",
+      "success": "Application sent",
+      "successTitle": "Application sent!",
+      "successMessage": "We have received your application. Our team will review it and contact you soon."
     },
     "spontaneous": {
       "title": "Can't find the ideal position?",
       "description": "We're always looking for exceptional talent. Send us your spontaneous application and tell us how you can make a difference.",
-      "cta": "Spontaneous application"
+      "cta": "Spontaneous application",
+      "badge": "Spontaneous Application",
+      "preferences": "Job preferences",
+      "desiredPosition": "Desired position",
+      "alertsDesc": "Receive an instant email notification when a job matching your preferences is published",
+      "submit": "Submit application",
+      "successTitle": "Application sent!",
+      "successMessage": "We have received your spontaneous application. We will contact you as soon as an opportunity matching your profile becomes available.",
+      "alertsEnabled": "Job alerts enabled",
+      "viewJobs": "View job offers"
     }
   },
   "homeExtra": {

@@ -8,6 +8,7 @@ export interface Job {
     fr: string;
     en: string;
   };
+  slug?: string;
   description: {
     fr: string;
     en: string;
@@ -18,7 +19,13 @@ export interface Job {
   remoteType: string;
   salary?: string;
   requirements: string[];
+  responsibilities?: {
+    fr: string;
+    en: string;
+  };
   benefits: string[];
+  tags?: string[];
+  featured?: boolean;
   status: "published" | "draft";
   applicationsCount?: number;
   createdAt: string;

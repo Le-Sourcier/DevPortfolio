@@ -10,6 +10,9 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import Careers from "./pages/Careers";
+import JobDetails from "./pages/JobDetails";
+import JobApply from "./pages/JobApply";
+import SpontaneousApply from "./pages/SpontaneousApply";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -28,6 +31,8 @@ import AdminEducation from "./pages/admin/EducationManagement";
 import AdminComments from "./pages/admin/CommentsManagement";
 import AdminNewsletters from "./pages/admin/Newsletters";
 import AdminJobs from "./pages/admin/JobsManagement";
+import AdminApplications from "./pages/admin/ApplicationsManagement";
+import AdminApplicationDetails from "./pages/admin/ApplicationDetails";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 import "./App.css";
@@ -45,6 +50,9 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/careers/spontaneous" element={<SpontaneousApply />} />
+          <Route path="/careers/:slug" element={<JobDetails />} />
+          <Route path="/careers/:slug/apply" element={<JobApply />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Route>
@@ -65,6 +73,8 @@ function App() {
           <Route path="messages" element={<AdminMessages />} />
           <Route path="newsletter" element={<AdminNewsletters />} />
           <Route path="jobs" element={<AdminJobs />} />
+          <Route path="applications" element={<AdminApplications />} />
+          <Route path="applications/:type/:id" element={<AdminApplicationDetails />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
 
